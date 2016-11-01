@@ -23,7 +23,7 @@ namespace Slalom.Boost.DocumentDb
         {
             this.Value = item;
             this.Id = item.Id;
-            this.PartitionKey = item.GetType().Name;
+            this.PartitionKey = typeof(TRoot).Name;
         }
     }
 }
