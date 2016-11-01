@@ -79,7 +79,6 @@
     <Compile Include="DocumentDbOptions.cs" />
     <Compile Include="DocumentDbRepository.cs" />
     <Compile Include="DocumentItem.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -98,7 +97,6 @@
     <None Include=".nuget\tools\init.ps1" />
     <None Include=".nuget\tools\install.ps1" />
     <None Include=".nuget\tools\uninstall.ps1" />
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

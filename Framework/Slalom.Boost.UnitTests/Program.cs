@@ -5,9 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
+using Slalom.Boost.DocumentDb;
 using Slalom.Boost.Domain;
 using Slalom.Boost.EntityFramework;
 using Slalom.Boost.Events;
@@ -19,66 +21,49 @@ using Slalom.Boost.Tasks;
 
 namespace Slalom.Boost.UnitTests
 {
-
-    public class AddMemberCommand : Command<MemberAddedEvent>
+    public class Item : Entity, IAggregateRoot
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
-        public AddMemberCommand(string name)
+        public Item(string name)
         {
             this.Name = name;
         }
     }
 
-    public class AddMemberCommandHandler : CommandHandler<AddMemberCommand, MemberAddedEvent>
+    public class ItemRepository : DocumentDbRepository<Item>
     {
-        public override MemberAddedEvent HandleCommand(AddMemberCommand command)
+    }
+
+    public class Program
+    {
+        public static void Main()
         {
-            Console.WriteLine(command.Name);
-
-            return new MemberAddedEvent();
+            new Program().Start();
+            Console.WriteLine("Press any key to exit...");
+            Console.WriteLine();
+            Console.ReadLine();
         }
-    }
 
-    [Serializable]
-    public class MemberAddedEvent : Event
-    {
-    }
-
-    public class ScheduledTaskRepository : MongoScheduledTaskStore
-    {
-
-    }
-
-    public class TestContext : BoostDbContext
-    {
-        public DbSet<TestReadModel> Items { get; set; }
-    }
-
-    public class Facade : EntityFrameworkReadModelFacade
-    {
-        public Facade(TestContext context) : base(context)
-        {
-        }
-    }
-
-    public class TestReadModel : IReadModelElement
-    {
-        public Guid Id { get; }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
+        public async Task Start()
         {
             try
             {
-                using (var container = new ApplicationContainer(typeof(Program)))
+                using (var container = new ApplicationContainer(this))
                 {
+                    container.Register(new DocumentDbOptions
+                    {
+                        Host = "patolus-development.documents.azure.com",
+                        Port = 10250,
+                        UserName = "patolus-development",
+                        Password = "Uu7Zr7w5xl92c68X6to5iBEKXcE33W1LW9l28ayjlFH5q7RdHRcQzXrkmftUWAK1Jk55Ob7ZyLAXDx7ywa4erQ==",
+                        Database = "treatment",
+                        Collection = "Entities"
+                    });
 
-                    container.DataFacade.Add(new TestReadModel());
+                    container.DataFacade.Add(new Item("_2"));
 
-
+                    Console.WriteLine(container.DataFacade.Find<Item>().Where(e => e.Name == "_2").ToList().Count);
                 }
             }
             catch (Exception exception)
