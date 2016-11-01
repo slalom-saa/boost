@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Slalom.Boost</id>
+    <id>Slalom.Boost.DocumentDB</id>
     <version>1.2.51</version>
-    <title>Slalom Boost Framework</title>
+    <title>Slalom Boost Framework - DocumentDB</title>
     <authors>Slalom</authors>
-    <owners>George Olson</owners>
+    <owners>Slalom</owners>
     <description>
       No description.
     </description>
@@ -21,9 +21,14 @@
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
     <copyright>Copyright 2016</copyright>
     <dependencies>
-        <group targetFramework="net461">
-          <dependency id="Newtonsoft.Json" version="9.0.1" />
-        </group>
+      <group targetFramework="net461">
+        <dependency id="Slalom.Boost" version="1.2.51" />
+        <dependency id="Newtonsoft.Json" version="9.0.1" />
+        <dependency id="Microsoft.Azure.DocumentDB" version="1.10.0" />
+        <dependency id="MongoDB.Bson" version="2.3.0"  />
+        <dependency id="MongoDB.Driver" version="2.3.0"  />
+        <dependency id="MongoDB.Driver.Core" version="2.3.0"/>
+      </group>
     </dependencies>
     <references></references>
     <tags></tags>
