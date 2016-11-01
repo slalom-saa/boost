@@ -50,7 +50,7 @@ namespace Slalom.Boost.MongoDB
         /// Adds the specified instances.
         /// </summary>
         /// <param name="instances">The instances to update.</param>
-        public void Add(params TRoot[] instances)
+        public virtual void Add(params TRoot[] instances)
         {
             this.Collection.Value.InsertMany(instances);
         }
@@ -58,7 +58,7 @@ namespace Slalom.Boost.MongoDB
         /// <summary>
         /// Removes all instances.
         /// </summary>
-        public void Delete()
+        public virtual void Delete()
         {
             this.Collection.Value.DeleteMany(e => true);
         }
@@ -67,7 +67,7 @@ namespace Slalom.Boost.MongoDB
         /// Removes the specified instances.
         /// </summary>
         /// <param name="instances">The instances to remove.</param>
-        public void Delete(params TRoot[] instances)
+        public virtual void Delete(params TRoot[] instances)
         {
             var ids = instances.Select(e => e.Id).ToList();
             this.Collection.Value.DeleteMany(e => ids.Contains(e.Id));
@@ -77,7 +77,7 @@ namespace Slalom.Boost.MongoDB
         /// Finds all instances.
         /// </summary>
         /// <returns>Returns a query for all instances.</returns>
-        public IQueryable<TRoot> Find()
+        public virtual IQueryable<TRoot> Find()
         {
             return this.Collection.Value.AsQueryable();
         }
@@ -160,7 +160,7 @@ namespace Slalom.Boost.MongoDB
         /// Updates the specified instance.
         /// </summary>
         /// <param name="instance">The instance.</param>
-        public void Update(params TRoot[] instance)
+        public virtual void Update(params TRoot[] instance)
         {
             instance.ToList().ForEach(e =>
             {

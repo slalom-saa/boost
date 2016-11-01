@@ -24,13 +24,13 @@ namespace Slalom.Boost.EntityFramework
 
         protected DbSet<TEntity> Set => Context.Set<TEntity>();
 
-        public void Delete()
+        public virtual void Delete()
         {
             this.Set.RemoveRange(this.Set);
             this.Context.SaveChanges();
         }
 
-        public void Delete(params TEntity[] instances)
+        public virtual void Delete(params TEntity[] instances)
         {
             if (instances == null)
             {

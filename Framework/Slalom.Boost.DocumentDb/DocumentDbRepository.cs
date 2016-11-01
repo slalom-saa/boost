@@ -34,35 +34,35 @@ namespace Slalom.Boost.DocumentDb
         [RuntimeBinding.RuntimeBindingDependency]
         public DocumentDbConnectionManager Factory { get; set; }
 
-        public void Delete()
+        public virtual void Delete()
         {
             this.Collection.Value.DeleteMany(e => true);
         }
 
-        public void Delete(TRoot[] instances)
+        public virtual void Delete(TRoot[] instances)
         {
             var ids = instances.Select(e => e.Id).ToList();
             this.Collection.Value.DeleteMany(e => ids.Contains(e.Id));
         }
 
-        public TRoot Find(Guid id)
+        public virtual TRoot Find(Guid id)
         {
             var target = this.Collection.Value.Find(e => e.Id == id).FirstOrDefault();
 
             return target.Value;
         }
 
-        public IQueryable<TRoot> Find()
+        public virtual IQueryable<TRoot> Find()
         {
             return this.Collection.Value.AsQueryable().Select(e => e.Value);
         }
 
-        public void Add(TRoot[] instances)
+        public virtual void Add(TRoot[] instances)
         {
             this.Collection.Value.InsertMany(instances.Select(e => new DocumentItem<TRoot>(e)));
         }
 
-        public void Update(TRoot[] instances)
+        public virtual void Update(TRoot[] instances)
         {
             instances.ToList().ForEach(e =>
             {
