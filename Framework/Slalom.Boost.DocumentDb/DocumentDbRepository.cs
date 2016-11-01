@@ -54,7 +54,7 @@ namespace Slalom.Boost.DocumentDb
 
         public virtual IQueryable<TRoot> Find()
         {
-            return this.Collection.Value.AsQueryable().Select(e => e.Value);
+            return this.Collection.Value.AsQueryable().Where(e => e.PartitionKey == typeof(TRoot).Name).Select(e => e.Value);
         }
 
         public virtual void Add(TRoot[] instances)

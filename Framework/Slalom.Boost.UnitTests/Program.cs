@@ -31,7 +31,7 @@ namespace Slalom.Boost.UnitTests
         }
     }
 
-    public class ItemRepository : DocumentDbRepository<Item>
+    public class ItemRepository : MongoRepository<Item>
     {
     }
 
@@ -61,9 +61,9 @@ namespace Slalom.Boost.UnitTests
                         Collection = "Entities"
                     });
 
-                    container.DataFacade.Add(new Item("_2"));
+ //                   container.DataFacade.Add(new Item("_2"));
 
-                    Console.WriteLine(container.DataFacade.Find<Item>().Where(e => e.Name == "_2").ToList().Count);
+                    Console.WriteLine(container.DataFacade.Find<Item>().Where(e => e.Name == "_2").ToList().Count());
                 }
             }
             catch (Exception exception)
