@@ -1,0 +1,18 @@
+using System;
+using Machine.Specifications;
+using System.Linq;
+
+namespace {{RootNamespace}}.UnitTests.Application.Commands.{{Name}}
+{
+    public class When_validating_{{Rule}}_for_a_{{NameSnakeCase}}_command : given.a_configured_{{Rule}}_rule
+    {
+		Establish context = () =>
+        {
+        //    Repository.Setup(e => e.Query<User>()).Returns(new[] { new User { UserName = "test" } }.AsQueryable());
+        };
+        
+		Because of = () => ValidateCommand({{DefaultArguments}});
+
+        Machine.Specifications.It should_have_a_validation_results = () => Result.ShouldNotBeEmpty();
+    }
+}

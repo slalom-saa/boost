@@ -1,0 +1,63 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using Slalom.Boost.Domain;
+using Slalom.Boost.Validation;
+
+namespace {{ProjectItem.GetNamespace()}}.Rules
+{
+    // TODO: Update the description [description]
+	// TODO: Update class name [business_rule]
+    // TODO: Set the correct order in the constructor
+    // TODO: Implement the validation below
+    // TODO: Add any unit tests
+
+    /// <summary>
+    /// Validates the <seealso cref="{{ProjectItem.GetClassName()}}" /> to ensure it complies with the business rule [description]
+    /// </summary>
+    public class business_rule : BusinessValidationRule<{{ProjectItem.GetClassName()}}>
+    {
+		/// <summary>
+        /// Initializes a new instance of the <see cref="business_rule"/> class.
+        /// </summary>
+        public business_rule()
+        {
+            // Set the order of the business rule
+            this.Order = 1;
+        }
+
+		/// <summary>
+        /// Validates the specified instance.
+        /// </summary>
+        /// <param name="instance">The instance to validate.</param>
+        public override IEnumerable<ValidationMessage> Validate({{ProjectItem.GetClassName()}} instance)
+        {
+            
+			
+			#region Examples
+
+            //// 1.)            
+            //if (this.DataFacade.Find<Member>().Any(e => e.UserName.Value == instance.UserName))
+            //{
+            //    yield return "A member with that username already exists.";
+
+            //    // - or 
+
+            //    yield return new ValidationMessage("MemberExists", "A member with that username already exists.", "http://site.com/help");
+            //}
+
+            //// 2.) 
+            //if (!this.DataFacade.Exists<Member>(instance.MemberId))
+            //{
+            //    yield return "The specified member does not exist.";
+
+            //    // - or 
+
+            //    yield return new ValidationMessage("MemberDoesNotExist", "The specified member does not exist.", "http://site.com/help");
+            //}
+
+            #endregion Examples
+        }
+    }
+}

@@ -1,0 +1,50 @@
+﻿<#
+.SYNOPSIS
+    TODO
+.DESCRIPTION
+    TODO
+.EXAMPLE
+    TODO
+#>
+param (
+{{ParametersSection}}
+)
+
+""
+$Start = [System.DateTime]::Now
+"Starting: {{ProjectItem.GetClassName().Split('.').Last().Humanize(LetterCasing.LowerCase)}} at " + $Start.ToString("HH:mm:ss.ffffzzz")
+    
+
+$Command = New-Object {{ProjectItem.GetFullClassName()}} {{CommandArguments}}
+
+$Container = New-Object Slalom.Boost.RuntimeBinding.SimpleContainer
+
+$Configured = [Slalom.Boost.RuntimeBinding.ContainerExtensions]::AutoConfigure([Slalom.Boost.RuntimeBinding.SimpleContainer]$Container, $Command.GetType())
+
+$Result = $Container.Bus.Send($Command).Result;
+IF ($Result.Exception -ne $null) {
+    THROW $Result.Exception
+}
+ELSEIF (!$Result.Successful) {
+    IF ($Result.ValidationMessages -ne $null) {
+		$Content = "";
+		FOREACH($item in $Result.ValidationMessages) {
+			$Content += $item.Message
+		}
+		THROW $Content
+	}
+    THROW "Failed to execute command."
+}
+
+$Container.Dispose()
+
+$Container.Dispose()
+
+$Finish = [System.DateTime]::Now
+$TotalUsed = $Finish.Subtract($Start).TotalSeconds
+
+""   
+Write-Output ("Completed {0} in {1} seconds." -f $CommandName, $TotalUsed)
+"Finished " + $Finish.ToString("HH:mm:ss.ffffzzz")
+
+

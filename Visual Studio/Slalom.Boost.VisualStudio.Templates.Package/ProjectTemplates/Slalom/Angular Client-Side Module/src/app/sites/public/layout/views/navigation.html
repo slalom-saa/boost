@@ -1,0 +1,37 @@
+﻿<div>
+    <div id="company-logo" ui-sref="public.home">
+        {{app.name}}
+    </div>
+    <div class="top-navigation hidden-xs">
+        <ul class="menu">
+            <li ui-sref="public.plans" ng-class="{active:$state.includes('public.plans')}">
+                Plans
+            </li>
+            <li ui-sref="public.locations" ng-class="{active:$state.includes('public.locations')}">
+                Locations
+            </li>
+            <li ui-sref="public.search" ng-class="{active:$state.includes('public.search')}">
+                Search
+            </li>
+            <li ui-sref="public.messages" ng-class="{active:$state.includes('public.messages')}">
+                Messages
+            </li>
+        </ul>
+    </div>
+    <div class="nav-actions" ui-sref="sign-in" ng-show="!user.authenticated">
+        sign in
+        <i class="icon icon-Enter-1" style="padding-right: 15px;"></i>
+    </div>
+    <div class="nav-actions" ng-show="user.authenticated">
+        <span data-toggle="dropdown">
+            <span class="hidden-xs">{{user.userName}}</span>
+            <img src="/images/default/user.svg" />
+        </span>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li ui-sref="public.account"><a>Account</a></li>
+            <li><a ui-sref="admin.dashboard">Administration</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a ui-sref="sign-in">Sign Out</a></li>
+        </ul>
+    </div>
+</div>

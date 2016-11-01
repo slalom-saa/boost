@@ -1,0 +1,47 @@
+﻿using System;
+using Slalom.Boost.Domain;
+
+namespace {{Project.GetModuleName()}}.Domain.{{Name.Pluralize()}}
+{
+	// TODO: Add an add command for creation [Boost]
+	// TODO: Update the URL to the documentation [URL to Documentation]
+
+	/// <summary>
+    /// Represents a <see href="[URL to Documentation]">{{Name.Humanize(LetterCasing.Title)}}</see>.
+    /// </summary>
+	/// <seealso boost="Entity" href="https://www.safaribooksonline.com/library/view/implementing-domain-driven-design/9780133039900/ch05.html"/>
+	/// <seealso boost="Aggregate" href="https://www.safaribooksonline.com/library/view/implementing-domain-driven-design/9780133039900/ch10.html"/>
+    public class {{Name}} : Entity, IAggregateRoot
+    {
+		/// <summary>
+        /// Initializes a new instance of the <see cref="{{Name}}"/> class.
+        /// </summary>
+        protected {{Name}}()
+        {
+        }
+
+		/// <summary>
+        /// Initializes a new instance of the <see cref="{{Name}}"/> class.
+        /// </summary>
+        /// <param name="id">The {{Name.Humanize(LetterCasing.LowerCase)}} identifier.</param>
+        protected {{Name}}(Guid id)
+			: base(id) 
+        {
+        }
+
+{{Properties.GetPropertyDeclaration()}}
+
+        /// <summary>
+        /// Creates a new {{Name.Humanize(LetterCasing.LowerCase)}}.
+        /// </summary>{{Properties.GetParameterComments()}}
+        /// <returns>The created <see cref="{{Name}}"/> instance.</returns>
+		public static {{Name}} Create({{Properties.GetPropertyArguments()}})
+        {
+            var target = new {{Name}}
+            {
+{{Properties.GetPropertyInitializer()}}
+            };
+            return target;
+        }       
+    }
+}

@@ -1,0 +1,45 @@
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data.Entity;
+using Slalom.Boost.EntityFramework.Domain;
+using Slalom.Boost.EntityFramework.GraphDiff;
+using {{ProjectItem.GetNamespace()}};
+
+namespace {{Project.GetModuleName()}}.Persistence.Domain
+{
+    // TODO: To move quickly and revisit persistence, use the EntityFrameworkDocumentRepository<{{ProjectItem.GetClassName()}}>.
+	//		 You can change back once the model is more stable.
+    //    - or -
+    // TODO: If the aggregate root has child entities, uncomment the "Find" and "Save" overrides below to indicate that the entity is a graph.
+	//		 This does have an impact on performance since queries will be made to compare the items - which is only a concern
+	//		 when imports are a common use.
+
+	/// <summary>
+    /// Provides a repository for <see cref="{{ProjectItem.GetClassName()}}" /> entities.
+    /// </summary>
+	/// <seealso boost="Repository"/>
+	/// <seealso boost="Entity Framework Repository"/>
+	public class {{ProjectItem.GetClassName()}}Repository : EntityFrameworkRepository<{{ProjectItem.GetClassName()}}>
+    {
+		/// <summary>
+        /// Initializes a new instance of the <see cref="{{ProjectItem.GetClassName()}}Repository"/> class.
+        /// </summary>
+        /// <param name="context">The current <see cref="DataContext"/> instance.</param>
+		/// <exception cref="System.ArgumentNullException"></exception>
+        public {{ProjectItem.GetClassName()}}Repository(DataContext context)
+			: base(context)
+        {
+        }		
+
+		//public override {{ProjectItem.GetClassName()}} Find(object id)
+        //{
+        //    return base.Set.AsNoTracking().Include(e => e.ChildCollection).FirstOrDefault(e => e.Id == (Guid)id);
+        //}
+
+        //public override void Save(params {{ProjectItem.GetClassName()}}[] instance)
+        //{
+        //    base.UpdateGraph(instance, e => e.OwnedCollection(a => a.ChildCollection));
+        //}
+    }
+}

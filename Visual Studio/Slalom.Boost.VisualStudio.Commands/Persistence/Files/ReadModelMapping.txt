@@ -1,0 +1,37 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using {{Namespace}};
+
+// TODO: Update to appropriate table name.
+// TODO: Add any ignores if needed.
+
+namespace {{RootNamespace}}.Persistence.Application
+{
+    /// <summary>
+    /// Contains the EF mapping for the <see cref="{{ReadModel}}" /> class.
+    /// </summary>
+    /// <remarks>
+    /// There should be very little mapping needed for read models since they are flat and intended to be read quickly.
+    /// </remarks>
+    public class {{ReadModel}}Mapping : EntityTypeConfiguration<{{ReadModel}}>
+    {
+	    /// <summary>
+        /// Initializes a new instance of the <see cref="{{ReadModel}}Mapping"/> class.
+        /// </summary>
+        public {{ReadModel}}Mapping()
+        {		
+			// Table
+            this.ToTable("{{ReadModel}}");
+
+			// Key
+            this.HasKey(e => e.Id);            
+
+			// There should be no other mappings unless the mappings are to ignore calculated properties.
+            // this.Ignore(e => e.Calculated);    
+        }
+    }
+}

@@ -1,0 +1,30 @@
+﻿using System;
+using Slalom.Boost.Domain;
+using {{RootNamespace}}.Application.Commands.{{Name}};
+using {{RootNameSpace}}.Application.Commands.{{Name}}.Rules;
+using Machine.Specifications;
+using Moq;
+
+namespace {{RootNamespace}}.UnitTests.Application.Commands.{{Name}}.given
+{
+    [Subject(typeof({{Name}}CommandHandler))]
+    public class a_configured_{{NameSnakeCase}}_command_handler
+    {
+        protected static Mock<IRepository> Repository;
+        protected static {{Name}}CommandHandler Handler;
+
+        protected static {{Name}}Command {{Name}}Command;
+
+        private Establish context = () =>
+        {
+            Repository = new Mock<IRepository>();
+            Handler = new {{Name}}CommandHandler(Repository.Object);
+        };
+
+        protected static void HandleCommand({{CommandSignature}})
+        {
+            {{Name}}Command = new {{Name}}Command({{CommandArguments}});
+            Handler.Handle({{Name}}Command);
+        }
+    }
+}

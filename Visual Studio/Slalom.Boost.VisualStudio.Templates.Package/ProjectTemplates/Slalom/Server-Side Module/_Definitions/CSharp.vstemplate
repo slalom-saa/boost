@@ -1,0 +1,24 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Server-Side Module</Name>
+    <Description>&lt;No description available&gt;</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Product.Project.Module</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>icon.ico</Icon>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Product.Project.Module.csproj" File="Product.Project.Module.csproj" ReplaceParameters="true">
+    </Project>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>Slalom.Boost.Templates, Version=1.0.0.0, Culture=neutral, PublicKeyToken=a8adc8751f3d52af</Assembly>
+    <FullClassName>Slalom.Boost.Templates.Wizards.CoreModuleWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>

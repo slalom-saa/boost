@@ -1,0 +1,20 @@
+﻿using System;
+using Slalom.Boost.Commands;
+using Machine.Specifications;
+using {{ProjectItem.GetNamespace()}};
+using {{Module}}.Domain.{{Area.Split('.')[0]}}.Events;
+using {{Module}}.IntegrationTests.Application.given;
+
+namespace {{Module}}.IntegrationTests.Application.{{Area}}.given
+{
+    [Subject(typeof({{ProjectItem.GetClassName()}}))]
+    public class a_configured_{{ProjectItem.GetClassName().ToSnakeCase()}} : a_configured_container
+    {
+        protected static CommandResult<{{ReturnType}}> Result;
+
+        protected static void Send({{Arguments}})
+        {
+            Result = Bus.Send(new {{ProjectItem.GetClassName()}}({{ArgumentNames}})).Result;
+        }
+    }
+}

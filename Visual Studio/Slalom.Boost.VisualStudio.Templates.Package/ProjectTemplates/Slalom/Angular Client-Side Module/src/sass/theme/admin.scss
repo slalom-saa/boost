@@ -1,0 +1,66 @@
+﻿$medium-background: #282d32;
+$dark-background: #202428;
+$white-10: rgba(255,255,255,.1);
+$white-60: rgba(255,255,255,.6);
+$white-80: rgba(255,255,255,.8);
+$white-90: rgba(255,255,255,.9);
+$white-100: rgba(255,255,255, 1);
+$sidebar-collapsed-width: 60px;
+
+.admin-site {
+    #nav-wrapper {
+        background: $medium-background;
+        color: $white-90;
+
+        #company-logo {
+            color: $white-100;
+        }
+    }
+
+    #wrapper-sidebar {
+        background: $dark-background;
+        background: $dark-background $sidebar-collapsed-width;
+        color: $white-90;
+
+        .fa {
+            color: $white-80;
+        }
+
+        .menu li {
+            border-bottom: 1px solid $white-10;
+
+            &.active {
+                background: $white-10;
+            }
+        }
+    }
+
+    #main-wrapper {
+        .page-title {
+            background: $medium-background;
+            opacity: .9;
+            color: $white-100;
+            border-top: 1px solid $white-10;
+        }
+    }
+
+    #footer-wrapper {
+        div.nav-actions {
+            background: $dark-background;
+            color: $white-80;
+
+            div {
+                border-right: 1px solid $white-10;
+
+                &.active, &:hover {
+                    background: $white-10;
+                }
+            }
+        }
+    }
+    /*#region misc */
+    .dark-background {
+        background: $medium-background;
+    }
+    /*#endregion */
+}

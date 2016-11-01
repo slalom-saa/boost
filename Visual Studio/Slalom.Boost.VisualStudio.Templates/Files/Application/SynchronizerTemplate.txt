@@ -1,0 +1,49 @@
+﻿using System;
+using System.Threading.Tasks;
+using System.Linq;
+using Slalom.Boost;
+using Slalom.Boost.Domain;
+using Slalom.Boost.Commands;
+using Slalom.Boost.Events;
+using {{ProjectItem.GetNamespace()}}.Events;
+
+namespace {{Project.GetModuleName()}}.ReadModel.{{ProjectItem.GetClassName().Pluralize()}}
+{
+	/// <summary>
+    /// Uses events to synchronize elements of the read model with the domain model.
+    /// </summary>
+	/// <seealso boost="Read Model Synchronizer"/>
+    public class {{ProjectItem.GetClassName()}}Synchronizer : IHandleEvent<{{ProjectItem.GetClassName()}}AddedEvent>
+    {
+        private readonly IDataFacade _data;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref=" {{ProjectItem.GetClassName()}}Synchronizer"/> class.
+        /// </summary>
+        /// <param name="data">The current <see cref="IDataFacade"/> instance.</param>
+        public {{ProjectItem.GetClassName()}}Synchronizer(IDataFacade data)
+        {
+            _data = data;
+        }
+		
+		/// <summary>
+        /// Handles the specified event instance.
+        /// </summary>
+        /// <param name="instance">The event instance.</param>
+		/// <param name="context">The current <see cref="T:Slalom.Boost.Commands.CommandContext" /> instance.</param>
+        public void Handle({{ProjectItem.GetClassName()}}AddedEvent instance, CommandContext context)
+        {
+            var target = new {{ProjectItem.GetClassName()}}();
+
+{{Mapping}}            
+			
+			// TODO: Update additional properties here
+
+            // Example: If search is being used, you can add soundex properties
+            // https://en.wikipedia.org/wiki/Soundex
+            // target.FirstNameSoundex = instance.Member.FirstName.ToSoundex();			      
+
+            _data.Add(target);
+        }        
+    }
+}

@@ -1,0 +1,42 @@
+﻿using System;
+
+using Slalom.Boost.Commands;
+using Slalom.Boost.Domain;
+using System.Threading.Tasks;
+using {{ProjectItem.ClassDescriptor.Namespace}};
+
+namespace {{RootNamespace}}
+{
+    // TODO: Use the context menu to add unit tests
+
+    /// <summary>
+    /// Handles/Processes the <seealso cref="{{Name}}Command"/> command.
+    /// </summary>
+	/// <seealso cref="{{Name}}Command"/>
+	/// <seealso boost="Command Handler"/>
+    public class {{Name}}CommandHandler : CommandHandler<{{Name}}Command>
+    {
+        /// <summary>
+        /// Handles the specified command.
+        /// </summary>
+        /// <param name="command">The command to handle.</param>
+		/// <param name="result">The execution result.</param>
+		/// <returns>The handle task.</returns>		
+        /// <exception cref="System.ArgumentNullException"></exception> 
+        public override void HandleCommand({{Name}}Command command, HandledCommandData result)
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+            if (result == null)
+            {
+                throw new ArgumentNullException(nameof(result));
+            }
+
+			var target = {{Entity}}.Create({{CreationArguments}});
+
+			this.Save(target, result);
+        }
+    }
+}

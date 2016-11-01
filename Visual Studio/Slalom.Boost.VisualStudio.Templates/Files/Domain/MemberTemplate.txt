@@ -1,0 +1,77 @@
+﻿using System;
+using Slalom.Boost.Domain;
+
+namespace {{Project.GetModuleName()}}.Domain.Members
+{
+	// TODO: Add an add command for creation [Boost]
+    // TODO: Add any additional commands [Boost]
+	// TODO: Add unit tests for factories and methods [Boost]
+	// TODO: Update the URL to the documentation [URL to Documentation]
+
+	/// <summary>
+    /// Represents a <see href="[URL to Documentation]">{{Name}}</see> and provides a thread of continuity and identity, 
+	/// going through a lifecycle.
+    /// </summary>
+	/// <seealso boost="Entity" href="https://www.safaribooksonline.com/library/view/implementing-domain-driven-design/9780133039900/ch05.html"/>
+	/// <seealso boost="Aggregate" href="https://www.safaribooksonline.com/library/view/implementing-domain-driven-design/9780133039900/ch10.html"/>
+    public class {{Name}} : Entity, IAggregateRoot
+    {
+		/// <summary>
+        /// Initializes a new instance of the <see cref="Member"/> class.
+        /// </summary>
+        protected Member()
+        {
+        }
+
+		/// <summary>
+        /// Initializes a new instance of the <see cref="Member"/> class.
+        /// </summary>
+        /// <param name="id">The member identifier.</param>
+        protected Member(Guid id) 
+			: base(id)
+        {            
+        }
+
+		/// <summary>
+        /// Gets the first name.
+        /// </summary>
+        /// <value>
+        /// The first name.
+        /// </value>
+		public string FirstName { get; private set; }
+
+		/// <summary>
+        /// Gets the last name.
+        /// </summary>
+        /// <value>
+        /// The last name.
+        /// </value>
+		public string LastName { get; private set; }
+
+		/// <summary>
+        /// Gets the username.
+        /// </summary>
+        /// <value>
+        /// The username.
+        /// </value>
+		public UserName UserName { get; private set; }
+
+        /// <summary>
+        /// Creates a new member.
+        /// </summary>
+		/// <param name="firstName">The member's first name.</param>
+		/// <param name="lastName">The member's last name.</param>
+		/// <param name="userName">The member's username.</param>
+        /// <returns>The created <see cref="Member"/> instance.</returns>
+		public static Member Create(string firstName, string lastName, string userName)
+        {
+            var target = new Member
+            {
+				FirstName = firstName,
+				LastName = lastName,
+				UserName = userName
+            };
+            return target;
+        }
+    }
+}

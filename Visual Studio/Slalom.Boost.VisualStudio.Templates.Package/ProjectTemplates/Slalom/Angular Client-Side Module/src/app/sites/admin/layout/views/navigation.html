@@ -1,0 +1,17 @@
+﻿<div>
+    <div id="company-logo" ui-sref="admin.dashboard">
+        {{app.name}} - Administration
+    </div>
+    <div class="nav-actions" style="position: relative;">
+        <span data-toggle="dropdown">
+            <span class="hidden-xs">{{user.userName}}</span>
+            <img src="/images/default/user.svg" />
+        </span>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <!--<li><a>Account</a></li>-->
+            <li><a ui-sref="public.home">Public Site</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a ui-sref="sign-in">Sign Out</a></li>
+        </ul>
+    </div>
+</div>

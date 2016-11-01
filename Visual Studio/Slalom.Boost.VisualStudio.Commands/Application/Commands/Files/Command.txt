@@ -1,0 +1,31 @@
+﻿using System;
+using Slalom.Boost.Commands;
+
+namespace {{RootNamespace}}.Application.{{Name}}
+{
+    // TODO: Update the task description [task]   
+	// TODO: Update any property types 
+    // TODO: Use the context menu to add an input validation rule
+    // TODO: Use the context menu to add any security rules
+    // TODO: Use the context menu to add any business rules
+    // TODO: Use the context menu to add integration tests
+	// TODO: Use the context menu to add powershell script
+	// TODO: Update the documentation URL [Documentation URL]
+
+    /// <summary>
+    /// An imperative message to [task].
+    /// </summary>
+	/// <seealso href="[Documentation URL]"/>
+	/// <seealso boost="Command"/>
+    public class {{Name}}Command : Command
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="{{Name}}Command"/> class.
+        /// </summary>{{ParamString}}
+        public {{Name}}Command({{PropertyArguments}})
+        {
+{{PropertyAssignments}}
+        }
+{{Properties}}
+    }
+}

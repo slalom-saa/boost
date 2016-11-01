@@ -1,0 +1,100 @@
+﻿using System;
+using Slalom.Boost.Domain;
+
+namespace {{RootNameSpace}}.Domain.Model
+{
+	// TODO: Use the context menu to add any needed read models (optional)
+    // TODO: Use the context menu to add any needed commands (i.e. creation command)
+    // TODO: Update appropriate properties to be value objects (concepts)
+	// TODO: Use the context menu to add unit tests for methods and factories
+	// TODO: Update the URL to the documentation [URL to Documentation]
+
+	/// <summary>
+    /// Represents a <see href="[URL to Documentation]">{{Name.Humanize(LetterCasing.Title)}}</see> and provides a thread of continuity and identity, going through a lifecycle.
+    /// </summary>
+	/// <seealso boost="Entity"/>
+	/// <seealso boost="Aggregate"/>
+    public class {{Name}} : Entity, IAggregateRoot
+    {
+		/// <summary>
+        /// Initializes a new instance of the <see cref="{{Name}}"/> class.
+        /// </summary>
+        protected {{Name}}()
+        {
+        }
+
+		/// <summary>
+        /// Initializes a new instance of the <see cref="{{Name}}"/> class.
+        /// </summary>
+        /// <param name="id">The {{Name.Humanize(LetterCasing.LowerCase)}} identifier.</param>
+        protected {{Name}}(Guid id) 
+        {
+            this.Id = id;
+        }
+
+        /// <summary>
+        /// Gets the {{Name.Humanize(LetterCasing.LowerCase)}} identifier.
+        /// </summary>
+        /// <value>
+        /// The {{Name.Humanize(LetterCasing.LowerCase)}} identifier.
+        /// </value>
+        public Guid Id { get; private set; } = Guid.NewGuid();  
+{{Properties}}
+
+        /// <summary>
+        /// Creates a new {{Name.Humanize(LetterCasing.Title)}}.
+        /// </summary>{{ParamString}}
+        /// <returns>The created <see cref="{{Name}}"/> instance.</returns>
+		public static {{Name}} Create({{PropertyArguments}})
+        {
+            var target = new {{Name}}
+            {
+{{PropertyAssignments}}
+            };
+            target.AddEvent(new {{Name}}Added({{PropertyValues}}));
+            return target;
+        }
+
+        #region Equality Members
+
+        /// <summary>
+        /// Determines whether the specified <see cref="{{Name}}" />, is equal to this instance.
+        /// </summary>
+        /// <param name="other">The <see cref="{{Name}}" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="{{Name}}" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        protected bool Equals({{Name}} other)
+        {
+            return this.Id.Equals(other.Id);
+        }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) { return false; }
+            if (ReferenceEquals(this, obj)) { return true; }
+            if (obj.GetType() != this.GetType()) { return false; }
+            return Equals(({{Name}})obj);
+        }
+
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        /// </returns>
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
+        }
+
+        #endregion Equality Members
+    }
+}

@@ -1,0 +1,31 @@
+﻿/*body {
+    display: none;
+}*/
+#__bs_notify__ {
+    position: fixed;
+    bottom: 0;
+    top: auto !important;
+    padding: 5px !important;
+    font-size: 12px !important;
+    border-radius: 0 !important;
+    border-top-left-radius: 2px !important;
+    height:25px;
+}
+
+body, html {
+    font-size: 15px;
+    padding:0;
+    margin:0;
+}
+
+.fa {
+    font-size: 20px;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+[ng-click], [ui-sref], [data-toggle] {
+    cursor: pointer;
+}

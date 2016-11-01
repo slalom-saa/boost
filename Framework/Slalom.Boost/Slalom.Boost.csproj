@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F2080C0B-D8A8-4430-80EA-427844AB9872}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Slalom.Boost</RootNamespace>
+    <AssemblyName>Slalom.Boost</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Slalom.Boost.XML</DocumentationFile>
+    <CodeAnalysisRuleSet>..\Boost.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Slalom.Boost.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Argument.cs" />
+    <Compile Include="Aspects\Default\Logger.cs" />
+    <Compile Include="Aspects\ILogger.cs" />
+    <Compile Include="Commands\IHaveSuccessfulFlag.cs" />
+    <Compile Include="Commands\JsonCommandContractResolver.cs" />
+    <Compile Include="Events\EventHandler.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\IEventForwarder.cs" />
+    <Compile Include="Events\JsonEventContractResolver.cs" />
+    <Compile Include="Events\IEventStore.cs" />
+    <Compile Include="Aspects\SecureJsonContractResolver.cs" />
+    <Compile Include="Events\ApplicationEvent.cs" />
+    <Compile Include="IServiceBus.cs" />
+    <Compile Include="Reflection\DiscoveryService.cs" />
+    <Compile Include="Reflection\IDiscoverTypes.cs" />
+    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingConfiguration.cs" />
+    <Compile Include="RuntimeBinding\ImplementationBindingType.cs" />
+    <Compile Include="RuntimeBinding\RuntimeBindingConfigurationAttribute.cs" />
+    <Compile Include="RuntimeBinding\RuntimeBindingImplementationAttribute.cs" />
+    <Compile Include="SecurePropertyAttribute.cs" />
+    <Compile Include="Aspects\SecureJsonConverter.cs" />
+    <Compile Include="Commands\CommandHandler.cs" />
+    <Compile Include="Commands\CommandAudit.cs" />
+    <Compile Include="Commands\CommandExecutionFailedException.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\IHandleCommand.cs" />
+    <Compile Include="DataFacade.cs" />
+    <Compile Include="Domain\IAggregateRoot.cs" />
+    <Compile Include="Domain\IRunOnDeleted.cs" />
+    <Compile Include="Domain\IRunOnUpdated.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IDataFacade.cs" />
+    <Compile Include="IdentityQueries.cs" />
+    <Compile Include="IHaveDataFacade.cs" />
+    <Compile Include="IHaveIdentity.cs" />
+    <Compile Include="Aspects\LogSeverity.cs" />
+    <Compile Include="ContactAttribute.cs" />
+    <Compile Include="Properties\SharedAssemblyInfo.cs" />
+    <Compile Include="ReadModel\Default\InMemoryReadModelFacade.cs" />
+    <Compile Include="ReadModel\IReadModelFacade.cs" />
+    <Compile Include="RuntimeBinding\RuntimeBindingDependencyAttribute.cs" />
+    <Compile Include="Aspects\Default\DefaultHashProvider.cs" />
+    <Compile Include="Aspects\Encryption.cs" />
+    <Compile Include="Aspects\IHashProvider.cs" />
+    <Compile Include="Aspects\Default\DefaultJsonSerializationSettings.cs" />
+    <Compile Include="Aspects\JsonPrivateMemberContractResolver.cs" />
+    <Compile Include="Aspects\CompressProperty.cs" />
+    <Compile Include="Aspects\MaskProperty.cs" />
+    <Compile Include="Tasks\IScheduledTaskStore.cs" />
+    <Compile Include="Tasks\ScheduledTask.cs" />
+    <Compile Include="Tasks\TaskFrequency.cs" />
+    <Compile Include="Tasks\TaskRunner.cs" />
+    <Compile Include="Tasks\TaskSchedule.cs" />
+    <Compile Include="UserStoryAttribute.cs" />
+    <Compile Include="Validation\EnumerablePropertyRuleCollection.cs" />
+    <Compile Include="Validation\IValidate.cs" />
+    <Compile Include="RuntimeBinding\ApplicationContainer.cs" />
+    <Compile Include="Aspects\Default\SmtpEmailService.cs" />
+    <Compile Include="Aspects\ISendEmail.cs" />
+    <Compile Include="Domain\ConceptAs.cs" />
+    <Compile Include="Domain\PhoneNumber.cs" />
+    <Compile Include="Domain\Entity.cs" />
+    <Compile Include="Domain\IEntity.cs" />
+    <Compile Include="Domain\IRepository.cs" />
+    <Compile Include="Domain\Default\InMemoryRepository.cs" />
+    <Compile Include="Domain\IAggregateFacade.cs" />
+    <Compile Include="Domain\AggregateFacade.cs" />
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="Aspects\Default\AutoMapperMapper.cs" />
+    <Compile Include="Aspects\IMapper.cs" />
+    <Compile Include="ReadModel\IReadModelElement.cs" />
+    <Compile Include="RuntimeBinding\Configuration\AssemblyFilter.cs" />
+    <Compile Include="RuntimeBinding\Configuration\BindingFilter.cs" />
+    <Compile Include="RuntimeBinding\Configuration\AppDomainAssemblyLocator.cs" />
+    <Compile Include="RuntimeBinding\Configuration\BindingFilterExtensions.cs" />
+    <Compile Include="RuntimeBinding\Configuration\CodeBaseAssemblyLocator.cs" />
+    <Compile Include="RuntimeBinding\Configuration\ContractMapping.cs" />
+    <Compile Include="RuntimeBinding\Configuration\ContractMappingDictionary.cs" />
+    <Compile Include="RuntimeBinding\Configuration\ContractMappingResolver.cs" />
+    <Compile Include="RuntimeBinding\Configuration\IAssemblyLocator.cs" />
+    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingConfigurator.cs" />
+    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingElement.cs" />
+    <Compile Include="RuntimeBinding\ContainerAdapter.cs" />
+    <Compile Include="RuntimeBinding\IContainer.cs" />
+    <Compile Include="RuntimeBinding\Configuration\TypeFilter.cs" />
+    <Compile Include="RuntimeBinding\IContainerExtensions.cs" />
+    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="ApplicationBus.cs" />
+    <Compile Include="IApplicationBus.cs" />
+    <Compile Include="RuntimeBinding\ContractBindingType.cs" />
+    <Compile Include="RuntimeBinding\DefaultBindingAttribute.cs" />
+    <Compile Include="RuntimeBinding\IRuntimeBindingConfiguration.cs" />
+    <Compile Include="Aspects\Default\WindowsExecutionContextResolver.cs" />
+    <Compile Include="Aspects\ExecutionContext.cs" />
+    <Compile Include="Aspects\IExecutionContextResolver.cs" />
+    <Compile Include="RuntimeBinding\IgnoreBindingAttribute.cs" />
+    <Compile Include="RuntimeBinding\RuntimeBindingContractAttribute.cs" />
+    <Compile Include="Validation\BusinessValidationRule.cs" />
+    <Compile Include="Validation\ConceptPropertyRule.cs" />
+    <Compile Include="Validation\IBusinessValidationRule.cs" />
+    <Compile Include="Validation\IInputValidationRule.cs" />
+    <Compile Include="Validation\InputValidationRuleSet.cs" />
+    <Compile Include="Validation\InRoleSecurityRule.cs" />
+    <Compile Include="Validation\SecurityValidationRule.cs" />
+    <Compile Include="Validation\ValidateRule.cs" />
+    <Compile Include="Validation\GuidRules.cs" />
+    <Compile Include="Validation\Int32Rules.cs" />
+    <Compile Include="Validation\ISecurityValidationRule.cs" />
+    <Compile Include="Validation\IValidationRule.cs" />
+    <Compile Include="Validation\PropertyRule.cs" />
+    <Compile Include="Validation\PropertyRuleCollection.cs" />
+    <Compile Include="Validation\ObjectRules.cs" />
+    <Compile Include="Validation\StringRules.cs" />
+    <Compile Include="Validation\ValidationException.cs" />
+    <Compile Include="Validation\ValidationMessage.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Commands\CommandCoordinator.cs" />
+    <Compile Include="Commands\CommandResult.cs" />
+    <Compile Include="Commands\CommandValidator.cs" />
+    <Compile Include="Commands\ICommandCoordinator.cs" />
+    <Compile Include="Commands\IAuditStore.cs" />
+    <Compile Include="Commands\ICommandValidator.cs" />
+    <Compile Include="Commands\IHaveCommandContext.cs" />
+    <Compile Include="Events\EventPublisher.cs" />
+    <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\EventHandlerResolver.cs" />
+    <Compile Include="Events\IEventHandlerResolver.cs" />
+    <Compile Include="Events\IEventPublisher.cs" />
+    <Compile Include="Events\IHandleEvent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validation\ValidationMessageType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Slalom.Boost.snk" />
+    <None Include=".nuget\NuGet.config" />
+    <None Include=".nuget\NuGetPackage.ps1" />
+    <None Include=".nuget\Package.nuspec" />
+    <None Include=".nuget\tools\init.ps1" />
+    <None Include=".nuget\tools\install.ps1" />
+    <None Include=".nuget\tools\uninstall.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".nuget\NuGet.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".nuget\content\" />
+    <Folder Include=".nuget\lib\" />
+    <Folder Include=".nuget\src\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Slalom.Boost.Automapper\AutoMapper.csproj">
+      <Project>{6895d385-8753-49a7-a65d-daa7d7441207}</Project>
+      <Name>AutoMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slalom.Boost.Dynamic\Dynamic.csproj">
+      <Project>{47e93c8d-cf0f-4a6f-a8e0-599c714df8eb}</Project>
+      <Name>Dynamic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slalom.Boost.Humanizer\Humanizer.csproj">
+      <Project>{EA87C325-E4F2-4B71-8ABF-47B9E10E1E57}</Project>
+      <Name>Humanizer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slalom.Boost.Reflection\Reflection.csproj">
+      <Project>{30986574-4a0b-43c2-a9a7-6166a6b85da3}</Project>
+      <Name>Reflection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Slalom.Boost.Search\Search.csproj">
+      <Project>{f4461f36-aea4-40f9-ad5a-9b950e452718}</Project>
+      <Name>Search</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\Dictionary.xml">
+      <Link>Dictionary.xml</Link>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+    <Delete Files=".\.nuget\NuGet.log" />
+    <Exec WorkingDirectory="$(MSBuildProjectDirectory)\.nuget" ContinueOnError="True" Command="PowerShell.exe -NoProfile -NonInteractive -ExecutionPolicy Unrestricted -Command &quot;&amp; {.\NuGetPackage.ps1} &quot;" IgnoreExitCode="true">
+      <Output TaskParameter="ExitCode" PropertyName="ExitCode" />
+    </Exec>
+  </Target>
+</Project>

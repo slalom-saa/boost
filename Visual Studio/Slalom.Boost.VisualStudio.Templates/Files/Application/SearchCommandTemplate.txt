@@ -1,0 +1,58 @@
+﻿using System;
+using System.Linq;
+using Slalom.Boost.Commands;
+using {{Project.GetModuleName()}}.ReadModel.{{ProjectItem.GetEntityName().Pluralize()}};
+
+namespace {{Project.GetModuleName()}}.Application.{{ProjectItem.GetEntityName().Pluralize()}}.Search{{ProjectItem.GetEntityName().Pluralize()}}
+{
+    // TODO: Update the task description [task]    
+    // TODO: Add any security rules [Boost]
+	// TODO: Update the documentation URL [Documentation URL]
+
+    /// <summary>
+    /// An imperative message to [task].
+    /// </summary>
+	/// <seealso href="[Documentation URL]"/>
+	/// <seealso boost="Command"/>
+    public class Search{{ProjectItem.GetEntityName().Pluralize()}}Command : Command<IQueryable<{{ProjectItem.GetClassName()}}>>
+    {
+		/// <summary>
+        /// Gets the search text.
+        /// </summary>
+        /// <value>The search text.</value>
+        public string SearchText { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether to include suggestions.
+        /// </summary>
+        /// <value><c>true</c> if suggestions should be included; otherwise, <c>false</c>.</value>
+        public bool IncludeSuggestions { get; private set; }
+
+		/// <summary>
+        /// Initializes a new instance of the <see cref="Search{{ProjectItem.GetEntityName().Pluralize()}}Command"/> class.
+        /// </summary>
+        public Search{{ProjectItem.GetEntityName().Pluralize()}}Command()
+        {
+        }
+
+		/// <summary>
+        /// Initializes a new instance of the <see cref="Search{{ProjectItem.GetEntityName().Pluralize()}}Command"/> class.
+        /// </summary>
+        /// <param name="search">The search text.</param>
+        public Search{{ProjectItem.GetEntityName().Pluralize()}}Command(string search)
+        {
+            this.SearchText = search;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Search{{ProjectItem.GetEntityName().Pluralize()}}Command"/> class.
+        /// </summary>
+        /// <param name="search">The search text.</param>
+        /// <param name="includeSuggestions">If set to <c>true</c> include suggestions.</param>
+        public Search{{ProjectItem.GetEntityName().Pluralize()}}Command(string search, bool includeSuggestions)
+        {
+            this.SearchText = search;
+            this.IncludeSuggestions = includeSuggestions;
+        }
+    }
+}

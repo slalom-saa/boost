@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--<Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />-->
+  <!--<Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />-->
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DF8A7A57-DE77-4A04-B998-CFFBFFD35EFB}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>$safeprojectname$</RootNamespace>
+    <AssemblyName>$safeprojectname$</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="package.json" />
+    <Content Include=".bowerrc" />
+    <Content Include="bower.json" />
+    <Content Include="src\app\app.routes.js" />
+    <Content Include="src\app\app.controller.js" />
+    <Content Include="src\app\errors\errors.routes.js" />
+    <Content Include="src\app\errors\errors.module.js" />
+    <Content Include="src\app\errors\views\not-found.html" />
+    <Content Include="src\app\errors\views\unauthorized.html" />
+    <Content Include="src\app\sign-in\register.controller.js" />
+    <Content Include="src\app\sign-in\sign-in.controller.js" />
+    <Content Include="src\app\services\ui.service.js" />
+    <Content Include="src\app\sign-in\sign-in.routes.js" />
+    <Content Include="src\app\sign-in\views\register.html" />
+    <Content Include="src\app\sign-in\views\sign-in.scss" />
+    <Content Include="src\app\sites\public\messages\messages.module.js" />
+    <Content Include="src\app\sites\public\messages\messages.routes.js" />
+    <Content Include="src\app\sites\public\messages\views\messages.html" />
+    <Content Include="src\app\sites\public\search\search.module.js" />
+    <Content Include="src\app\sites\public\search\search.routes.js" />
+    <Content Include="src\app\sites\public\search\views\search.html" />
+    <Content Include="src\app\sites\public\locations\locations.module.js" />
+    <Content Include="src\app\sites\public\locations\locations.routes.js" />
+    <Content Include="src\app\sites\public\locations\views\locations.html" />
+    <Content Include="src\app\sites\public\plans\plans.module.js" />
+    <Content Include="src\app\sites\public\plans\plans.routes.js" />
+    <Content Include="src\app\sites\public\plans\views\plans.html" />
+    <Content Include="src\app\sites\public\account\account.module.js" />
+    <Content Include="src\app\sites\public\account\account.routes.js" />
+    <Content Include="src\app\sites\public\account\views\account.html" />
+    <Content Include="src\fonts\icon-54\icon54com.svg" />
+    <Content Include="src\images\icons\doctor.png" />
+    <Content Include="src\images\icons\pills.png" />
+    <Content Include="src\images\icons\plan.png" />
+    <Content Include="src\images\icons\search.png" />
+    <Content Include="src\sass\theme\admin.scss" />
+    <Content Include="src\sass\theme\public.scss" />
+    <Content Include="src\sass\theme\themes.scss" />
+    <Content Include="src\app\sign-in\views\register.scss" />
+    <Content Include="src\fonts\icon-54\icon54com.eot" />
+    <Content Include="src\fonts\icon-54\icon54com.ttf" />
+    <Content Include="src\fonts\icon-54\icon54com.woff" />
+    <Content Include="src\sass\theme\_icons.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json" />
+    <Content Include="gulpfile.js" />
+    <Content Include="gulp\serve.js" />
+    <Content Include="gulp\vendor.js" />
+    <Content Include="gulp\watch.js" />
+    <Content Include="gulp\clean.js" />
+    <Content Include="gulp\build.js" />
+    <Content Include="src\apple-touch-icon.png" />
+    <Content Include="src\app\app.module.js" />
+    <Content Include="src\app\auth\auth.service.js" />
+    <Content Include="src\app\auth\auth.module.js" />
+    <Content Include="src\app\sign-in\views\sign-in.html" />
+    <Content Include="src\app\sign-in\sign-in.module.js" />
+    <Content Include="src\app\sites\admin\admin.module.js" />
+    <Content Include="src\app\sites\admin\admin.routes.js" />
+    <Content Include="src\app\sites\admin\logs\logs.module.js" />
+    <Content Include="src\app\sites\admin\logs\logs.routes.js" />
+    <Content Include="src\app\sites\admin\logs\views\logs.html" />
+    <Content Include="src\app\sites\admin\dashboard\dashboard.module.js" />
+    <Content Include="src\app\sites\admin\dashboard\dashboard.routes.js" />
+    <Content Include="src\app\sites\admin\dashboard\views\dashboard.html" />
+    <Content Include="src\app\sites\admin\layout\layout.footer.js" />
+    <Content Include="src\app\sites\admin\layout\layout.module.js" />
+    <Content Include="src\app\sites\admin\layout\layout.navigation.js" />
+    <Content Include="src\app\sites\admin\layout\layout.sidebar.js" />
+    <Content Include="src\app\sites\admin\layout\views\footer.html" />
+    <Content Include="src\app\sites\admin\layout\views\main.html" />
+    <Content Include="src\app\sites\admin\layout\views\navigation.html" />
+    <Content Include="src\app\sites\admin\layout\views\sidebar.html" />
+    <Content Include="src\app\sites\admin\settings\settings.module.js" />
+    <Content Include="src\app\sites\admin\settings\settings.routes.js" />
+    <Content Include="src\app\sites\admin\settings\views\settings.html" />
+    <Content Include="src\app\sites\admin\users\users.module.js" />
+    <Content Include="src\app\sites\admin\users\users.routes.js" />
+    <Content Include="src\app\sites\admin\users\views\users.html" />
+    <Content Include="src\app\sites\public\home\home.module.js" />
+    <Content Include="src\app\sites\public\home\home.routes.js" />
+    <Content Include="src\app\sites\public\home\views\home.html" />
+    <Content Include="src\app\sites\public\layout\layout.footer.js" />
+    <Content Include="src\app\sites\public\layout\layout.module.js" />
+    <Content Include="src\app\sites\public\layout\layout.navigation.js" />
+    <Content Include="src\app\sites\public\layout\views\footer.html" />
+    <Content Include="src\app\sites\public\layout\views\main.html" />
+    <Content Include="src\app\sites\public\layout\views\navigation.html" />
+    <Content Include="src\app\sites\public\public.module.js" />
+    <Content Include="src\app\sites\public\public.routes.js" />
+    <Content Include="src\browserconfig.xml" />
+    <Content Include="src\config.js" />
+    <Content Include="src\favicon.ico" />
+    <Content Include="src\fonts\fontawesome-webfont.svg" />
+    <Content Include="src\fonts\open-sans\bold\opensans-bold-webfont.svg" />
+    <Content Include="src\fonts\open-sans\light\opensans-light-webfont.svg" />
+    <Content Include="src\fonts\open-sans\regular\opensans-regular-webfont.svg" />
+    <Content Include="src\images\default\user.svg" />
+    <Content Include="src\index.html" />
+    <Content Include="src\sass\main.scss" />
+    <Content Include="src\sass\base\base.scss" />
+    <Content Include="src\sass\layout\layout.scss" />
+    <Content Include="src\sass\modules\modules.scss" />
+    <Content Include="src\sass\modules\_lists.scss" />
+    <Content Include="src\sass\theme\_fonts.scss" />
+    <Content Include="src\fonts\fontawesome-webfont.eot" />
+    <Content Include="src\fonts\fontawesome-webfont.ttf" />
+    <Content Include="src\fonts\fontawesome-webfont.woff" />
+    <Content Include="src\fonts\fontawesome-webfont.woff2" />
+    <Content Include="src\fonts\FontAwesome.otf" />
+    <Content Include="src\fonts\open-sans\bold\opensans-bold-webfont.eot" />
+    <Content Include="src\fonts\open-sans\bold\opensans-bold-webfont.ttf" />
+    <Content Include="src\fonts\open-sans\bold\opensans-bold-webfont.woff" />
+    <Content Include="src\fonts\open-sans\light\opensans-light-webfont.eot" />
+    <Content Include="src\fonts\open-sans\light\opensans-light-webfont.ttf" />
+    <Content Include="src\fonts\open-sans\light\opensans-light-webfont.woff" />
+    <Content Include="src\fonts\open-sans\regular\opensans-regular-webfont.eot" />
+    <Content Include="src\fonts\open-sans\regular\opensans-regular-webfont.ttf" />
+    <Content Include="src\fonts\open-sans\regular\opensans-regular-webfont.woff" />
+    <Content Include="src\sass\modules\_content.scss" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>61625</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:61625/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

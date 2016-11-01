@@ -1,0 +1,25 @@
+﻿using System;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.OData;
+using Slalom.Boost.WebApi.Controllers;
+using System.Threading.Tasks;
+
+namespace {{Project.GetModuleName()}}.WebApi.Controllers
+{
+    [RoutePrefix("{{Plural.ToLower()}}"), AllowAnonymous]
+    public class {{Single}}Controller : CommandController
+    {
+        [Route("actions/add"), HttpPost]
+        public Task<dynamic> Add{{ProjectItem.GetClassName()}}(Application.{{ProjectItem.GetClassName().Pluralize()}}.Add{{ProjectItem.GetClassName()}}.Add{{ProjectItem.GetClassName()}}Command command)
+        {
+            return base.SendAsync(command, e => e.{{ProjectItem.GetClassName()}}.Id);
+        }
+
+		[Route(""), HttpGet, EnableQuery]
+        public Task<dynamic> Query{{ProjectItem.GetClassName().Pluralize()}}()
+        {
+            return base.SendAsync(new Application.{{ProjectItem.GetClassName().Pluralize()}}.Query{{ProjectItem.GetClassName().Pluralize()}}.Query{{ProjectItem.GetClassName().Pluralize()}}Command());
+        }
+    }
+}

@@ -1,0 +1,478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <UseCodebase>true</UseCodebase>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Slalom.Boost.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{2F1D3E32-85F5-4303-AD32-FE9F3CF5E90A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Slalom.Boost.Templates.Package</RootNamespace>
+    <AssemblyName>Slalom.Boost.Templates.Package</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Label="TemplateBuilder">
+    <TemplateBuilderTargets Condition=" '$(TemplateBuilderTargets)'=='' ">$([System.IO.Path]::GetFullPath( $(MSBuildProjectDirectory)\..\packages\TemplateBuilder.1.1.3\tools\ligershark.templates.targets ))</TemplateBuilderTargets>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\gulpfile.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\Product.Project.AngularTemplate.csproj" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\apple-touch-icon.png" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\app.controller.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\app.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\app.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\auth\auth.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\auth\auth.service.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\errors\errors.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\errors\errors.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\errors\views\not-found.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\errors\views\unauthorized.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\services\ui.service.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sign-in\register.controller.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sign-in\sign-in.controller.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sign-in\sign-in.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sign-in\sign-in.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sign-in\views\register.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sign-in\views\sign-in.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\admin.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\admin.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\dashboard\dashboard.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\dashboard\dashboard.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\dashboard\views\dashboard.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\layout\layout.footer.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\layout\layout.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\layout\layout.navigation.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\layout\layout.sidebar.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\layout\views\footer.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\layout\views\main.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\layout\views\navigation.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\layout\views\sidebar.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\logs\logs.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\logs\logs.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\logs\views\logs.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\settings\settings.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\settings\settings.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\settings\views\settings.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\users\users.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\users\users.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\admin\users\views\users.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\account\account.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\account\account.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\account\views\account.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\home\home.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\home\home.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\home\views\home.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\layout\layout.footer.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\layout\layout.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\layout\layout.navigation.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\layout\views\footer.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\layout\views\main.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\layout\views\navigation.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\locations\locations.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\locations\locations.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\locations\views\locations.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\messages\messages.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\messages\messages.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\messages\views\messages.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\plans\plans.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\plans\plans.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\plans\views\plans.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\public.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\public.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\search\search.module.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\search\search.routes.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sites\public\search\views\search.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\browserconfig.xml" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\config.js" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\favicon.ico" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\fontawesome-webfont.svg" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\icon-54\icon54com.svg" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\bold\opensans-bold-webfont.svg" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\light\opensans-light-webfont.svg" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\regular\opensans-regular-webfont.svg" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\images\default\user.svg" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\images\icons\doctor.png" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\images\icons\pills.png" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\images\icons\plan.png" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\images\icons\search.png" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\index.html" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\_Definitions\CSharp.vstemplate">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\Scripts\Configuration\Configuration.psm1" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\Scripts\Configuration\Local\Configure Local Environment.ps1" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\Server.Automation.csproj">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\_Definition\CSharp.vstemplate" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\__TemplateIcon.ico" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Read Model\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Read Model\Product.Project.Module.ReadModel.csproj" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Read Model\_Definitions\CSharp.vstemplate" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Integration Tests\Boost.Module.IntegrationTests.csproj">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Integration Tests\icon.ico" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Integration Tests\msdia140typelib_clr0200.dll" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Integration Tests\_Definitions\CSharp.vstemplate">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Unit Tests\Boost.Module.UnitTests.csproj" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Unit Tests\icon.ico" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Unit Tests\msdia140typelib_clr0200.dll" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Unit Tests\_Definitions\CSharp.vstemplate">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Read Model\Properties\AssemblyInfo.cs" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\Aspects\AuditStore.cs" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\Aspects\EventStore.cs" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Integration Tests\Application\given\a_configured_container.cs" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\AuditStore.cs" />
+    <Compile Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\Controllers\AdminController.cs" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\Boost.Module3.EntityFramework.csproj">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\icon.ico" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\_Definition\CSharp.vstemplate">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Application\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Application\Product.Project.Module.Application.csproj" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Application\_Definitions\CSharp.vstemplate" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Domain\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Domain\Product.Project.Module.Domain.csproj">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Domain\Properties\AssemblyInfo.cs" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\.bowerrc" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\bower.json" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\config.json" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\package.json" />
+    <Content Include="ProjectTemplates\Slalom\Angular Client-Side Module\packages.config" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sign-in\views\register.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\app\sign-in\views\sign-in.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\fontawesome-webfont.eot" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\fontawesome-webfont.ttf" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\fontawesome-webfont.woff" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\fontawesome-webfont.woff2" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\FontAwesome.otf" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\icon-54\icon54com.eot" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\icon-54\icon54com.ttf" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\icon-54\icon54com.woff" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\bold\opensans-bold-webfont.eot" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\bold\opensans-bold-webfont.ttf" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\bold\opensans-bold-webfont.woff" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\light\opensans-light-webfont.eot" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\light\opensans-light-webfont.ttf" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\light\opensans-light-webfont.woff" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\regular\opensans-regular-webfont.eot" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\regular\opensans-regular-webfont.ttf" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\fonts\open-sans\regular\opensans-regular-webfont.woff" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\base\base.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\layout\layout.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\main.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\modules\modules.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\modules\_content.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\modules\_lists.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\theme\admin.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\theme\public.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\theme\themes.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\theme\_fonts.scss" />
+    <None Include="ProjectTemplates\Slalom\Angular Client-Side Module\src\sass\theme\_icons.scss" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\App.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\packages.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\Scripts\Import Data.ps1" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\Scripts\Import Data Job.ps1" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\Scripts\Libraries\Azure\Backup-SqlAzureDatabase.ps1" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Read Model\packages.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Integration Tests\packages.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Unit Tests\packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\Properties\AssemblyInfo.cs">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Integration Tests\Properties\AssemblyInfo.cs" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Unit Tests\Properties\AssemblyInfo.cs" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\ReadModelFacade.cs">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\EventStore.cs" />
+    <Compile Include="TemplatesPackage.cs" />
+    <Compile Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\Properties\AssemblyInfo.cs" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\DataContext.cs">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Compile Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\Properties\AssemblyInfo.cs" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\ApplicationInsights.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\Startup.cs" />
+    <Compile Include="ProjectTemplates\Slalom\Server-Side Module\Empty Application\Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\App.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\packages.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Application\packages.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty Domain\packages.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\packages.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\Web.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\Web.Debug.config" />
+    <None Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\Web.Release.config" />
+    <None Include="Properties\template-builder.props">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="readme.md" />
+    <None Include="Slalom.Boost.snk" />
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty Domain\_Definitions\CSharp.vstemplate" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\icon.ico" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\_Definition\Web.CSharp.vstemplate">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\Product.Project.WebService.csproj">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\Product.Project.Module.csproj" />
+    <Content Include="ProjectTemplates\Slalom\Server-Side Module\_Definitions\CSharp.vstemplate" />
+    <Content Include="Resources\BoostIcons.png" />
+    <Content Include="Resources\CommandPackage.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EnvDTE100, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.Editor, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Imaging, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Imaging.14.1.24720\lib\net45\Microsoft.VisualStudio.Imaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Language.Intellisense, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Language.StandardClassification, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6070\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Package.LanguageService.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Shell.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.14.0.14.1.24720\lib\Microsoft.VisualStudio.Shell.14.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.10.0.10.0.30319\lib\net40\Microsoft.VisualStudio.Shell.Immutable.10.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.11.0.11.0.50727\lib\net45\Microsoft.VisualStudio.Shell.Immutable.11.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.12.0.12.0.21003\lib\net45\Microsoft.VisualStudio.Shell.Immutable.12.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.14.0.14.1.24720\lib\net45\Microsoft.VisualStudio.Shell.Immutable.14.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.7.10.6071\lib\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.10.0.10.0.30319\lib\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.11.0.11.0.61030\lib\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.12.0.12.0.30110\lib\Microsoft.VisualStudio.Shell.Interop.12.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0.8.0.50727\lib\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.9.0.9.0.30729\lib\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.Data, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.Logic, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.UI, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.7.10.6070\lib\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.8.0.8.0.50727\lib\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Threading, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Threading.14.1.111\lib\net45\Microsoft.VisualStudio.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Utilities, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Utilities.14.1.24720\lib\net45\Microsoft.VisualStudio.Utilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Validation, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Validation.14.1.111\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="TemplateBuilder, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TemplateBuilder.1.1.3\lib\TemplateBuilder.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj140, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ProjectTemplates\Slalom\Angular Client-Side Module\gulp\" />
+    <Folder Include="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\Scripts\Commands\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Slalom.Boost.VisualStudio\Slalom.Boost.VisualStudio.csproj">
+      <Project>{4B56F34D-9F92-4CFF-B027-CBF3E6ABDAE2}</Project>
+      <Name>Slalom.Boost.VisualStudio</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
+    </ProjectReference>
+    <ProjectReference Include="..\Slalom.Boost.VisualStudio.Templates\Templates.csproj">
+      <Project>{B91E2892-216B-4578-8652-BF5941546F75}</Project>
+      <Name>Templates</Name>
+      <IncludeOutputGroupsInVSIX>BuiltProjectOutputGroup%3bBuiltProjectOutputGroupDependencies%3bGetCopyToOutputDirectoryItems%3bSatelliteDllsProjectOutputGroup%3b</IncludeOutputGroupsInVSIX>
+      <IncludeOutputGroupsInVSIXLocalOnly>DebugSymbolsProjectOutputGroup%3b</IncludeOutputGroupsInVSIXLocalOnly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(TemplateBuilderTargets)" Condition="Exists('$(TemplateBuilderTargets)')" Label="TemplateBuilder" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.14.1.24720\build\Microsoft.VSSDK.BuildTools.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

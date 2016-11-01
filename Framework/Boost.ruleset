@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Slalom Boost Rules" Description="This rule set contains rules for Boost Projects." ToolsVersion="14.0">
+  <Localization ResourceAssembly="Microsoft.VisualStudio.CodeAnalysis.RuleSets.Strings.dll" ResourceBaseName="Microsoft.VisualStudio.CodeAnalysis.RuleSets.Strings.Localized">
+    <Name Resource="Boost_Name" />
+    <Description Resource="Boost_Description" />
+  </Localization>
+  <IncludeAll Action="Warning" />
+  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
+    <Rule Id="CA1002" Action="None" />
+    <Rule Id="CA1004" Action="None" />
+    <Rule Id="CA1006" Action="None" />
+    <Rule Id="CA1014" Action="None" />
+    <Rule Id="CA1040" Action="None" />
+    <Rule Id="CA1051" Action="None" />
+    <Rule Id="CA1710" Action="None" />
+    <Rule Id="CA1711" Action="None" />
+    <Rule Id="CA1716" Action="Info" />
+    <Rule Id="CA2104" Action="None" />
+    <Rule Id="CA2225" Action="None" />
+  </Rules>
+</RuleSet>

@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace {{RootNamespace}}.Application.{{Name.Pluralize()}}
+{
+    // TODO: Add descriptions for the queries
+    // TODO: Remove any unnecessary queries
+    // TODO: Add any additional queries
+
+    /// <summary>
+    /// Contains specific queries for {{Name.Humanize(LetterCasing.LowerCase)}} queries.
+    /// </summary>
+    /// <remarks>
+    /// The Query Extension Pattern is part of the Layered Expression Tree (LET) technique.  It can be used for simple queries
+    /// and more complex ones with the end goal of creating more readable access to the read model.
+    /// </remarks>
+    /// <seealso cref="https://www.simple-talk.com/dotnet/.net-framework/giving-clarity-to-linq-queries-by-extending-expressions/">Giving Clarity to LINQ Queries by Extending Expressions</seealso>
+    public static class {{Name}}Queries
+    {
+{{Queries}}
+    }
+}

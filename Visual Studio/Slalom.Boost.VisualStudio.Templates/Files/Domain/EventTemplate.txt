@@ -1,0 +1,32 @@
+﻿using System;
+using Slalom.Boost.Events;
+
+namespace {{Project.GetModuleName()}}.Domain.{{ProjectItem.GetClassName().Pluralize()}}.Events
+{
+	// TODO: Replace the event description [event]
+	// TODO: Update the URL to the documentation [Documentation URL]
+
+    /// <summary>
+    /// Represents an event that is raised when [event].
+    /// </summary>
+	/// <seealso cref="{{ProjectItem.GetClassName()}}"/>
+	/// <seealso href="[Documentation URL]" />
+	/// <seealso boost="Domain Event"/>
+	public class {{Name}} : Event
+    {
+        /// <summary>
+        /// Gets the {{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}}.
+        /// </summary>
+        /// <value>The {{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}}.</value>
+        public {{ProjectItem.GetClassName()}} {{ProjectItem.GetClassName()}} { get; private set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MemberUpdatedEvent"/> class.
+        /// </summary>
+        /// <param name="{{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}}">The {{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}}.</param>
+        public {{Name}}({{ProjectItem.GetClassName()}} {{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}})
+        {
+            this.{{ProjectItem.GetClassName()}} = {{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}};
+        }
+    }
+}

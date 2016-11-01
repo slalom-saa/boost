@@ -1,0 +1,37 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Paragraph FontSize="20">Concept (Value Object)</Paragraph>
+    <Paragraph>
+        <Run FontStyle="Italic">Some objects describe or compute some characteristic of a thing.</Run>
+    </Paragraph>
+    <Paragraph LineHeight="10">
+        <Run>When you care only about the attributes and logic of an element of the model, classify it as a value object. Make it express the meaning of the attributes it conveys and give it related functionality. Treat the value object as immutable. Make all operations Side-effect-free Functions that don’t depend on any mutable state. Don’t give a value object any identity and avoid the design complexities necessary to maintain entities.</Run>
+    </Paragraph>
+    <Paragraph LineHeight="1">
+        <Hyperlink NavigateUri="https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnxpamF6d2lra2l8Z3g6NmI0ZGNlMGIwNjZhMmYzNA" >Domain-Driven Design Reference</Hyperlink>
+    </Paragraph>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Related Elements</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="Entity">Entity</Hyperlink>
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Resources</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="http://code.tutsplus.com/tutorials/8-regular-expressions-you-should-know--net-6149">8 Regular Expressions You Should Know</Hyperlink>
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://regex101.com/">Regex Tester</Hyperlink>
+            </Paragraph>
+        </ListItem>
+    </List>
+</FlowDocument>

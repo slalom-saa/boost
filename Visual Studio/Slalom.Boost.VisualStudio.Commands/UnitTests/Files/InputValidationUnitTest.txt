@@ -1,0 +1,12 @@
+﻿using System;
+using Machine.Specifications;
+
+namespace {{RootNameSpace}}.UnitTests.Application.Commands.{{Name}}
+{
+    public class When_validating_{{NameSnakeCase}}_command_input_with_invalid_input : given.a_configured_{{Rule}}_rule
+    {
+        Because of = () => ValidateCommand({{DefaultArguments}});
+
+        It should_have_a_validation_results = () => Result.ShouldNotBeEmpty();
+    }
+}

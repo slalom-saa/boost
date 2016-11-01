@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Slalom.Boost.Commands;
+
+namespace {{RootNamespace}}.Application.{{Name.Pluralize()}}
+{
+	/// <summary>
+    /// Provides a mediator for processes around {{Name.Pluralize()}}.
+    /// </summary>
+    /// <remarks>
+    /// In a complex system that you have modeled using aggregates and bounded contexts, there may be some business processes that involve multiple aggregates, 
+    /// or multiple aggregates in multiple bounded contexts. In these business processes multiple messages of different types are exchanged by the participating 
+    /// aggregates. For example, in a conference management system, the business process of purchasing seats at a conference might involve an order aggregate, 
+    /// a reservation aggregate, and a payment aggregate. They must all cooperate to enable a customer to complete a purchase.
+    /// </remarks>
+    /// <seealso href="https://msdn.microsoft.com/en-us/library/jj591569.aspx">CQRS Journey: Reference 6: A Saga on Sagas</seealso>
+    public class {{Name}}ProcessManager : ProcessManager
+    {
+    }
+}

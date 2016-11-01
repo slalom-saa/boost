@@ -1,0 +1,26 @@
+﻿using System;
+using Slalom.Boost.Commands;
+using {{Project.GetModuleName()}}.Domain.{{ProjectItem.GetClassName().Pluralize()}}.Events;
+
+namespace {{Project.GetModuleName()}}.Application.{{ProjectItem.GetClassName().Pluralize()}}.Add{{ProjectItem.GetClassName()}}
+{
+    // TODO: Update the task description [task]    
+	// TODO: Add a PowerShell script [Boost]
+	// TODO: Update the documentation URL [Documentation URL]
+
+    /// <summary>
+    /// An imperative message to <see href="[Documentation URL]">[task]</see>.
+    /// </summary>
+	/// <seealso boost="Command" href="https://www.safaribooksonline.com/library/view/Reactive+Messaging+Patterns+with+the+Actor+Model:+Applications+and+Integration+in+Scala+and+Akka/9780133846904/ch06.html#ch06lev1sec1">Command Message</seealso>
+    public class Add{{ProjectItem.GetClassName()}}Command : Command<{{ProjectItem.GetClassName()}}AddedEvent>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Add{{ProjectItem.GetClassName()}}Command"/> class.
+        /// </summary>{{Properties.GetParameterComments("Id")}}
+        public Add{{ProjectItem.GetClassName()}}Command({{Properties.GetPropertyArguments("Id")}})
+        {
+{{Properties.GetPropertyAssignments("Id")}}
+        }
+{{Properties.GetPropertyDeclaration(false, "Id")}}
+    }
+}

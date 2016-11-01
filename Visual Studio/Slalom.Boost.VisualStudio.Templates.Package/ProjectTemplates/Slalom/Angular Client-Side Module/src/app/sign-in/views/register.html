@@ -1,0 +1,38 @@
+﻿<div id="register-page" class="main-content public-site">
+    <div class="background dark-background">
+    </div>
+    <div class="content-centered">
+        <h1>Register Account</h1>
+        <form class="login-form" name="register" novalidate ng-submit="vm.register()">
+            <div class="form-group row">
+                <span class="col-xs-6">
+                    <input type="text" autofocus class="form-control" placeholder="First Name" ng-model="vm.data.firstName" />
+                </span>
+                <span class="col-xs-6">
+                    <input type="text" class="form-control" placeholder="Last Name" ng-model="vm.data.lastName" />
+                </span>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="fa fa-envelope"></span>
+                    </span>
+                    <input autocomplete="off" type="text" class="form-control" minlength="3" required ng-model="vm.data.userName" placeholder="Email Address">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <span class="fa fa-lock"></span>
+                    </span>
+
+                    <input autocomplete="off" class="form-control" minlength="3" required ng-model="vm.data.password" type="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="form-group actions">
+                <button type="submit" ng-class="{valid:register.$valid}" ng-disabled="register.$invalid" class="btn btn-default">Create Account</button>
+                <a ui-sref="sign-in">Sign In</a>
+            </div>
+        </form>
+    </div>
+</div>

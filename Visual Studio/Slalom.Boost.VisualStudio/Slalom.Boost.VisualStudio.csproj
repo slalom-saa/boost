@@ -1,0 +1,413 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4B56F34D-9F92-4CFF-B027-CBF3E6ABDAE2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Slalom.Boost.VisualStudio</RootNamespace>
+    <AssemblyName>Slalom.Boost.VisualStudio</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Slalom.Boost.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Imaging, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Imaging.14.1.24720\lib\net45\Microsoft.VisualStudio.Imaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6070\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.14.0.14.1.24720\lib\Microsoft.VisualStudio.Shell.14.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.10.0.10.0.30319\lib\net40\Microsoft.VisualStudio.Shell.Immutable.10.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.11.0, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.11.0.11.0.50727\lib\net45\Microsoft.VisualStudio.Shell.Immutable.11.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.12.0, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.12.0.12.0.21003\lib\net45\Microsoft.VisualStudio.Shell.Immutable.12.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.14.0.14.1.24720\lib\net45\Microsoft.VisualStudio.Shell.Immutable.14.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.7.10.6071\lib\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0.8.0.50727\lib\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.9.0.9.0.30729\lib\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.7.10.6070\lib\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.8.0.8.0.50727\lib\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Threading, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Threading.14.1.111\lib\net45\Microsoft.VisualStudio.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Utilities, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Utilities.14.1.24720\lib\net45\Microsoft.VisualStudio.Utilities.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Validation, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Validation.14.1.111\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack, Version=1.1.2.0, Culture=neutral, PublicKeyToken=f5227a91f5f6e158, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.WindowsAPICodePack.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=f5227a91f5f6e158, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.WindowsAPICodePack.Shell.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Entity.Design" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="VSLangProj, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj140, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="VSLangProj80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BoostCodeProperty.cs" />
+    <Compile Include="ClickTrackService.cs" />
+    <Compile Include="Application.cs" />
+    <Compile Include="Dynamic\AssignmentOperators.cs" />
+    <Compile Include="Dynamic\Detector.cs" />
+    <Compile Include="Dynamic\Exceptions\AssignmentOperatorDisabledException.cs" />
+    <Compile Include="Dynamic\Exceptions\DuplicateParameterException.cs" />
+    <Compile Include="Dynamic\Exceptions\DynamicExpressoException.cs" />
+    <Compile Include="Dynamic\Exceptions\ExceptionExtensions.cs" />
+    <Compile Include="Dynamic\Exceptions\NoApplicableMethodException.cs" />
+    <Compile Include="Dynamic\Exceptions\ParseException.cs" />
+    <Compile Include="Dynamic\Exceptions\ReflectionNotAllowedException.cs" />
+    <Compile Include="Dynamic\Exceptions\UnknownIdentifierException.cs" />
+    <Compile Include="Dynamic\Identifier.cs" />
+    <Compile Include="Dynamic\IdentifiersInfo.cs" />
+    <Compile Include="Dynamic\Interpreter.cs" />
+    <Compile Include="Dynamic\InterpreterOptions.cs" />
+    <Compile Include="Dynamic\Lambda.cs" />
+    <Compile Include="Dynamic\LanguageConstants.cs" />
+    <Compile Include="Dynamic\Parameter.cs" />
+    <Compile Include="Dynamic\ParserArguments.cs" />
+    <Compile Include="Dynamic\Parsing\ErrorMessages.cs" />
+    <Compile Include="Dynamic\Parsing\Parser.cs" />
+    <Compile Include="Dynamic\Parsing\ParserConstants.cs" />
+    <Compile Include="Dynamic\Parsing\ParserSettings.cs" />
+    <Compile Include="Dynamic\Parsing\ParseSignatures.cs" />
+    <Compile Include="Dynamic\Parsing\Token.cs" />
+    <Compile Include="Dynamic\Parsing\TokenId.cs" />
+    <Compile Include="Dynamic\ReferenceType.cs" />
+    <Compile Include="Dynamic\Reflection\ReflectionExtensions.cs" />
+    <Compile Include="Dynamic\Visitors\DisableReflectionVisitor.cs" />
+    <Compile Include="Events\CommandRequested.cs" />
+    <Compile Include="Events\IHandleEvent.cs" />
+    <Compile Include="Events\NavigateRequested.cs" />
+    <Compile Include="Events\ProjectCreated.cs" />
+    <Compile Include="Events\TemplateChanged.cs" />
+    <Compile Include="Forms\AddCommandWindow.xaml.cs">
+      <DependentUpon>AddCommandWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddTemplateWindow.xaml.cs">
+      <DependentUpon>AddTemplateWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="StringExtensions.cs" />
+    <Compile Include="TypeExtensions.cs" />
+    <Compile Include="Forms\CreateSolutionWindow.xaml.cs">
+      <DependentUpon>CreateSolutionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Images.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Images.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AddClassWindow.xaml.cs">
+      <DependentUpon>AddClassWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Humanizer\Bytes\ByteRate.cs" />
+    <Compile Include="Humanizer\Bytes\ByteSize.cs" />
+    <Compile Include="Humanizer\Bytes\ByteSizeExtensions.cs" />
+    <Compile Include="Humanizer\CasingExtensions.cs" />
+    <Compile Include="Humanizer\CollectionHumanizeExtensions.cs" />
+    <Compile Include="Humanizer\Configuration\CollectionFormatterRegistry.cs" />
+    <Compile Include="Humanizer\Configuration\Configurator.cs" />
+    <Compile Include="Humanizer\Configuration\FormatterRegistry.cs" />
+    <Compile Include="Humanizer\Configuration\LocaliserRegistry.cs" />
+    <Compile Include="Humanizer\Configuration\NumberToWordsConverterRegistry.cs" />
+    <Compile Include="Humanizer\Configuration\OrdinalizerRegistry.cs" />
+    <Compile Include="Humanizer\DateHumanizeExtensions.cs" />
+    <Compile Include="Humanizer\DateTimeHumanizeStrategy\DateTimeHumanizeAlgorithms.cs" />
+    <Compile Include="Humanizer\DateTimeHumanizeStrategy\DefaultDateTimeHumanizeStrategy.cs" />
+    <Compile Include="Humanizer\DateTimeHumanizeStrategy\DefaultDateTimeOffsetHumanizeStrategy.cs" />
+    <Compile Include="Humanizer\DateTimeHumanizeStrategy\IDateTimeHumanizeStrategy.cs" />
+    <Compile Include="Humanizer\DateTimeHumanizeStrategy\IDateTimeOffsetHumanizeStrategy.cs" />
+    <Compile Include="Humanizer\DateTimeHumanizeStrategy\PrecisionDateTimeHumanizeStrategy.cs" />
+    <Compile Include="Humanizer\DateTimeHumanizeStrategy\PrecisionDateTimeOffsetHumanizeStrategy.cs" />
+    <Compile Include="Humanizer\EnumDehumanizeExtensions.cs" />
+    <Compile Include="Humanizer\EnumHumanizeExtensions.cs" />
+    <Compile Include="Humanizer\GrammaticalCase.cs" />
+    <Compile Include="Humanizer\GrammaticalGender.cs" />
+    <Compile Include="Humanizer\Inflections\Vocabularies.cs" />
+    <Compile Include="Humanizer\Inflections\Vocabulary.cs" />
+    <Compile Include="Humanizer\InflectorExtensions.cs" />
+    <Compile Include="Humanizer\LetterCasing.cs" />
+    <Compile Include="Humanizer\Localisation\CollectionFormatters\DefaultCollectionFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\CollectionFormatters\ICollectionFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\CollectionFormatters\OxfordStyleCollectionFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\ArabicFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\CroatianFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\CzechSlovakPolishFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\DefaultFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\HebrewFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\IFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\RomanianFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\RussianFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\SerbianFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\SlovenianFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\Formatters\UkrainianFormatter.cs" />
+    <Compile Include="Humanizer\Localisation\GrammaticalNumber\RussianGrammaticalNumber.cs" />
+    <Compile Include="Humanizer\Localisation\GrammaticalNumber\RussianGrammaticalNumberDetector.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\AfrikaansNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\ArabicNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\BanglaNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\BrazilianPortugueseNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\DefaultNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\DutchNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\EnglishNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\FarsiNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\FinnishNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\FrenchNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\GenderedNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\GenderlessNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\GermanNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\HebrewNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\INumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\ItalianNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\Italian\ItalianCardinalNumberCruncher.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\Italian\ItalianOrdinalNumberCruncher.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\NorwegianBokmalNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\PolishNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\RomanianNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\Romanian\RomanianCardinalNumberConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\Romanian\RomanianOrdinalNumberConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\RussianNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\SerbianCyrlNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\SerbianNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\SlovenianNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\SpanishNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\TurkishNumberToWordConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\UkrainianNumberToWordsConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\UzbekCyrlNumberToWordConverter.cs" />
+    <Compile Include="Humanizer\Localisation\NumberToWords\UzbekLatnNumberToWordConverter.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\DefaultOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\DutchOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\EnglishOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\GermanOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\IOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\ItalianOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\PortugueseOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\RomanianOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\RussianOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\SpanishOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\TurkishOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\Ordinalizers\UkrainianOrdinalizer.cs" />
+    <Compile Include="Humanizer\Localisation\ResourceKeys.Common.cs" />
+    <Compile Include="Humanizer\Localisation\ResourceKeys.DateHumanize.cs" />
+    <Compile Include="Humanizer\Localisation\ResourceKeys.TimeSpanHumanize.cs" />
+    <Compile Include="Humanizer\Localisation\Resources.cs" />
+    <Compile Include="Humanizer\Localisation\Tense.cs" />
+    <Compile Include="Humanizer\Localisation\TimeUnit.cs" />
+    <Compile Include="Humanizer\MetricNumeralExtensions.cs" />
+    <Compile Include="Humanizer\NoMatchFoundException.cs" />
+    <Compile Include="Humanizer\NumberToTimeSpanExtensions.cs" />
+    <Compile Include="Humanizer\NumberToWordsExtension.cs" />
+    <Compile Include="Humanizer\OnNoMatch.cs" />
+    <Compile Include="Humanizer\OrdinalizeExtensions.cs" />
+    <Compile Include="Humanizer\Plurality.cs" />
+    <Compile Include="Humanizer\RegexOptionsUtil.cs" />
+    <Compile Include="Humanizer\RomanNumeralExtensions.cs" />
+    <Compile Include="Humanizer\StringDehumanizeExtensions.cs" />
+    <Compile Include="Humanizer\StringExtensions.cs" />
+    <Compile Include="Humanizer\StringHumanizeExtensions.cs" />
+    <Compile Include="Humanizer\TimeSpanHumanizeExtensions.cs" />
+    <Compile Include="Humanizer\ToQuantityExtensions.cs" />
+    <Compile Include="Humanizer\Transformer\IStringTransformer.cs" />
+    <Compile Include="Humanizer\Transformer\To.cs" />
+    <Compile Include="Humanizer\Transformer\ToLowerCase.cs" />
+    <Compile Include="Humanizer\Transformer\ToSentenceCase.cs" />
+    <Compile Include="Humanizer\Transformer\ToTitleCase.cs" />
+    <Compile Include="Humanizer\Transformer\ToUpperCase.cs" />
+    <Compile Include="Humanizer\TruncateExtensions.cs" />
+    <Compile Include="Humanizer\Truncation\FixedLengthTruncator.cs" />
+    <Compile Include="Humanizer\Truncation\FixedNumberOfCharactersTruncator.cs" />
+    <Compile Include="Humanizer\Truncation\FixedNumberOfWordsTruncator.cs" />
+    <Compile Include="Humanizer\Truncation\ITruncator.cs" />
+    <Compile Include="Humanizer\Truncation\Truncator.cs" />
+    <Compile Include="IClickTrackService.cs" />
+    <Compile Include="IDE\SelectedItemDescriptor.cs" />
+    <Compile Include="IVisualStudioCommand.cs" />
+    <Compile Include="Events\DomainEvents.cs" />
+    <Compile Include="BoostOutputWindowTraceListener.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="ProjectItemExtensions.cs" />
+    <Compile Include="IDE\SelectedItem.cs" />
+    <Compile Include="ProjectExtensions.cs" />
+    <Compile Include="RuntimeBinding\BindingType.cs" />
+    <Compile Include="RuntimeBinding\Configuration\AddBindingElementCollection.cs" />
+    <Compile Include="RuntimeBinding\Configuration\AppDomainAssemblyLocator.cs" />
+    <Compile Include="RuntimeBinding\Configuration\AssemblyFilter.cs" />
+    <Compile Include="RuntimeBinding\Configuration\BindingFilter.cs" />
+    <Compile Include="RuntimeBinding\Configuration\BindingFilterExtensions.cs" />
+    <Compile Include="RuntimeBinding\Configuration\CodeBaseAssemblyLocator.cs" />
+    <Compile Include="RuntimeBinding\Configuration\ContractMapping.cs" />
+    <Compile Include="RuntimeBinding\Configuration\ContractMappingDictionary.cs" />
+    <Compile Include="RuntimeBinding\Configuration\ContractMappingResolver.cs" />
+    <Compile Include="RuntimeBinding\Configuration\IAssemblyLocator.cs" />
+    <Compile Include="RuntimeBinding\Configuration\IgnoreBindingElement.cs" />
+    <Compile Include="RuntimeBinding\Configuration\IgnoreBindingElementCollection.cs" />
+    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingConfiguration.cs" />
+    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingConfigurationSection.cs" />
+    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingConfigurator.cs" />
+    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingElement.cs" />
+    <Compile Include="RuntimeBinding\Configuration\TypeFilter.cs" />
+    <Compile Include="RuntimeBinding\ContainerAdapter.cs" />
+    <Compile Include="RuntimeBinding\DefaultBindingAttribute.cs" />
+    <Compile Include="RuntimeBinding\IContainer.cs" />
+    <Compile Include="RuntimeBinding\IContainerExtensions.cs" />
+    <Compile Include="RuntimeBinding\IgnoreBindingAttribute.cs" />
+    <Compile Include="RuntimeBinding\IRuntimeBindingConfiguration.cs" />
+    <Compile Include="RuntimeBinding\RuntimeBindingAttribute.cs" />
+    <Compile Include="RuntimeBinding\RuntimeBindingDependency.cs" />
+    <Compile Include="RuntimeBinding\SimpleContainer.cs" />
+    <Compile Include="SolutionExtensions.cs" />
+    <Compile Include="AccessModifier.cs" />
+    <Compile Include="IDE\ClassProperty.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Humanizer\Humanizer.csproj.DotSettings" />
+    <None Include="packages.config" />
+    <None Include="Slalom.Boost.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Forms\AddCommandWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\AddTemplateWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\CreateSolutionWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\AddClassWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\Images.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Images.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Forms\Icon.ico" />
+    <Content Include="Microsoft.WindowsAPICodePack.dll" />
+    <Content Include="Microsoft.WindowsAPICodePack.Shell.dll" />
+    <None Include="Resources\icon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

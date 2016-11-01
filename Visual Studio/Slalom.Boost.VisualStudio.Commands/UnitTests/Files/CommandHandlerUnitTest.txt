@@ -1,0 +1,12 @@
+using System;
+using Machine.Specifications;
+
+namespace {{RootNameSpace}}.UnitTests.{{RelativeNamespace}}
+{
+    public class When_handling_a_{{NameSnakeCase}}_command : given.a_configured_{{NameSnakeCase}}_command_handler
+    {
+        private Because of = () => HandleCommand({{DefaultArguments}});
+
+        private It should = () => 1.ShouldEqual(2);
+    }
+}

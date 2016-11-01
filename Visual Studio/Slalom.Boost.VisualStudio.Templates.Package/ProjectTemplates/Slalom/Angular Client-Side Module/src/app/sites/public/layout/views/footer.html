@@ -1,0 +1,16 @@
+﻿<div ng-if="user.authenticated">
+    <div class="nav-actions hidden-lg hidden-md hidden-sm row">
+        <div class="col-xs-3" ui-sref="public.plans" ng-class="{active:$state.includes('public.plans')}">
+            <span class="action icon-Presentation-File"></span>
+        </div>
+        <div class="col-xs-3" ui-sref="public.locations" ng-class="{active:$state.includes('public.locations')}">
+            <span class="action icon-Location-4"></span>
+        </div>
+        <div class="col-xs-3" ui-sref="public.search" ng-class="{active:$state.includes('public.search')}">
+            <span class="action icon-Search-Cloud"></span>
+        </div>
+        <div class="col-xs-3" ui-sref="public.messages" ng-class="{active:$state.includes('public.messages')}">
+            <span class="action icon-Mail"></span>
+        </div>
+    </div>
+</div>

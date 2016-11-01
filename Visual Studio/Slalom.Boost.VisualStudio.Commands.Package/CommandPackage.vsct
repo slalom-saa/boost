@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!--  This is the file that defines the actual layout and type of the commands.
+        It is divided in different sections (e.g. command definition, command
+        placement, ...), with each defining a specific set of properties.
+        See the comment before each section for more details about how to
+        use it. -->
+
+  <!--  The VSCT compiler (the tool that translates this file into the binary
+        format that VisualStudio will consume) has the ability to run a preprocessor
+        on the vsct file; this preprocessor is (usually) the C++ preprocessor, so
+        it is possible to define includes and macros with the same syntax used
+        in C++ files. Using this ability of the compiler here, we include some files
+        defining some of the constants that we will use inside the file. -->
+
+  <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
+  <Extern href="stdidcmd.h" />
+
+  <!--This header contains the command ids for the menus provided by the shell. -->
+  <Extern href="vsshlids.h" />
+
+  <!--The Commands section is where commands, menus, and menu groups are defined.
+      This section uses a Guid to identify the package that provides the command defined inside it. -->
+  <Commands package="guidCommandPackage">
+    <Menus>
+
+      <Menu guid="guidCommandPackageCmdSet" id="ItemContextMenuId" priority="0x100" type="Menu">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemContextMenuGroupId" />
+        <Strings>
+          <ButtonText>Add</ButtonText>
+          <CommandName>Add</CommandName>
+        </Strings>
+      </Menu>
+      
+    </Menus>
+
+
+    <!-- Inside this section we have different sub-sections: one for the menus, another
+    for the menu groups, one for the buttons (the actual commands), one for the combos
+    and the last one for the bitmaps used. Each element is identified by a command id that
+    is a unique pair of guid and numeric identifier; the guid part of the identifier is usually
+    called "command set" and is used to group different command inside a logically related
+    group; your package should define its own command set in order to avoid collisions
+    with command ids defined by other packages. -->
+
+    <!-- In this section you can define new menu groups. A menu group is a container for
+         other menus or buttons (commands); from a visual point of view you can see the
+         group as the part of a menu contained between two lines. The parent of a group
+         must be a menu. -->
+    <Groups>
+
+      <!--
+      Built-in Menus:
+      
+      Solution -> Add:
+      <Parent guid="guidSHLMainMenu" id="cmdidShellWindowNavigate5"/>
+      
+      Project -> Add:
+      <Parent guid="guidSHLMainMenu" id="cmdidShellWindowNavigate7"/>
+      
+      -->
+      
+      <Group guid="guidCommandPackageCmdSet" id="ItemContextMenuGroupId" priority="0x0102">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_ITEMNODE" />
+      </Group>
+      
+       
+      
+      <Group guid="guidCommandPackageCmdSet" id="SolutionContextMenuGroupId" priority="0x0102">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
+      </Group>
+
+      <Group guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="cmdidShellWindowNavigate7" />
+      </Group>
+
+      <Group guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" priority="0x0200">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemContextMenuId" />
+      </Group>
+
+    </Groups>
+
+
+
+    <!--Buttons section. -->
+    <!--This section defines the elements the user can interact with, like a menu command or a button
+        or combo box in a toolbar. -->
+    <Buttons>
+      <!--To define a menu group you have to specify its ID, the parent menu and its display priority.
+          The command is visible and enabled by default. If you need to change the visibility, status, etc, you can use
+          the CommandFlag node.
+          You can add more than one CommandFlag node e.g.:
+              <CommandFlag>DefaultInvisible</CommandFlag>
+              <CommandFlag>DynamicVisibility</CommandFlag>
+          If you do not want an image next to your command, remove the Icon node /> -->
+     
+
+      <Button guid="guidCommandPackageCmdSet" id="AddCommandCommandId" priority="0x0102" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Command</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddAddAggregate" priority="0x0100" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Creation Command</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddAggregateCommand" priority="0x0101" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Command</ButtonText>
+        </Strings>
+      </Button>
+
+
+      <Button guid="guidCommandPackageCmdSet" id="AddWebApiProject" priority="0x0103" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Add Web API Project</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="BindIIS" priority="0x0100" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>IIS Binding</ButtonText>
+        </Strings>
+      </Button>
+      
+
+      <Button guid="guidCommandPackageCmdSet" id="AddUnitTestsCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Unit Tests</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddCommandHandlerCommandId" priority="0x0102" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Command Handler</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddInputValidationCommandId" priority="0x0101" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Input Validation</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="InRoleRule" priority="0x0102" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Security Rule</ButtonText>
+        </Strings>
+      </Button>
+      
+      <Button guid="guidCommandPackageCmdSet" id="AddBusinessRuleCommandId" priority="0x0103" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Business Rule</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddReadModelCommandId" priority="0x0101" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Read Model</ButtonText>
+        </Strings>
+      </Button>
+
+      <!--<Button guid="guidCommandPackageCmdSet" id="AddReadModelPlus" priority="0x0102" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Read Model Plus</ButtonText>
+        </Strings>
+      </Button>-->
+
+      <Button guid="guidCommandPackageCmdSet" id="AddDenormalizer" priority="0x0103" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Synchronizer</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddEFMapping" priority="0x0104" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>EF Mapping</ButtonText>
+        </Strings>
+      </Button>
+
+      <!--<Button guid="guidCommandPackageCmdSet" id="AddDocumentRepository" priority="0x0103" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Document Repository</ButtonText>
+        </Strings>
+      </Button>-->
+      
+       <Button guid="guidCommandPackageCmdSet" id="AddEntityFrameworkRepository" priority="0x0103" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>EF Repository</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddEntityFrameworkRepository" priority="0x0103" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>EF Repository</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddIntegrationTestsCommandId" priority="0x0104" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Integration Test</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddReadModelQueryCommand" priority="0x0100" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Search Command</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddPowerShellScript" priority="0x0500" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Powershell Script</ButtonText>
+        </Strings>
+      </Button>
+
+
+      <!--<Button guid="guidCommandPackageCmdSet" id="AddReadModelQueries" priority="0x0101" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Queries</ButtonText>
+        </Strings>
+      </Button>-->
+
+      <Button guid="guidCommandPackageCmdSet" id="AddAggregateRoot" priority="0x0100" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Aggregate</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddEventSource" priority="0x0101" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Event Source</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddValueObject" priority="0x0102" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" /> 
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Value Object</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddEvent" priority="0x0103" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Event</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddControllerCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>API Endpoint</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidCommandPackageCmdSet" id="AddAdminController" priority="0x0101" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="FolderAndProjectAddMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Admin Controller</ButtonText>
+        </Strings>
+      </Button>
+
+
+      <Button guid="guidCommandPackageCmdSet" id="AddControllerCommandId" priority="0x0200" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="ItemMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Web API Controller</ButtonText>
+        </Strings>
+      </Button>
+
+
+      <!--<Button guid="guidCommandPackageCmdSet" id="RunPreCommitScripts" priority="0x0100" type="Button">
+        <Parent guid="guidCommandPackageCmdSet" id="SolutionContextMenuGroupId" />
+        <Icon guid="guidImages" id="bmpPic4" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Run Pre-Commit Scripts</ButtonText>
+        </Strings>
+      </Button>-->
+
+    </Buttons>
+
+    <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
+    <Bitmaps>
+      <!--  The bitmap id is defined in a way that is a little bit different from the others:
+            the declaration starts with a guid for the bitmap strip, then there is the resource id of the
+            bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
+            inside a button definition. An important aspect of this declaration is that the element id
+            must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
+      <Bitmap guid="guidImages" href="Resources\BoostIcons.png" usedList="bmpPic1, bmpPic2, bmpPic3, bmpPic4, bmpPicArrows, bmpPicStrikethrough" />
+    </Bitmaps>
+  </Commands>
+
+  <Symbols>
+    <!-- This is the package guid. -->
+    <GuidSymbol name="guidCommandPackage" value="{ba82a65e-0dce-423d-9264-9207225cc00c}" />
+
+    <!-- This is the guid used to group the menu commands together -->
+    <GuidSymbol name="guidCommandPackageCmdSet" value="{e1342b02-f473-4944-b0d1-1396210dea66}">
+      
+      <IDSymbol name="ItemContextMenuGroupId" value="0x0100" />
+      
+      <IDSymbol name="ItemContextMenuId" value="0x0200" />
+      <IDSymbol name="SolutionContextMenuGroupId" value="0x0201" />
+      
+      <IDSymbol name="FolderAndProjectAddMenuGroupId" value="0x0300" />
+      <IDSymbol name="ItemMenuGroupId" value="0x0302" />
+
+      <IDSymbol name="AddAggregateRoot" value="0x0404" />
+
+
+      <IDSymbol name="AddUnitTestsCommandId" value="0x0401" />
+      <IDSymbol name="AddCommandCommandId" value="0x0402" />
+      <IDSymbol name="AddBusinessRuleCommandId" value="0x0403" />
+      
+      <IDSymbol name="AddCommandHandlerCommandId" value="0x0405" />
+      <IDSymbol name="AddInputValidationCommandId" value="0x0406" />
+      <IDSymbol name="AddReadModelCommandId" value="0x0407" />
+      <IDSymbol name="RunPreCommitScripts" value="0x0408" />
+      <IDSymbol name="AddDocumentRepository" value="0x0410" />
+      <IDSymbol name="AddDatabaseCommandId" value="0x0411" />
+      <IDSymbol name="AddWebApiProject" value="0x0412" />
+      <IDSymbol name="AddIntegrationTestsCommandId" value="0x0500" />
+      <IDSymbol name="AddControllerCommandId" value="0x0501" />
+      <IDSymbol name="AddValueObject" value="0x0502" />
+      <IDSymbol name="AddDenormalizer" value="0x0505" />
+      <IDSymbol name="AddEventSource" value="0x0506" />
+      <IDSymbol name="AddReadModelPlus" value="0x0507" />
+      <IDSymbol name="AddEFMapping" value="0x0508" />
+      <IDSymbol name="InRoleRule" value="0x0509" />
+      <IDSymbol name="AddEntityFrameworkRepository" value="0x0510" />
+      <IDSymbol name="AddEvent" value="0x0513" />
+      <IDSymbol name="BindIIS" value="0x0514" />
+      <IDSymbol name="AddAggregateCommand" value="0x0515" />
+      <IDSymbol name="AddReadModelQueryCommand" value="0x0516" />
+      <IDSymbol name="AddReadModelQueries" value="0x0517" />
+      <IDSymbol name="AddPowerShellScript" value="0x0518" />
+      <IDSymbol name="AddAddAggregate" value="0x0519" />
+      <IDSymbol name="AddAdminController" value="0x0520"/>
+
+      <IDSymbol value="1305" name="cmdidReferenceToolWindowCommand" />
+    </GuidSymbol>
+
+    <GuidSymbol name="guidImages" value="{276d42c9-48ef-4a97-92f0-511e2aa13a63}">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPic3" value="3" />
+      <IDSymbol name="bmpPic4" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  
+    <GuidSymbol value="{a58320c3-7bd9-4168-976b-b92b1fa441b9}" name="guidImages1">
+      <IDSymbol name="bmpPic1" value="1" />
+      <IDSymbol name="bmpPic2" value="2" />
+      <IDSymbol name="bmpPicSearch" value="3" />
+      <IDSymbol name="bmpPicX" value="4" />
+      <IDSymbol name="bmpPicArrows" value="5" />
+      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1CC476A8-07C9-4D81-8BEA-8206A899C44F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5BCD9F9F-CCDC-4948-B52F-D2630EFA9918}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Test.Identity", "src\Test.Identity\Test.Identity.xproj", "{093AD9D4-F8A0-4424-9919-5FCFC5EC0317}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Test.Api", "src\Test.Api\Test.Api.xproj", "{CC28DD77-BAC7-4AA6-BA74-644A1CBD5A96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{093AD9D4-F8A0-4424-9919-5FCFC5EC0317}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{093AD9D4-F8A0-4424-9919-5FCFC5EC0317}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{093AD9D4-F8A0-4424-9919-5FCFC5EC0317}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{093AD9D4-F8A0-4424-9919-5FCFC5EC0317}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC28DD77-BAC7-4AA6-BA74-644A1CBD5A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC28DD77-BAC7-4AA6-BA74-644A1CBD5A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC28DD77-BAC7-4AA6-BA74-644A1CBD5A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC28DD77-BAC7-4AA6-BA74-644A1CBD5A96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{093AD9D4-F8A0-4424-9919-5FCFC5EC0317} = {1CC476A8-07C9-4D81-8BEA-8206A899C44F}
+		{CC28DD77-BAC7-4AA6-BA74-644A1CBD5A96} = {1CC476A8-07C9-4D81-8BEA-8206A899C44F}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,23 @@
+﻿
+/*#region Open Sans */
+
+$open-sans-path: "../fonts/open-sans" !default;
+
+@mixin open-sans-font-face( $font, $svgid, $weight: normal, $style: normal ) {
+    @font-face {
+        font-family: 'Open Sans';
+        src: url('#{$open-sans-path}/#{$font}/opensans-#{$font}-webfont.eot');
+        src: url('#{$open-sans-path}/#{$font}/opensans-#{$font}-webfont.eot?#iefix') format('embedded-opentype'), url('#{$open-sans-path}/#{$font}/opensans-#{$font}-webfont.woff') format('woff'), url('#{$open-sans-path}/#{$font}/opensans-#{$font}-webfont.ttf') format('truetype'), url('#{$open-sans-path}/#{$font}/opensans-#{$font}-webfont.svg##{$svgid}') format('svg');
+        font-weight: $weight;
+        font-style: $style;
+    }
+}
+
+@include open-sans-font-face( 'light', 'OpenSansLight', 300 );
+@include open-sans-font-face( 'regular', 'OpenSansRegular' );
+@include open-sans-font-face( 'bold', 'OpenSansBold', bold );
+
+/*#endregion */
+
+
+@import "../../../bower_components/font-awesome/scss/font-awesome";

@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Slalom.Boost.Validation;
+
+namespace {{ProjectItem.GetNamespace()}}.Rules
+{
+	// TODO: Update permissions name [permissions]
+	// TODO: Update class name [has_permissions]
+    // TODO: Implement validation
+
+	/// <summary>
+    /// Validates the <see cref="{{ProjectItem.GetClassName()}}"/> by ensuring that [permissions] are met.
+    /// </summary>
+    public class has_permissions : SecurityValidationRule<{{ProjectItem.GetClassName()}}>
+    {
+	    /// <summary>
+        /// Validates the specified instance.
+        /// </summary>
+        /// <param name="instance">The instance to validate.</param>
+		/// <returns>Returns all found validation errors.</returns>
+        public override IEnumerable<ValidationMessage> Validate({{ProjectItem.GetClassName()}} instance)
+        {
+        }
+    }
+}

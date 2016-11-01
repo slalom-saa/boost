@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="Slalom.Boost.Learn.HomeControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:learn="clr-namespace:Slalom.Boost.Learn"
+             mc:Ignorable="d" 
+             x:Name="_this"
+             d:DesignHeight="800" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="SharedStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <FlowDocumentScrollViewer VerticalScrollBarVisibility="Auto">
+        <FlowDocument>
+            <Paragraph FontSize="20">Welcome to Slalom Boost</Paragraph>
+            <Paragraph LineHeight="1" Margin="0 0 0 10">
+                <TextBlock FontWeight="Bold">Quick start</TextBlock>
+            </Paragraph>
+            <List>
+                <ListItem>
+                    <Paragraph>
+                        <Hyperlink TextDecorations="" NavigateUri="CreateSolution" RequestNavigate="HandleCommandRequest">
+                            Create a new solution...</Hyperlink>
+                    </Paragraph>
+                </ListItem>
+                <ListItem>
+                    <Paragraph>
+                        <Hyperlink TextDecorations="" NavigateUri="AddAggregate" RequestNavigate="HandleCommandRequest">Add one or more aggregates to the solution...</Hyperlink>
+                    </Paragraph>
+                </ListItem>
+                <ListItem>
+                    <Paragraph>
+                        <Hyperlink TextDecorations="" NavigateUri="RunWithoutDebugging" RequestNavigate="HandleCommandRequest">Run the application</Hyperlink>
+                    </Paragraph>
+                </ListItem>
+            </List>
+            <Paragraph Margin="0 15 0 0" FontStyle="Italic" FontSize="14" Foreground="#444">When finished, open the created files, navigate the
+                <Hyperlink TextDecorations="" NavigateUri="Reference" RequestNavigate="HandleNavigate">references</Hyperlink> and browse the
+                <Hyperlink TextDecorations="" NavigateUri="OpenDocuments" RequestNavigate="HandleCommandRequest">documents</Hyperlink>.
+            </Paragraph>
+            <Paragraph Margin="0 10 0 0">
+                <TextBlock FontWeight="Bold" Margin="0 15 0 0">Tutorials</TextBlock>
+            </Paragraph>
+            <List MarkerStyle="None" Padding="5 0 0 0">
+                <ListItem>
+                    <Paragraph>
+                       ...
+                    </Paragraph>
+                </ListItem>
+            </List>
+            <Paragraph Margin="0 10 0 0">
+                <TextBlock FontWeight="Bold" Margin="0 15 0 0">Examples</TextBlock>
+            </Paragraph>
+            <List MarkerStyle="None" Padding="5 0 0 0">
+                <ListItem>
+                    <Paragraph>
+                        ...
+                    </Paragraph>
+                </ListItem>
+            </List>
+        </FlowDocument>
+    </FlowDocumentScrollViewer>
+</UserControl>

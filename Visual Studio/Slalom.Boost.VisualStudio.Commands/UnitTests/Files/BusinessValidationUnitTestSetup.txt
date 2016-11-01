@@ -1,0 +1,39 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using {{RootNameSpace}}.Application.Commands.{{Name}};
+using {{RootNameSpace}}.Application.Commands.{{Name}}.Rules;
+
+using Slalom.Boost.Validation;
+using Slalom.Boost.Domain;
+
+using Machine.Specifications;
+using Moq;
+
+namespace {{RootNameSpace}}.UnitTests.Application.Commands.{{Name}}.given
+{
+	[Subject(typeof({{Rule}}))]
+    public class a_configured_{{Rule}}_rule
+    {
+        protected static {{Rule}} Rule;
+
+        protected static {{Name}}Command Command;
+
+        protected static List<ValidationMessage> Result;
+
+		protected static Mock<IRepository> Repository;
+
+		private Establish context = () =>
+        {
+            Repository = new Mock<IRepository>();
+            Rule = new {{Rule}}(Repository.Object);
+        };
+
+        protected static void ValidateCommand({{CommandSignature}})
+        {
+            Command = new {{Name}}Command({{CommandArguments}});
+            Result = Rule.Validate(Command).ToList();
+        }
+    }
+}

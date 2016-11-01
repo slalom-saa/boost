@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TemplateReport>
+  <ItemTemplates />
+  <ProjectTemplates>
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Angular Client-Side Module\_Definitions\CSharp.vstemplate" Name="Angular Client-Side Module" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\Empty Application\_Definitions\CSharp.vstemplate" Name="Product.Project.Module.Application" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\Empty Automation\_Definition\CSharp.vstemplate" Name="Product.Project.Module.Automation" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\Empty Domain\_Definitions\CSharp.vstemplate" Name="Product.Project.Module.Domain" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\Empty Integration Tests\_Definitions\CSharp.vstemplate" Name="Product.Project.Module.IntegrationTests" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\Empty Persistence\_Definition\CSharp.vstemplate" Name="Product.Project.Module.Persistence" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\Empty Read Model\_Definitions\CSharp.vstemplate" Name="Product.Project.Module.ReadModel" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\Empty Unit Tests\_Definitions\CSharp.vstemplate" Name="Product.Project.Module.UnitTests" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\Empty WebAPI\_Definition\Web.CSharp.vstemplate" Name="Product.Project.Module.WebApi" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+    <ProjectTemplate Path="ProjectTemplates\Slalom\Server-Side Module\_Definitions\CSharp.vstemplate" Name="Server-Side Module" Description="&lt;No description available&gt;" ProjectType="CSharp" ProjectSubType="" />
+  </ProjectTemplates>
+  <Snippets />
+</TemplateReport>

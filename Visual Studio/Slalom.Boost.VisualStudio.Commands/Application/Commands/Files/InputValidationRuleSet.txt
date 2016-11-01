@@ -1,0 +1,44 @@
+﻿using Slalom.Boost.Domain.Concepts;
+using Slalom.Boost.Validation;
+using Slalom.Boost.Validation.Rules;
+using System.Collections.Generic;
+
+namespace {{RootNamespace}}.Application.{{Namespace}}.Rules
+{
+    /// <summary>
+    /// Validates the input of the <seealso cref="{{Name}}Command"/> for basic correctness.
+    /// </summary>
+    /// <remarks>
+    /// Only simple validation should be done in the input validation rule.  Domain rules should be implemented
+    /// in the domain.  Some basic rules can be consumed from the domain by using concepts or classes that implement
+    /// <seealso cref="IValidate"/>
+    /// </remarks>
+    /// <seealso cref="ConceptAs{TValue}"/>
+    /// <seealso cref="IValidate"/>
+    /// <seealso cref="ISecurityValidationRule{T}"/>
+    /// <seealso cref="IBusinessValidationRule{T}"/>
+    public class {{Rule}} : InputValidationRuleSet<{{Name}}Command>
+    {
+	    /// <summary>
+        /// Initializes a new instance of the <see cref="{{Rule}}"/> class.
+        /// </summary>
+        public {{Rule}}()
+        {
+{{Rules}}
+            // if a property is also intended to be a concept use the valid builder
+            //this.Add(e => e.PhoneNumber)
+            //    .Valid<PhoneNumber>();
+        }
+
+        /// <summary>
+        /// Validates the specified instance.
+        /// </summary>
+        /// <param name="instance">The instance to validate.</param>
+        /// <returns>Returns all found validation errors.</returns>
+        public override IEnumerable<ValidationMessage> Validate({{Name}}Command instance)
+        {
+			// Any additional validation can be added here.
+            return base.Validate(instance);
+        }
+    }
+}

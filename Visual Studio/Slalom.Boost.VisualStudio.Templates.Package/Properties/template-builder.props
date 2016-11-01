@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- 
+    You can override TemplateBuilder properties here.
+   -->
+  <PropertyGroup>
+    <!-- This is the subfolder name where the templates will show up in Visual Studio. -->
+    <ls-TemplateSubFolder>Boost</ls-TemplateSubFolder>
+
+    <!---
+    You can set the following property to false to disable creating the template report
+    -->
+    <!--<ls-GenerateTemplateReport>false</ls-GenerateTemplateReport>-->
+  </PropertyGroup>
+</Project>

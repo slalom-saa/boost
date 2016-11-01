@@ -1,0 +1,21 @@
+﻿using System;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.OData;
+using Slalom.Boost.WebApi.Controllers;
+using System.Threading.Tasks;
+
+namespace {{RootNamespace}}.Controllers
+{
+	// TODO: Remove AllowAnonymous if the user should authenticate
+
+    [RoutePrefix("admin"), AllowAnonymous]
+    public class AdminController : BoostAdminController
+    {
+        [Route("command-results"), HttpGet]
+        public override dynamic QueryCommandResults()
+        {
+            return base.QueryCommandResults();
+        }
+    }
+}

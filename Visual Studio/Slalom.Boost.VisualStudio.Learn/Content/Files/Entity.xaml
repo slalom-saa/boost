@@ -1,0 +1,81 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Paragraph FontSize="20">Entity</Paragraph>
+    <Paragraph>
+        <Run FontStyle="Italic">Many objects represent a thread of continuity and identity, going through a lifecycle, though their attributes may change.</Run>
+    </Paragraph>
+    <Paragraph LineHeight="10">
+        <Run>Some objects are not defined primarily by their attributes. They represent a thread of identity that runs through time and often across distinct representations. Sometimes such an object must be matched with another object even though attributes differ. An object must be distinguished from other objects even though they might have the same attributes. Mistaken identity can lead to data corruption.</Run>
+    </Paragraph>
+    <Paragraph LineHeight="1">
+        <Hyperlink NavigateUri="https://docs.google.com/viewer?a=v&amp;pid=sites&amp;srcid=ZGVmYXVsdGRvbWFpbnxpamF6d2lra2l8Z3g6NmI0ZGNlMGIwNjZhMmYzNA" >Domain-Driven Design Reference</Hyperlink>
+    </Paragraph>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Tasks</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                Add commands
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Related Elements</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="Concept">Concept (Value Object)</Hyperlink>
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="Aggregate">Aggregate</Hyperlink>
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="DomainEvent">Domain Event</Hyperlink>
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Additional Reading</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://www.safaribooksonline.com/library/view/microsoft-net-architecting/9780133986419/ch08.html">Microsoft .NET: Architecting Applications for the Enterprise</Hyperlink>
+                <LineBreak></LineBreak>
+                Chapter 8. Introducing Domain Model
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://www.safaribooksonline.com/library/view/implementing-domain-driven-design/9780133039900/ch05.html">Implementing Domain-Driven Design</Hyperlink>
+                <LineBreak></LineBreak>
+                Chapter 5. Entities
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Courses</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://app.pluralsight.com/library/courses/modern-software-architecture-domain-models-cqrs-event-sourcing/table-of-contents">Modern Software Architecture: Domain Models, CQRS, and Event Sourcing</Hyperlink>
+                <LineBreak></LineBreak>
+                by Dino Esposito
+            </Paragraph>
+            
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://app.pluralsight.com/library/courses/n-tier-apps-part1/table-of-contents">Creating N-Tier Applications in C#, Part 1</Hyperlink>
+                <LineBreak></LineBreak>
+                by Steve Smith
+            </Paragraph>
+        </ListItem>
+    </List>
+</FlowDocument>

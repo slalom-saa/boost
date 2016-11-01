@@ -1,0 +1,26 @@
+﻿using System;
+using System.Data.Entity.ModelConfiguration;
+using System.Linq;
+using {{ProjectItem.GetNamespace()}};
+
+namespace {{Project.GetModuleName()}}.Persistence.Domain
+{
+    /// <summary>
+    /// Contains the Entity Framework mapping for the <see cref="{{ProjectItem.GetClassName()}}" /> class.
+    /// </summary>
+	/// <seealso boost="Entity Framework Mapping"/>
+    public class {{ProjectItem.GetClassName()}}Mapping : EntityTypeConfiguration<{{ProjectItem.GetClassName()}}>
+    {
+	    /// <summary>
+        /// Initializes a new instance of the <see cref="{{ProjectItem.GetClassName()}}Mapping"/> class.
+        /// </summary>
+        public {{ProjectItem.GetClassName()}}Mapping()
+        {		
+			// Table
+            this.ToTable("{{ProjectItem.GetClassName()}}");
+
+			// Key
+            this.HasKey(e => e.Id);            
+        }
+    }
+}

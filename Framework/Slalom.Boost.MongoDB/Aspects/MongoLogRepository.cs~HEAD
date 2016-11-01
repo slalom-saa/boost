@@ -1,0 +1,66 @@
+﻿using System;
+using System.Configuration;
+using System.Linq;
+using MongoDB.Driver;
+using Slalom.Boost.Aspects;
+using Slalom.Boost.RuntimeBinding;
+
+namespace Slalom.Boost.MongoDB.Aspects
+{
+    /// <summary>
+    /// A MongoDB <see cref="ILogRepository"/> implementation.
+    /// </summary>
+    /// <seealso cref="ILogRepository" />
+    public abstract class MongoLogRepository : ILogRepository
+    {
+        private readonly Lazy<IMongoCollection<LogEntry>> _collection;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoLogRepository"/> class.
+        /// </summary>
+        protected MongoLogRepository()
+            : this(ConfigurationManager.AppSettings["mongo:Database"])
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoLogRepository" /> class.
+        /// </summary>
+        protected MongoLogRepository(string database)
+        {
+            _collection = new Lazy<IMongoCollection<LogEntry>>(() => (this.Factory ?? new MongoConnectionFactory()).GetCollection<LogEntry>(database, "Logs"));
+
+            MongoMappings.EnsureInitialized(this);
+        }
+
+        /// <summary>
+        /// Gets or sets the current <see cref="IMongoConnectionFactory"/> instance.
+        /// </summary>
+        /// <value>The current <see cref="IMongoConnectionFactory"/> instance.</value>
+        [RuntimeBindingDependency]
+        public IMongoConnectionFactory Factory { get; set; }
+
+        /// <summary>
+        /// Writes the specified message to the log.
+        /// </summary>
+        /// <param name="message">The message to write.</param>
+        /// <param name="correlationId">The correlation identifier.</param>
+        /// <param name="severity">The message severity.</param>
+        /// <param name="data">Additional data to write to the log.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="message" /> argument is null.</exception>
+        public void Add(object message, Guid correlationId, LogSeverity severity, params object[] data)
+        {
+            _collection.Value.InsertOne(new LogEntry(message, data, correlationId, LogSeverity.Warning));
+        }
+
+        /// <summary>
+        /// Finds all <see cref="T:Slalom.Boost.Aspects.LogEntry" /> instances.
+        /// </summary>
+        /// <returns>An IQueryable&lt;LogEntry&gt; that can be used to filter and project.</returns>
+        public IQueryable<LogEntry> Find()
+        {
+            return _collection.Value.AsQueryable()
+                              .OrderByDescending(e => e.Timestamp);
+        }
+    }
+}

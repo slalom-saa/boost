@@ -1,0 +1,25 @@
+﻿using System;
+using System.Linq;
+using Slalom.Boost.Commands;
+
+namespace {{RootNamespace}}.Query{{Name.Pluralize()}}
+{
+    // TODO: Update the task description [task]    
+    // TODO: Use the context menu to add any security rules
+	// TODO: Update the documentation URL [Documentation URL]
+
+    /// <summary>
+    /// An imperative message to [task].
+    /// </summary>
+	/// <seealso href="[Documentation URL]"/>
+	/// <seealso boost="Command"/>
+    public class Query{{Name.Pluralize()}}Command : Command<IQueryable<{{Name}}ReadModel>>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Query{{Name.Pluralize()}}Command"/> class.
+        /// </summary>
+        public Query{{Name.Pluralize()}}Command()
+        {
+        }
+    }
+}

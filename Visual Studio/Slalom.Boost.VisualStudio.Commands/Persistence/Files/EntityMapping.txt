@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity.ModelConfiguration;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using {{Namespace}};
+
+// TODO: Update to appropriate table name.
+
+namespace {{RootNamespace}}.Persistence.Queries
+{
+    /// <summary>
+    /// Contains the Entity Framework mapping for the <see cref="{{ProjectItem.ClassName}}" /> class.
+    /// </summary>
+    public class {{ProjectItem.ClassName}}Mapping : EntityTypeConfiguration<{{ProjectItem.ClassName}}>
+    {
+	    /// <summary>
+        /// Initializes a new instance of the <see cref="{{ProjectItem.ClassName}}Mapping"/> class.
+        /// </summary>
+        public {{ProjectItem.ClassName}}Mapping()
+        {		
+			// Table
+            this.ToTable("{{ProjectItem.ClassName}}");
+
+			// Key
+            this.HasKey(e => e.Id);            
+        }
+    }
+}

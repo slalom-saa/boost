@@ -1,0 +1,31 @@
+﻿.view-icons {
+    .content {
+        padding: 10px 15px 15px 15px;
+
+        .form-group {
+            margin-bottom: 15px;
+            margin-top:20px;
+            margin-left:20px;
+        }
+    }
+
+    .icon-container {
+        .icon-item {
+            width: 75px;
+            display: inline-block;
+            text-align: center;
+
+
+            span {
+                display: block;
+                margin-bottom: 20px;
+            }
+
+            .icon {
+                font-size: 30px;
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+    }
+}

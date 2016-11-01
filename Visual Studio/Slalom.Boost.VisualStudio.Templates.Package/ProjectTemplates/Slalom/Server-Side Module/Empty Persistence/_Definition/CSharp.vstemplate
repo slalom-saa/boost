@@ -1,0 +1,34 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Product.Project.Module.Persistence</Name>
+    <Description>&lt;No description available&gt;</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>4</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Product.Project.Module.EntityFramework</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>icon.ico</Icon>
+    <Hidden>true</Hidden>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Boost.Module3.EntityFramework.csproj" File="Boost.Module3.EntityFramework.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="DataContext.cs">DataContext.cs</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="ReadModelFacade.cs">ReadModelFacade.cs</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Aspects" TargetFolderName="Aspects">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AuditStore.cs">AuditStore.cs</ProjectItem>
+        <ProjectItem ReplaceParameters="true" TargetFileName="EventStore.cs">EventStore.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Aspects" TargetFolderName="Aspects">
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

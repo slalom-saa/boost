@@ -1,0 +1,15 @@
+﻿using System;
+using Machine.Specifications;
+
+using {{Command.GetNamespace()}};
+using {{ProjectItem.GetNamespace()}};
+
+namespace {{Project.GetModuleName()}}.UnitTests.Application.Commands.{{Command.GetClassName().Substring(0, 9)}}
+{
+    public class When_validating_{{Command.GetClassName().ToSnakeCase()}}_command_input_with_invalid_input : given.a_configured_{{ProjectItem.GetClassName()}}_rule
+    {
+        Because of = () => ValidateCommand({{Command.GetCodeProperties().GetDefaultConstructorArguments()}});
+
+        It should_have_a_validation_results = () => Result.ShouldNotBeEmpty();
+    }
+}

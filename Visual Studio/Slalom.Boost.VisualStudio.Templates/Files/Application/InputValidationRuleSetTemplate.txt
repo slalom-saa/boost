@@ -1,0 +1,33 @@
+﻿using System;
+using Slalom.Boost.Commands;
+using Slalom.Boost.Validation;
+using System.Collections.Generic;
+
+namespace {{ProjectItem.GetNamespace()}}.Rules
+{
+    /// <summary>
+    /// Validates the input of the <seealso cref="{{ProjectItem.GetClassName()}}"/> for basic correctness.
+    /// </summary>
+    public class {{Name}} : InputValidationRuleSet<{{ProjectItem.GetClassName()}}>
+    {
+	    /// <summary>
+        /// Initializes a new instance of the <see cref="{{Name}}"/> class.
+        /// </summary>
+        public {{Name}}()
+        {
+{{Rules}}
+        }
+
+        /// <summary>
+        /// Validates the specified instance.
+        /// </summary>
+        /// <param name="instance">The instance to validate.</param>
+		/// <param name="context">The current command context.</param>
+        /// <returns>Returns all found validation errors.</returns>
+        public override IEnumerable<ValidationMessage> Validate({{ProjectItem.GetClassName()}} instance, CommandContext context)
+        {
+			// Any additional validation can be added here.
+            return base.Validate(instance, context);
+        }
+    }
+}

@@ -1,0 +1,23 @@
+﻿using System;
+using Slalom.Boost.ReadModel;
+
+namespace {{Project.GetModuleName()}}.ReadModel.{{ProjectItem.GetClassName().Pluralize()}}
+{
+	// TODO: Update the purpose of the read model [purpose]	
+
+    /// <summary>
+    /// Provides a read model for [purpose].
+    /// </summary>
+	/// <seealso boost="Read Model"/>
+    public class {{ProjectItem.GetClassName()}} : IReadModelElement
+    {
+{{IdProperty}}
+{{Properties.GetPublicPropertyDeclaration()}}
+
+		/// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>The identifier.</value>
+        public Guid Id { get; set; } = Guid.NewGuid();
+    }
+}

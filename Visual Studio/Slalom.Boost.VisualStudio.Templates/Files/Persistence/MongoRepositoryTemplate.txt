@@ -1,0 +1,24 @@
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Data.Entity;
+using Slalom.Boost.MongoDB;
+using {{ProjectItem.GetNamespace()}};
+
+namespace {{Project.GetModuleName()}}.Persistence.Domain
+{
+	/// <summary>
+    /// Provides a repository for <see cref="{{ProjectItem.GetClassName()}}" /> entities.
+    /// </summary>
+	/// <seealso boost="Repository"/>
+	/// <seealso boost="Mongo Repository"/>
+	public class {{ProjectItem.GetClassName()}}Repository : MongoRepository<{{ProjectItem.GetClassName()}}>
+    {
+		/// <summary>
+        /// Initializes a new instance of the <see cref="{{ProjectItem.GetClassName()}}Repository"/> class.
+        /// </summary>
+        public {{ProjectItem.GetClassName()}}Repository()
+        {
+        }		
+    }
+}

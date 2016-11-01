@@ -1,0 +1,37 @@
+{
+  "name": "ASP.NET",
+  "private": true,
+  "dependencies": {
+    "moment": "2.13.0",
+    "bootstrap": "3.3.6",
+    "angular": "1.5.2",
+    "angular-bootstrap": "1.2.5",
+    "angular-toastr": "1.7.0",
+    "ngstorage": "0.3.10",
+    "angular-ui-router": "0.2.18",
+    "angular-datatables": "0.5.4",
+    "angular-timeline": "1.6.2",
+    "font-awesome": "4.5.0",
+    "open-sans": "1.1.0",
+    "angular-animate": "1.5.5"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    },
+    "angular-bootstrap": {
+      "main": [
+        "ui-bootstrap.js",
+        "ui-bootstrap-tpls.js",
+        "ui-bootstrap-csp.css"
+      ]
+    }
+  },
+  "resolutions": {
+    "angular": ">=1.1.7"
+  }
+}

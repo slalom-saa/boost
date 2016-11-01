@@ -1,0 +1,16 @@
+﻿using System;
+using Slalom.Boost.Queries;
+
+namespace {{RootNamespace}}.Application.{{RelativeNamespace}}
+{
+	// TODO: Update the purpose of the read model [purpose]
+
+    /// <summary>
+    /// Provides a read model for [purpose].
+    /// </summary>
+	/// <seealso boost="Read Model"/>
+    public class {{Name}} : IReadModel
+    {
+{{PropertyDeclaration}}
+    }
+}

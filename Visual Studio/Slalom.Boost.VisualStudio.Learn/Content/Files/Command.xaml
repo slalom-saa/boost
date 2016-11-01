@@ -1,0 +1,67 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Paragraph FontSize="20">Command</Paragraph>
+    <Paragraph LineHeight="2">
+        <Run>A command is an imperative message that sounds like an explicit request made to the system to have some tasks performed. Here are some other characteristics of a command:</Run>
+    </Paragraph>
+    <List MarkerStyle="Box" Margin="0 10 0 0">
+        <ListItem>
+            <Paragraph>A command is directed at one handler.</Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>A command can be rejected by the system.</Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>A command can fail while being executed by some handler.</Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>The net effect of the command can be different depending on the current state of the system.</Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>A command doesn’t generally trespass the boundaries of a given bounded context.</Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Tasks</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                Add any input, validation or business rules
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Add a command return type if any (i.e. Command<![CDATA[<]]> Guid<![CDATA[>]]>)
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Related Elements</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="CommandHandler">Command Handler</Hyperlink>
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Additional Reading</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://www.safaribooksonline.com/library/view/microsoft-net-architecting/9780133986419/ch10.html">Microsoft .NET: Architecting Applications for the Enterprise</Hyperlink>
+                <LineBreak></LineBreak>
+                Chapter 10. Introducing CQRS
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://www.safaribooksonline.com/library/view/reactive-messaging-patterns/9780133846904/ch06.html">Reactive Messaging Patterns with the Actor Model</Hyperlink>
+                <LineBreak></LineBreak>
+                Chapter 6: Message Construction
+            </Paragraph>
+        </ListItem>
+    </List>
+</FlowDocument>

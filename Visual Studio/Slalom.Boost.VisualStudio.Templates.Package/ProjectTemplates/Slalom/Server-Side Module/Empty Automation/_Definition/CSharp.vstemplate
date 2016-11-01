@@ -1,0 +1,43 @@
+<VSTemplate Version="3.0.0" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" Type="Project">
+  <TemplateData>
+    <Name>Product.Project.Module.Automation</Name>
+    <Description>&lt;No description available&gt;</Description>
+    <ProjectType>CSharp</ProjectType>
+    <ProjectSubType>
+    </ProjectSubType>
+    <SortOrder>1000</SortOrder>
+    <CreateNewFolder>true</CreateNewFolder>
+    <DefaultName>Product.Project.Module.Automation</DefaultName>
+    <ProvideDefaultName>true</ProvideDefaultName>
+    <LocationField>Enabled</LocationField>
+    <EnableLocationBrowseButton>true</EnableLocationBrowseButton>
+    <Icon>__TemplateIcon.ico</Icon>
+    <Hidden>true</Hidden>
+  </TemplateData>
+  <TemplateContent>
+    <Project TargetFileName="Server.Automation.csproj" File="Server.Automation.csproj" ReplaceParameters="true">
+      <ProjectItem ReplaceParameters="true" TargetFileName="App.config">App.config</ProjectItem>
+      <ProjectItem ReplaceParameters="true" TargetFileName="packages.config">packages.config</ProjectItem>
+      <Folder Name="Properties" TargetFolderName="Properties">
+        <ProjectItem ReplaceParameters="true" TargetFileName="AssemblyInfo.cs">AssemblyInfo.cs</ProjectItem>
+      </Folder>
+      <Folder Name="Scripts" TargetFolderName="Scripts">
+        <ProjectItem ReplaceParameters="false" TargetFileName="Import Data.ps1">Import Data.ps1</ProjectItem>
+        <ProjectItem ReplaceParameters="false" TargetFileName="Import Data Job.ps1">Import Data Job.ps1</ProjectItem>
+        <Folder Name="Libraries" TargetFolderName="Libraries">
+          <Folder Name="Azure" TargetFolderName="Azure">
+            <ProjectItem ReplaceParameters="false" TargetFileName="Backup-SqlAzureDatabase.ps1">Backup-SqlAzureDatabase.ps1</ProjectItem>
+          </Folder>
+        </Folder>
+        <Folder Name="Commands" TargetFolderName="Commands">
+        </Folder>
+        <Folder Name="Configuration" TargetFolderName="Configuration">
+          <ProjectItem ReplaceParameters="false" TargetFileName="Configuration.psm1">Configuration.psm1</ProjectItem>
+          <Folder Name="Local" TargetFolderName="Local">
+            <ProjectItem ReplaceParameters="false" TargetFileName="Configure Local Environment.ps1">Configure Local Environment.ps1</ProjectItem>
+          </Folder>
+        </Folder>
+      </Folder>
+    </Project>
+  </TemplateContent>
+</VSTemplate>

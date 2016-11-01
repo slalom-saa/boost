@@ -1,0 +1,20 @@
+﻿<div>
+    <ul class="menu">
+        <li ng-click="storage.sidebar = !storage.sidebar" title="Expand/Collapse">
+            <span class="icon icon-Left-14" ng-class="{'icon-Right-14' : !storage.sidebar}"></span>
+        </li>
+        <li ui-sref="develop.home" title="Home" ng-class="{active:$state.includes('develop.home')}">
+            <span class="icon icon-Windows"></span>
+            Home
+        </li>
+        <li ui-sref="develop.icons" title="Icons" ng-class="{active:$state.includes('develop.icons')}">
+            <span class="icon icon-Click-1"></span>
+            Icons
+        </li>
+        <li ui-sref="develop.style" title="Style Guide" ng-class="{active:$state.includes('develop.style')}">
+            <span class="icon icon-Wrap-ImageRight"></span>
+            Style Guide
+        </li>
+    </ul>
+
+</div>

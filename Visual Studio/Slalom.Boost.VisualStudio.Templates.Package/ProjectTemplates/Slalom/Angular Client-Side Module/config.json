@@ -1,0 +1,34 @@
+﻿{
+  "paths": {
+    "src": {
+      "root": "./src/",
+      "config": [ "./src/config.js" ],
+
+      "js": [ "./src/js/*.js", "./src/js/**/*.js" ],
+
+      "app": "./src/app/app.module.js",
+      "modules": [ "./src/app/*.js", "./src/app/**/*.js" ],
+      "templates": [ "./src/app/**/*.html" ],
+
+      "index": "./src/index.html",
+
+      "sass": {
+        "main": "./src/sass/main.scss",
+        "all": [ "./src/sass/*.scss", "./src/sass/**/*.scss" ],
+        "app": [ "./src/app/*.scss", "./src/app/**/*.scss" ]
+      },
+
+      "fonts": [ "./src/fonts/*", "./src/fonts/**/*" ],
+      "images": [ "./src/images/*", "./src/images/**/*" ]
+
+    },
+    "dist": {
+      "root": "./dist/",
+      "js": "./dist/js/",
+      "fonts": "./dist/fonts/",
+      "css": "./dist/css/",
+      "vendor": "./dist/vendor/",
+      "images": "./dist/images/"
+    }
+  }
+}

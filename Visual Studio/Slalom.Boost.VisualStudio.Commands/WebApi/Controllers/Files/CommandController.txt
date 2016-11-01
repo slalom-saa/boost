@@ -1,0 +1,30 @@
+﻿using System;
+using System.Linq;
+using System.Web.Http;
+using System.Web.Http.OData;
+using Slalom.Boost.WebApi.Controllers;
+using System.Threading.Tasks;
+
+namespace {{RootNamespace}}.Controllers
+{
+    // TODO: Update the command names or create the commands
+    // TODO: Run the project to open Swagger and check the routes
+	// TODO: Remove AllowAnonymous if the user should authenticate
+	// TODO: Bind to IIS if not already bound
+
+    [RoutePrefix("{{NameLower}}"), AllowAnonymous]
+    public class {{Name}}Controller : CommandController
+    {
+        [Route("actions/add"), HttpPost]
+        public Task<dynamic> Create(Application.{{Name.Pluralize()}}.Add{{Name}}.Add{{Name}}Command command)
+        {
+            return base.SendAsync(command);
+        }
+
+		[Route(""), HttpGet, EnableQuery]
+        public Task<dynamic> List()
+        {
+            return base.SendAsync(new Application.{{Name.Pluralize()}}.Query{{Name.Pluralize()}}.Query{{Name.Pluralize()}}Command());
+        }
+    }
+}

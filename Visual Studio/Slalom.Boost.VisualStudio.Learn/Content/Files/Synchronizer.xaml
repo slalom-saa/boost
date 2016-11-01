@@ -1,0 +1,38 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Paragraph FontSize="20">Read Model Synchronizer</Paragraph>
+    <Paragraph LineHeight="10">
+        <Run>Synchronizes a read model based on events that happen in the domain or when an entity is updated or deleted.</Run>
+    </Paragraph>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Tasks</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                Add event handlers for any event that should update the read model
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Related Elements</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="ReadModel">Read Model</Hyperlink>
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Additional Reading</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://www.safaribooksonline.com/library/view/microsoft-net-architecting/9780133986419/ch11.html">Microsoft .NET: Architecting Applications for the Enterprise</Hyperlink>
+                <LineBreak></LineBreak>
+                Chapter 11. Implementing CQRS
+            </Paragraph>
+        </ListItem>
+    </List>
+</FlowDocument>

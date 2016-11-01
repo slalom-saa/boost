@@ -1,0 +1,31 @@
+﻿using System;
+using Slalom.Boost.Commands;
+using Slalom.Boost.Domain;
+using System.Threading.Tasks;
+using {{ProjectItem.GetNamespace()}};
+using {{ProjectItem.GetNamespace()}}.Events;
+
+namespace {{Project.GetModuleName()}}.Application.{{ProjectItem.GetClassName().Pluralize()}}.Add{{ProjectItem.GetClassName()}}
+{
+    /// <summary>
+    /// Handles/Processes the <seealso cref="Add{{ProjectItem.GetClassName()}}Command"/> command.
+    /// </summary>
+	/// <seealso cref="Add{{ProjectItem.GetClassName()}}Command"/>
+	/// <seealso boost="Command Handler" href="https://www.safaribooksonline.com/library/view/pattern-oriented-software-architecture/9780470059029/ch14.html">Command Handler</seealso>
+    public class Add{{ProjectItem.GetClassName()}}CommandHandler : CommandHandler<Add{{ProjectItem.GetClassName()}}Command, {{ProjectItem.GetClassName()}}AddedEvent>
+    {
+        /// <summary>
+        /// Handles the specified command.
+        /// </summary>
+        /// <param name="command">The command to handle.</param>
+		/// <param name="result">The execution result.</param>
+        public override {{ProjectItem.GetClassName()}}AddedEvent HandleCommand(Add{{ProjectItem.GetClassName()}}Command command)
+        {
+			var target = {{ProjectItem.GetClassName()}}.Create({{CreationArguments}});
+
+			this.DataFacade.Add(target);
+
+			return new {{ProjectItem.GetClassName()}}AddedEvent(target);
+        }
+    }
+}

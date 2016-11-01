@@ -1,0 +1,48 @@
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Slalom.Boost.Commands;
+using Slalom.Boost.Domain;
+using Slalom.Boost.Search;
+using {{Project.GetModuleName()}}.ReadModel.{{ProjectItem.GetEntityName().Pluralize()}};
+
+namespace {{Project.GetModuleName()}}.Application.{{ProjectItem.GetClassName().Pluralize()}}.{{Name.Replace("Command", "")}}
+{
+    /// <summary>
+    /// Handles/Processes the <seealso cref="{{Name}}"/> command.
+    /// </summary>
+	/// <seealso cref="{{Name}}"/>
+	/// <seealso boost="Command Handler"/>
+    public class {{Name}}Handler : CommandHandler<{{Name}}, IQueryable<{{ProjectItem.GetClassName()}}>>
+    {
+        /// <summary>
+        /// Handles the specified command.
+        /// </summary>
+        /// <param name="command">The command to handle.</param>
+		/// <returns>The handle task.</returns>		
+        public override IQueryable<{{ProjectItem.GetClassName()}}> HandleCommand({{Name}} command)
+        {
+			var target = this.DataFacade.Find<{{ProjectItem.GetClassName()}}>();
+
+            if (!String.IsNullOrWhiteSpace(command.SearchText))
+            {
+                var words = command.SearchText.ToLower()
+                    .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Distinct();
+
+                foreach (var item in words)
+                {
+                    var soundex = item.ToSoundex();
+
+                    target = target.Where(
+{{Search}}
+
+                    // suggestions can be added using soundex or other search algorithms
+                    // || (command.IncludeSuggestions && e.FirstNameSoundex == soundex)
+                }
+            }
+
+            return target;
+        }
+    }
+}

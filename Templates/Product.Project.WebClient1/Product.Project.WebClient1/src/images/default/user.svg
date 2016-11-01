@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.1 (9971) - http://www.bohemiancoding.com/sketch -->
+    <title>icPopupProfile</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <circle id="Oval-54" fill="#F5F5F6" sketch:type="MSShapeGroup" cx="18" cy="18" r="18"></circle>
+        <path d="M5.4,30.7857624 C7.02734638,28.5505478 9.11948902,27.2315331 11.509848,26.495122 C13.4258171,27.7003982 15.614721,28.3857706 17.9371709,28.3857706 C20.2600383,28.3857706 22.4514461,27.69844 24.3674152,26.495122 C26.7590024,27.2307663 28.8511939,28.5501227 30.4786406,30.7860494 C27.2372783,33.9723161 22.814717,35.9341463 17.9394663,35.9341463 C13.0640691,35.9341463 8.64138862,33.9721982 5.4,30.7857624 L5.4,30.7857624 Z M17.9997846,4 C11.9242219,4 7,8.92340534 7,14.9993537 C7,21.0761638 11.9242219,26 17.9997846,26 C24.0775016,26 29,21.0761638 29,14.9993537 C29,8.92340534 24.0775016,4 17.9997846,4 L17.9997846,4 Z" id="Fill-9" fill="#BCB5B9" sketch:type="MSShapeGroup"></path>
+    </g>
+</svg>

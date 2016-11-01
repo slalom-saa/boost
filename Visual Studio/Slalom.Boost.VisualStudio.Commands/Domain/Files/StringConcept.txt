@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using Slalom.Boost.Domain.Concepts;
+using Slalom.Boost.Validation;
+
+namespace {{RootNamespace}}.Domain.Model
+{
+	/// <seealso boost="Concept (Value Object)"/>
+    public class {{Name}} : ConceptAs<string>
+    {
+        public static implicit operator {{Name}}(string value)
+        {
+            var target = new {{Name}} { Value = value };
+            target.EnsureValid();
+            return target;
+        }
+
+        public override IEnumerable<ValidationMessage> Validate()
+        {
+            if (string.IsNullOrWhiteSpace(this.Value))
+            {
+                yield return "A {{NameHumanized}} cannot be null or empty.";
+            }
+        }
+    }
+}

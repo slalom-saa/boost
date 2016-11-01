@@ -1,0 +1,25 @@
+﻿<div class="view-icons">
+    <h1 class="page-title">Icons</h1>
+    <div class="content">
+        <form>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="fa fa-search"></span>
+                        </span>
+                        <input type="text" ng-model-options="{ debounce: 500 }" ng-model="vm.searchText" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="icon-container" infinite-scroll="vm.onScrollLimitReached()" infinite-scroll-distance="1">
+                <div class="icon-item" ng-repeat="class in vm.names">
+                    <span class="icon {{class}}" ng-click="vm.copyToClipboard(class);"></span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

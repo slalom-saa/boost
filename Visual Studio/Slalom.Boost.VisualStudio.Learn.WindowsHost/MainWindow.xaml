@@ -1,0 +1,12 @@
+﻿<Window x:Class="Slalom.Boost.Learn.WindowsHost.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="New Boost Solution" Height="275" Width="525" BorderBrush="#ccc" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Topmost="True" ShowInTaskbar="False">
+    <Grid>
+        
+    </Grid>
+</Window>
+

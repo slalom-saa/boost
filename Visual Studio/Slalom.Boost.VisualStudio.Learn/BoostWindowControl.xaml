@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="Slalom.Boost.Learn.BoostLearnWindowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:learn="clr-namespace:Slalom.Boost.Learn"
+             mc:Ignorable="d" 
+              x:Name="_this"
+             d:DesignHeight="300" d:DesignWidth="300" Background="White">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="SharedStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33">
+            </RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
+            <StackPanel Orientation="Horizontal" Height="30">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Cursor" Value="Hand"></Setter>
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        <Setter Property="Padding" Value="10"></Setter>
+                        <Setter Property="FontSize" Value="15"></Setter>
+                    </Style>
+                </StackPanel.Resources>
+                <Grid>
+                    <TextBlock x:Name="HomeLink" MouseLeftButtonDown="HandleHomeClicked">
+                        Home
+                    </TextBlock>
+                    <Rectangle>
+                        <Rectangle.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=Home, Path=Visibility}" Value="Visible">
+                                        <Setter Property="Shape.Fill" Value="Orange" />
+                                        <Setter Property="FrameworkElement.Height" Value="2" />
+                                        <Setter Property="FrameworkElement.Margin" Value="5 0 5 3" />
+                                        <Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+                    </Rectangle>
+                </Grid>
+                <Grid>
+                    <TextBlock x:Name="ReferenceLink" MouseLeftButtonDown="HandleReferenceClicked">
+                            Reference
+                    </TextBlock>
+                    <Rectangle>
+                        <Rectangle.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=Reference, Path=Visibility}" Value="Visible">
+                                        <Setter Property="Shape.Fill" Value="Orange" />
+                                        <Setter Property="FrameworkElement.Height" Value="2" />
+                                        <Setter Property="FrameworkElement.Margin" Value="5 0 5 3" />
+                                        <Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+                    </Rectangle>
+                </Grid>
+                <Grid>
+                    <TextBlock x:Name="InsightLink" MouseLeftButtonDown="HandleInsightClicked">
+                        Insight
+                    </TextBlock>
+                    <Rectangle>
+                        <Rectangle.Style>
+                            <Style>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=Insight, Path=Visibility}" Value="Visible">
+                                        <Setter Property="Shape.Fill" Value="Orange" />
+                                        <Setter Property="FrameworkElement.Height" Value="2" />
+                                        <Setter Property="FrameworkElement.Margin" Value="5 0 5 3" />
+                                        <Setter Property="FrameworkElement.VerticalAlignment" Value="Bottom" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Rectangle.Style>
+                    </Rectangle>
+                </Grid>
+            </StackPanel>
+            <Rectangle Fill="#ccc" Height="2"></Rectangle>
+        </StackPanel>
+        <Grid Grid.Row="1" x:Name="Content">
+            <learn:HomeControl x:Name="Home"></learn:HomeControl>
+            <learn:ReferenceControl x:Name="Reference" Visibility="Hidden"></learn:ReferenceControl>
+            <learn:InsightControl x:Name="Insight" Visibility="Hidden"></learn:InsightControl>
+        </Grid>
+    </Grid>
+</UserControl>

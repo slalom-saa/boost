@@ -1,0 +1,54 @@
+﻿using System;
+using System.Linq;
+using Slalom.Boost.Domain;
+using {{RootNamespace}}.Domain.Model;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Data.Entity;
+using Slalom.Boost.EntityFramework.Domain;
+using Slalom.Boost.EntityFramework.GraphDiff;
+
+namespace {{RootNamespace}}.Persistence.Domain
+{
+    // TODO: To move quickly and revisit persistence, use the EntityFrameworkDocumentRepository<{{Entity}}>
+    //    - or -
+    // TODO: If the aggregate root has child entities, add the overrides below to indicate that the entity is a graph
+
+	/// <summary>
+    /// Provides a repository for <see cref="{{Entity}}" /> instances.
+    /// </summary>
+    /// <seealso cref="IAggregateRoot"/>
+    /// <seealso href="https://www.safaribooksonline.com/library/view/domain-driven-design-tackling/0321125215/ch06.html">Domain-Driven Design: Tackling Complexity in the Heart of Software: Six. The Life Cycle of a Domain Object</seealso>
+    /// <remarks>
+    /// The overall structure of a repository can be split in two main parts: query and update. 
+    /// In a CQRS solution, you might have two distinct sets of repositories (and for the query part probably no repositories at all). 
+    /// Otherwise, the same class incorporates both query and update methods. As mentioned, you will generally have a repository class 
+    /// for each aggregate or relevant entity in your system.
+    /// <see href="https://www.safaribooksonline.com/library/view/microsoft-net-architecting/9780133986419/ch14.html"/>
+    /// </remarks>
+	public class {{Entity}}Repository : EntityFrameworkRepository<{{Entity}}>
+    {
+		/// <summary>
+        /// Initializes a new instance of the <see cref="{{Entity}}Repository"/> class.
+        /// </summary>
+        /// <param name="context">The current <see cref="DataContext"/> instance.</param>
+		/// <exception cref="System.ArgumentNullException"></exception>
+        public {{Entity}}Repository(DataContext context)
+			: base(context)
+        {
+        }		
+
+        // TODO: If the aggregate root has child entities, add the following overrides
+        
+		//public override {{Entity}} Find(object id)
+        //{
+        //    return base.Set.AsNoTracking().Include(e => e.ChildCollection).FirstOrDefault(e => e.Id == (Guid)id);
+        //}
+
+        //public override void Save(params {{Entity}}[] instance)
+        //{
+        //    base.UpdateGraph(instance, e => e.OwnedCollection(a => a.ChildCollection));
+        //}
+    }
+}

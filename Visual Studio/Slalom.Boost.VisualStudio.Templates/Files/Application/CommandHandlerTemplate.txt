@@ -1,0 +1,37 @@
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Slalom.Boost.Commands;
+using Slalom.Boost.Domain;
+using {{Project.GetModuleName()}}.Domain.{{ProjectItem.GetClassName().Pluralize()}};
+using {{Project.GetModuleName()}}.Domain.{{ProjectItem.GetClassName().Pluralize()}}.Events;
+
+namespace {{Project.GetModuleName()}}.Application.{{ProjectItem.GetClassName().Pluralize()}}.{{Name}}
+{
+	// TODO: Update handle method
+    // TODO: Add unit tests [Boost]
+
+    /// <summary>
+    /// Handles/Processes the <seealso cref="{{Name}}Command"/> command.
+    /// </summary>
+	/// <seealso cref="{{Name}}Command"/>
+	/// <seealso boost="Command Handler"/>
+    public class {{Name}}CommandHandler : CommandHandler<{{Name}}Command, {{ReturnType}}>
+    {
+        /// <summary>
+        /// Handles the specified command.
+        /// </summary>
+        /// <param name="command">The command to handle.</param>
+		/// <returns>The handle task.</returns>		
+        public override {{ReturnType}} HandleCommand({{Name}}Command command)
+        {
+			var {{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}} = this.DataFacade.Find<{{ProjectItem.GetClassName()}}>(command.{{ProjectItem.GetClassName()}}Id);
+
+            // {{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}}.Activate();
+
+            this.DataFacade.Update({{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}});
+
+            return new {{ReturnType}}({{ProjectItem.GetClassName().Humanize(LetterCasing.LowerCase)}});
+        }
+    }
+}

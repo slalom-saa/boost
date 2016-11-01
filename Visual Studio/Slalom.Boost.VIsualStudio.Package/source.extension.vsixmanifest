@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="Slalom.Boost.Package" Version="1.0" Language="en-US" Publisher="George Olson" />
+    <DisplayName>Slalom.Boost.Package</DisplayName>
+    <Description xml:space="preserve">Slalom Boost Package...</Description>
+    <Icon>Icon.ico</Icon>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="Slalom.Boost.VisualStudio" Path="|Slalom.Boost.VisualStudio|" AssemblyName="|Slalom.Boost.VisualStudio;AssemblyName|" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="Slalom.Boost.VisualStudio.Forms" Path="|Slalom.Boost.VisualStudio.Forms|" AssemblyName="|Slalom.Boost.VisualStudio.Forms;AssemblyName|" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="Learn" Path="|Learn|" AssemblyName="|Learn;AssemblyName|" />
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="Learn.%CurrentProject%" Path="|Learn.Package;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="Templates" Path="|Templates|" AssemblyName="|Templates;AssemblyName|" />
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="Templates.%CurrentProject%" Path="|Templates.Package;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="Project" d:ProjectName="Commands" Path="|Commands|" AssemblyName="|Commands;AssemblyName|" />
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="Commands.%CurrentProject%" Path="|Commands.Package;PkgdefProjectOutputGroup|" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="Microsoft.WindowsAPICodePack.dll" AssemblyName="Microsoft.WindowsAPICodePack, Version=1.2.40.0, Culture=neutral, PublicKeyToken=f5227a91f5f6e158" />
+    <Asset Type="Microsoft.VisualStudio.Assembly" d:Source="File" Path="Microsoft.WindowsAPICodePack.Shell.dll" AssemblyName="Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, PublicKeyToken=f5227a91f5f6e158" />
+  </Assets>
+</PackageManifest>

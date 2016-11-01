@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Machine.Specifications;
+using Slalom.Boost.Validation;
+using {{ProjectItem.GetNamespace()}};
+
+namespace {{Project.GetModuleName()}}.UnitTests.Domain.{{ProjectItem.GetRelativeFolder()}}.{{Method}}
+{
+	[Subject(typeof({{ProjectItem.GetClassName()}}))]
+    public class When_calling_{{Method.ToLower()}}_on_a_{{ProjectItem.GetClassName().ToLower()}}_with_default_arguments
+    {
+		static Exception Exception;
+
+		static {{ProjectItem.GetClassName()}} {{ProjectItem.GetClassName()}};
+
+        Establish context = () => {{ProjectItem.GetClassName()}} = null;
+        
+		Because of = () => Exception = Catch.Exception(() => {{ProjectItem.GetClassName()}}.{{Method}}({{Arguments}}));
+
+        It should_have_an_exception = () => Exception.ShouldNotBeNull();
+    }
+}

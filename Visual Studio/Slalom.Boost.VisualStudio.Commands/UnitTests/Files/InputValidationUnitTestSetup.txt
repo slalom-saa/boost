@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using {{Namespace}};
+using {{UpperNamespace}};
+
+using Slalom.Boost.Validation;
+
+using Machine.Specifications;
+
+namespace {{RootNameSpace}}.UnitTests.Application.Commands.{{Name}}.given
+{
+	[Subject(typeof({{Rule}}))]
+    public class a_configured_{{Rule}}_rule
+    {
+        protected static {{Rule}} Rule;
+
+        protected static {{Name}}Command Command;
+
+        protected static List<ValidationMessage> Result;
+
+        private Establish context = () => Rule = new {{Rule}}();
+
+        protected static void ValidateCommand({{CommandSignature}})
+        {
+            Command = new {{Name}}Command({{CommandArguments}});
+            Result = Rule.Validate(Command).ToList();
+        }
+    }
+}

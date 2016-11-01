@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Machine.Specifications;
+
+namespace {{Module}}.IntegrationTests.Application.{{Area}}
+{
+    public class When_calling_a_{{Command.ToSnakeCase()}}_command_with_default_values : given.a_configured_{{Command.ToSnakeCase()}}_command
+    {
+        Because of = () => Send({{DefaultArguments}});
+
+        It should_not_be_successful = () => Result.Successful.ShouldBeFalse();
+    }
+}

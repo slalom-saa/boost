@@ -1,0 +1,145 @@
+﻿<div class="view-style-guide">
+    <h1 class="page-title">Style Guide</h1>
+    <div class="main-content">
+        <section class="section-typography">
+            <h1>Typography</h1>
+            <div>
+                <h1>Header Level 1</h1>
+            </div>
+            <div>
+                <h2>Header Level 2</h2>
+            </div>
+            <div>
+                <h3>Header Level 3</h3>
+            </div>
+            <div>
+                <h4>Header Level 4</h4>
+            </div>
+            <div>
+                <p>This is a paragraph.</p>
+            </div>
+            <div>
+                <a href="javascript:">This is a link</a>
+            </div>
+            <div>
+                <small>Small</small>
+            </div>
+            <div>
+                <span class="subtle">Subtle</span>
+            </div>
+        </section>
+        <section>
+            <ul>
+                <li class="summary">
+                    <h2>Heading subtext</h2>
+                    <p>
+                        Wrap a piece of heading in <code>&lt;b&gt;</code> to create a sub heading.
+                    </p>
+                    <span class="toggle">
+                        <a ng-click="heading = !heading">Toggle Source Code</a>
+                    </span>
+
+                </li>
+                <li ng-class="{last : !heading}">
+                    <h3>
+                        New businesses <b>San Francisco</b>
+                    </h3>
+                    <h2>
+                        New businesses <b>San Francisco</b>
+                    </h2>
+                    <h1>
+                        New businesses <b>San Francisco</b>
+                    </h1>
+                </li>
+                <li class="pre" ng-show="heading">
+                    <pre>&lt;h3&gt;New businesses &lt;b&gt;San Francisco&lt;/b&gt;&lt;/h3&gt;<br />&lt;h2&gt;New businesses &lt;b&gt;San Francisco&lt;/b&gt;&lt;/h2&gt;<br />&lt;h1&gt;New businesses &lt;b&gt;San Francisco&lt;/b&gt;&lt;/h1&gt;<br /></pre>
+                </li>
+            </ul>
+        </section>
+        <section class="section-pull-quote">
+            <ul>
+                <li class="summary">
+                    <h2>Pull Quote</h2>
+                    <p>
+                        Pull quotes are used to present key excerpts pulled out from the presented document.
+                    </p>
+                    <span class="toggle">
+                        <a ng-click="pull = !pull">Toggle Source Code</a>
+                    </span>
+                </li>
+                <li ng-class="{last:!pull}">
+                    <div class="pull-quote">
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                    </div>
+                    <div class="pull-quote">
+                        <h3 class="alternate">Aenean lacinia bibendum nulla sed consectetur. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</h3>
+                    </div>
+                </li>
+                <li class="pre" ng-show="pull">
+                    <pre>&lt;div class=&quot;pull-quote&quot;&gt;<br />  &lt;p&gt;Aenean lacinia bibendum nulla sed consectetur. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.&lt;/p&gt;<br />&lt;/div&gt;<br />&lt;div class=&quot;pull-quote&quot;&gt;<br />   &lt;h3 class=&quot;alternate&quot;&gt;Aenean lacinia bibendum nulla sed consectetur. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.&lt;/h3&gt;<br />&lt;/div&gt;</pre>
+                </li>
+            </ul>
+        </section>
+        <section class="section-color">
+            <h1>Color</h1>
+            <h2>Primary colors</h2>
+            <div class="row">
+                <span class="col-sm-4">
+                    <span class="color" style="background:#3C3C3C"></span>
+                    <span class="name">$dark-grey</span>
+                    <span class="hex">#3C3C3C</span>
+                </span>
+                <span class="col-sm-4">
+                    <span class="color" style="background:#646464"></span>
+                    <span class="name">$medium-grey</span>
+                    <span class="hex">#646464</span>
+                </span>
+                <span class="col-sm-4">
+                    <span class="color" style="background:#929294"></span>
+                    <span class="name">$light-grey</span>
+                    <span class="hex">#929294</span>
+                </span><span class="col-sm-4">
+                    <span class="color" style="background:#FAD41B"></span>
+                    <span class="name">$yellow</span>
+                    <span class="hex">#FAD41B</span>
+                </span>
+            </div>
+            <h2>Backgrounds and borders</h2>
+            <div class="row">
+                <span class="col-sm-4">
+                    <span class="color background-color"></span>
+                    <span class="name">.background-color</span>
+                    <span class="hex">#3C3C3C</span>
+                </span>
+                <span class="col-sm-4">
+                    <span class="color medium-background-color"></span>
+                    <span class="name">.medium-background-color</span>
+                    <span class="hex">#646464</span>
+                </span>
+                <span class="col-sm-4">
+                    <span class="color light-border-color"></span>
+                    <span class="name">.light-border-color</span>
+                    <span class="hex">#929294</span>
+                </span>
+            </div>
+            <h2>Text</h2>
+            <div class="row text">
+                <div class="col-sm-4">
+                    <span class="normal-text">$normal-text #333333</span>
+                    <span class="mid-text">$mid-text #666666</span>
+                    <span class="subtle-text">$subtle-text #999999</span>
+                    <span class="ghost-text">$ghost-text #999999</span>
+                </div>
+                <div class="col-sm-4">
+                    <span class="error-text">$error-text #d32323</span>
+                    <span class="elite-text">$elite-text #f15c00</span>
+                    <span class="warning-text">$warning-text #f15c00</span>
+                </div>
+                <div class="col-sm-4">
+                    <span class="link-text">$link-text #0073bb</span>
+                    <span class="green-text">$green-text #41a700</span>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

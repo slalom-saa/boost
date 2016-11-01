@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B91E2892-216B-4578-8652-BF5941546F75}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Slalom.Boost.Templates</RootNamespace>
+    <AssemblyName>Slalom.Boost.Templates</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Slalom.Boost.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EnvDTE80, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodePropertyExtensions.cs" />
+    <Compile Include="DocumentExtensions.cs" />
+    <Compile Include="Documents.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Documents.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Files.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Files.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\Domain\EventTemplate.cs" />
+    <Compile Include="Templates\Domain\MemberTemplate.cs" />
+    <Compile Include="Templates\Domain\StringConceptTemplate.cs" />
+    <Compile Include="Templates\IntegrationTests\CommandIntegrationTestTemplate.cs" />
+    <Compile Include="Templates\Persistence\MongoRepository.cs" />
+    <Compile Include="Templates\IntegrationTests\CommandIntegrationTestSetupTemplate.cs" />
+    <Compile Include="Templates\UnitTests\StaticAggregateUnitTestTemplate.cs" />
+    <Compile Include="Templates\UnitTests\StringConceptUnitTestTemplate.cs" />
+    <Compile Include="Templates\UnitTests\AggregateUnitTestTemplate.cs" />
+    <Compile Include="Templates\UnitTests\InputValidationUnitTestTemplate.cs" />
+    <Compile Include="Templates\UnitTests\InputValidationUnitTestSetupTemplate.cs" />
+    <Compile Include="Templates\Application\BusinessValidationRuleTemplate.cs" />
+    <Compile Include="Templates\Automation\PowerShellCommandTemplate.cs" />
+    <Compile Include="Templates\Application\InRoleSecurityRuleTemplate.cs" />
+    <Compile Include="Templates\Application\InputValidationRuleSetTemplate.cs" />
+    <Compile Include="Templates\WebAPI\CommandControllerWithParameterSearchTemplate.cs" />
+    <Compile Include="Templates\WebAPI\CommandControllerTemplate.cs" />
+    <Compile Include="Templates\Application\CommandHandlerTemplate.cs" />
+    <Compile Include="Templates\Application\ReadModelMappingTemplate.cs" />
+    <Compile Include="Templates\Application\AddAggregateCommandHandlerTemplate.cs" />
+    <Compile Include="Templates\Domain\AggregateAddedEventTemplate.cs" />
+    <Compile Include="Templates\Persistence\EntityFrameworkRepositoryTemplate.cs" />
+    <Compile Include="Templates\Persistence\EntityMappingTemplate.cs" />
+    <Compile Include="Templates\Application\AddAggregateCommandTemplate.cs" />
+    <Compile Include="Templates\Application\SearchCommandHandlerTemplate.cs" />
+    <Compile Include="Templates\Application\SearchCommandTemplate.cs" />
+    <Compile Include="Templates\Application\CommandTemplate.cs" />
+    <Compile Include="Templates\Application\ReadModelTemplate.cs" />
+    <Compile Include="Templates\Application\SynchronizerTemplate.cs" />
+    <Compile Include="Templates\Domain\AggregateRootTemplate.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SolutionBuilders\CoreModuleSolutionBuilder.cs" />
+    <Compile Include="SolutionBuilders\IdentityModuleSolutionBuilder.cs" />
+    <Compile Include="Template.cs" />
+    <Compile Include="TemplateController.cs" />
+    <Compile Include="Wizards\CoreModuleWizard.cs" />
+    <Compile Include="Wizards\IdentityModuleWizard.cs" />
+    <Compile Include="Wizards\WebApiWizard.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Documents\Architecture\Design Concepts\Advanced Layered Architecture.pptm" />
+    <None Include="Slalom.Boost.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Slalom.Boost.VisualStudio\Slalom.Boost.VisualStudio.csproj">
+      <Project>{4B56F34D-9F92-4CFF-B027-CBF3E6ABDAE2}</Project>
+      <Name>Slalom.Boost.VisualStudio</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Documents.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Documents.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Files.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Files.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Files\Application\AddAggregateCommandHandlerTemplate.txt" />
+    <Content Include="Files\Application\BusinessValidationRuleTemplate.txt" />
+    <Content Include="Files\Application\CommandHandlerTemplate.txt" />
+    <Content Include="Files\Application\CommandTemplate.txt" />
+    <Content Include="Files\Domain\EventTemplate.txt" />
+    <Content Include="Files\Domain\MemberTemplate.txt" />
+    <Content Include="Files\Domain\PasswordTemplate.txt" />
+    <Content Include="Files\Domain\StringConceptTemplate.txt" />
+    <Content Include="Files\Domain\UserNameTemplate.txt" />
+    <Content Include="Files\IntegrationTests\CommandIntegrationTestSetupTemplate.txt" />
+    <Content Include="Files\IntegrationTests\CommandIntegrationTestTemplate.txt" />
+    <Content Include="Files\Persistence\MongoRepositoryTemplate.txt" />
+    <Content Include="Files\UnitTests\AggregateUnitTestTemplate.txt" />
+    <Content Include="Files\UnitTests\StringConceptUnitTestTemplate.txt" />
+    <Content Include="Files\UnitTests\StaticAggregateUnitTestTemplate.txt" />
+    <Content Include="Files\UnitTests\InputValidationUnitTestTemplate.txt" />
+    <Content Include="Files\WebAPI\CommandControllerTemplate - Copy.txt" />
+    <Content Include="Files\WebAPI\CommandControllerWithParameterSearchTemplate.txt" />
+    <Content Include="Files\WebAPI\CommandControllerTemplate.txt" />
+    <Content Include="Files\Domain\AggregateAddedEventTemplate.txt" />
+    <Content Include="Files\Persistence\EntityFrameworkRepositoryTemplate.txt" />
+    <Content Include="Files\Persistence\EntityMappingTemplate.txt" />
+    <Content Include="Files\Domain\AggregateTemplate.txt" />
+    <Content Include="Files\Application\AddAggregateCommandTemplate.txt" />
+    <Content Include="Files\Application\InputValidationRuleSetTemplate.txt" />
+    <Content Include="Files\Application\InRoleValidationRuleTemplate.txt" />
+    <Content Include="Files\Automation\PowerShellCommandTemplate.txt" />
+    <Content Include="Files\Application\SearchCommandHandlerTemplate.txt" />
+    <Content Include="Files\Application\SearchCommandTemplate.txt" />
+    <Content Include="Files\Persistence\ReadModelMappingTemplate.txt" />
+    <Content Include="Files\Application\ReadModelTemplate.txt" />
+    <Content Include="Files\Application\SynchronizerTemplate.txt" />
+    <Content Include="Files\UnitTests\InputValidationUnitTestSetupTemplate.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

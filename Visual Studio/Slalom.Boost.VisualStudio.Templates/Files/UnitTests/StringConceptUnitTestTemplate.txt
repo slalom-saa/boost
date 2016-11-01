@@ -1,0 +1,54 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using {{Project.GetModuleName()}}.Domain;
+
+using Slalom.Boost.Validation;
+
+using Machine.Specifications;
+
+namespace {{Project.GetModuleName()}}.UnitTests.Domain
+{
+	// TODO: Enable NCrunch
+	// TODO: Build out unit tests
+	// TODO: Move tests into matching files
+
+	[Subject(typeof({{Name}}))]
+    public class When_using_a_{{Name.ToLower()}}_value_object_with_invalid_value
+    {
+        static Exception exception;
+
+        Because of = () => exception = Catch.Exception(() => ({{Name}})"a");
+
+        It should_have_an_exception = () => exception.ShouldNotBeNull();
+
+        It should_have_a_validation_exception = () => exception.ShouldBeAssignableTo(typeof(ValidationException));
+
+        It should_have_a_{{Name.ToLower()}}_message = () => exception.Message.ShouldContain("{{Name.ToLower()}}");
+    }
+
+	[Subject(typeof({{Name}}))]
+    public class When_using_a_{{Name.ToLower()}}_value_object_with_null_value
+    {
+        static Exception exception;
+
+        Because of = () => exception = Catch.Exception(() => ({{Name}})(string)null);
+
+        It should_have_an_exception = () => exception.ShouldNotBeNull();
+
+        It should_have_a_validation_exception = () => exception.ShouldBeAssignableTo(typeof(ValidationException));
+
+        It should_have_a_{{Name.ToLower()}}_message = () => exception.Message.ShouldContain("{{Name.ToLower()}}");
+    }
+
+	[Subject(typeof({{Name}}))]
+    public class When_using_a_{{Name.ToLower()}}_value_object_with_valid_value
+    {
+        static Exception exception;
+
+        Because of = () => exception = Catch.Exception(() => ({{Name}})"onetwothree");
+
+        It should_not_have_an_exception = () => exception.ShouldBeNull();
+    }
+}

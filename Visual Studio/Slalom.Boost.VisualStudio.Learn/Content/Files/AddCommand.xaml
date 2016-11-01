@@ -1,0 +1,6 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Paragraph FontSize="20">Task: Add a Command</Paragraph>
+    <Paragraph>
+        <Run FontStyle="Italic">...</Run>
+    </Paragraph>
+</FlowDocument>

@@ -1,0 +1,16 @@
+﻿using System;
+using Slalom.Boost.Domain.Events;
+
+namespace {{RootNamespace}}.Domain.Model
+{
+    public class {{Name}}Added : EventSourceEvent
+    {
+        public {{Name}}Added(Guid {{NameLower}}Id, string name)
+			: base({{NameLower}}Id)
+        {
+            this.Name = name;
+        }
+
+        public string Name { get; }
+    }
+}

@@ -1,0 +1,73 @@
+﻿/*body {
+    display: none;
+}*/
+#__bs_notify__ {
+    position: fixed;
+    bottom: 0;
+    top: auto !important;
+    padding: 5px !important;
+    font-size: 12px !important;
+    border-radius: 0 !important;
+    border-top-left-radius: 2px !important;
+    height: 25px;
+}
+
+body, html {
+    font-size: 14px;
+    padding: 0;
+    margin: 0;
+}
+
+.fa {
+    font-size: 20px;
+}
+
+code {
+    font-weight: normal;
+    font-size: 14px;
+    color: black;
+    background: #f5f5f5;
+}
+
+h1, h2, h3, h4 {
+    font-weight: bold;
+
+    b {
+        font-weight: normal;
+    }
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 21px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+small {
+    font-size: 12px;
+    font-size: 14px;
+}
+
+.subtle {
+    color: #999;
+}
+
+
+[ng-click], [ui-sref], [data-toggle] {
+    cursor: pointer;
+}
+
+.pull-quote {
+    border-left: 5px solid #ccc;
+    padding: 0 0 0 18px;
+}

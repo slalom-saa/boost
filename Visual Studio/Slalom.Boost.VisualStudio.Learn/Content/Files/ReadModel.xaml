@@ -1,0 +1,80 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Paragraph FontSize="20">Read Model</Paragraph>
+    <Paragraph LineHeight="10">
+        <Run>A read model is a model specialized for reads, that is, queries. It takes events produced by the domain and uses them to build and maintain a model that is suitable for answering the client's queries. It can draw on events from different aggregates and even different types of aggregate. What it does from there is unimportant. It may build and maintain:</Run>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                An in-memory model of the data
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                A relational model of the data, stored in an RDBMS
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Documents, stored in a document database
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                A graph model of the data, stored in a graph database
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                A search index
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                An XML file, CSV file, Excel sheet, etc.
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="20 10 0 0">
+        <Hyperlink NavigateUri="http://cqrs.nu/tutorial/cs/03-read-models">CQRS Provided by Edument</Hyperlink>
+    </Paragraph>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Tasks</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                Add query commands
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                Update the synchronizer as needed
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Related Elements</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="Synchronizer">Read Model Synchronizer</Hyperlink>
+            </Paragraph>
+        </ListItem>
+    </List>
+    <Paragraph LineHeight="1" Margin="0 20 0 10">
+        <TextBlock FontWeight="Bold">Additional Reading</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="https://www.safaribooksonline.com/library/view/microsoft-net-architecting/9780133986419/ch11.html">
+                    Microsoft .NET: Architecting Applications for the Enterprise
+                </Hyperlink>
+                <LineBreak></LineBreak>
+                Chapter 11. Implementing CQRS
+            </Paragraph>
+        </ListItem>
+    </List>
+</FlowDocument>

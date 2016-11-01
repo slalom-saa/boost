@@ -1,0 +1,28 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Paragraph FontSize="20">Reference</Paragraph>
+    <Paragraph LineHeight="1" Margin="0 0 0 10">
+        <TextBlock FontWeight="Bold">Core elements</TextBlock>
+    </Paragraph>
+    <List>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="Entity">Entity</Hyperlink>
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="DomainEvent">Domain Event</Hyperlink>
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="Command">Command</Hyperlink>
+            </Paragraph>
+        </ListItem>
+        <ListItem>
+            <Paragraph>
+                <Hyperlink NavigateUri="CommandHandler">Command Handler</Hyperlink>
+            </Paragraph>
+        </ListItem>
+    </List>
+</FlowDocument>

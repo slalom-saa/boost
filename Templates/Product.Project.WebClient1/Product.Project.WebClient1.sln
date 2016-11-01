@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Product.Project.WebClient1", "Product.Project.WebClient1\Product.Project.WebClient1.csproj", "{DF8A7A57-DE77-4A04-B998-CFFBFFD35EFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF8A7A57-DE77-4A04-B998-CFFBFFD35EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF8A7A57-DE77-4A04-B998-CFFBFFD35EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF8A7A57-DE77-4A04-B998-CFFBFFD35EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF8A7A57-DE77-4A04-B998-CFFBFFD35EFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

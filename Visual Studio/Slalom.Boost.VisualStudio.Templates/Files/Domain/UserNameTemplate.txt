@@ -1,0 +1,61 @@
+﻿using System;
+using System.Collections.Generic;
+using Slalom.Boost.Domain;
+using Slalom.Boost.Validation;
+using System.Text.RegularExpressions;
+
+namespace {{Project.GetModuleName()}}.Domain
+{
+	// TODO: Add unit tests [Boost]
+
+    /// <summary>
+    /// Represents a {{Name.Humanize(LetterCasing.LowerCase)}} value object.
+    /// </summary>
+    /// <seealso boost="Concept"/>
+    public class {{Name}} : ConceptAs<string>
+    {
+        private static Regex ValidRegex = new Regex("^[a-z0-9_-]{3,16}$", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Performs an implicit conversion from <see cref="System.String"/> to <see cref="{{Name}}"/>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>The result of the conversion.</returns>
+        public static implicit operator {{Name}}(string value)
+        {
+            var target = new {{Name}} { Value = value };
+            target.EnsureValid();
+            return target;
+        }
+
+		/// <summary>
+        /// Validates the specified value against the rules of this value object.
+        /// </summary>
+        /// <param name="value">The value to validate.</param>
+        /// <returns>Returns validation errors that were found as a result of the validation.
+        /// An empty collection means that no errors were found.</returns>
+        public static IEnumerable<ValidationMessage> Validate(string value)
+        {
+            var target = new {{Name}} { Value = value };
+            return target.Validate();
+        }
+
+        /// <summary>
+        /// Validates this instance.
+        /// </summary>
+        /// <returns>Returns validation errors that were found as a result of the validation.
+        /// An empty collection means that no errors were found.</returns>
+        public override IEnumerable<ValidationMessage> Validate()
+        {
+            if (string.IsNullOrWhiteSpace(this.Value))
+            {
+                yield return "A {{Name.Humanize(LetterCasing.LowerCase)}} cannot be null or empty.";
+				yield break;
+            }
+            if (!ValidRegex.IsMatch(this.Value))
+            {
+                yield return "A {{Name.Humanize(LetterCasing.LowerCase)}} must be from 3 to 16 characters and can only contain letters, numbers, underscores and hyphens.";
+            }
+        }
+    }
+}

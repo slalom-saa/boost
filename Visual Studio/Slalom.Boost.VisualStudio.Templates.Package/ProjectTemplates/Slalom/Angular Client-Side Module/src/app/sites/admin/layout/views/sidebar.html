@@ -1,0 +1,24 @@
+﻿<div>
+    <ul class="menu">
+        <li ng-click="storage.sidebar = !storage.sidebar">
+            <span class="icon icon-Left-14" ng-class="{'icon-Right-14' : !storage.sidebar}"></span>
+        </li>
+        <li ui-sref="admin.dashboard" ng-class="{active:$state.includes('admin.dashboard')}">
+            <span class="icon icon-Pie-chart2"></span>
+            Dashboard
+        </li>
+        <li ui-sref="admin.users" ng-class="{active:$state.includes('admin.users')}">
+            <span class="icon icon-Lock-User2"></span>
+            Users
+        </li>
+        <li ui-sref="admin.logs" ng-class="{active:$state.includes('admin.logs')}">
+            <span class="icon icon-Bullet-List"></span>
+            Logs
+        </li>
+        <li ui-sref="admin.settings" ng-class="{active:$state.includes('admin.settings')}">
+            <span class="icon icon-Gear-12"></span>
+            Settings
+        </li>
+    </ul>
+
+</div>

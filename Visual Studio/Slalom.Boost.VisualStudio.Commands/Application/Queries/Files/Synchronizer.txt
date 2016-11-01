@@ -1,0 +1,57 @@
+﻿using System;
+using System.Threading.Tasks;
+using System.Linq;
+using Slalom.Boost.Queries;
+using Slalom.Boost.Domain;
+using Slalom.Boost.Mapping;
+using Slalom.Boost;
+using {{RootNamespace}}.Domain.Model;
+
+namespace {{ProjectItem.ClassDescriptor.Namespace}}
+{
+	/// <summary>
+    /// Synchronizes a {{ProjectItem.ClassName.Humanize(LetterCasing.Title)}} on identified events.
+    /// </summary>
+	/// <seealso boost="Read Model Synchronizer"/>
+    public class {{ProjectItem.ClassName}}Synchronizer : IRunOnUpdated<{{Entity}}>, IRunOnDeleted<{{Entity}}>
+    {
+        private readonly IMapper _mapper;
+        private readonly IDataFacade _data;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MemberReadModelSynchronizer"/> class.
+        /// </summary>
+        /// <param name="mapper">The current <see cref="IMapper"/> instance.</param>
+        /// <param name="data">The current <see cref="IDataFacade"/> instance.</param>
+        public {{ProjectItem.ClassName}}Synchronizer(IMapper mapper, IDataFacade data)
+        {
+            _mapper = mapper;
+            _data = data;
+        }
+
+        /// <summary>
+        /// Runs when the specified instance(s) is updated.
+        /// </summary>
+        /// <param name="instance">The instance(s).</param>
+        public void RunOnUpdated(params {{Entity}}[] instance)
+        {
+            _data.Update(instance.Select(e =>
+            {
+                var target = _mapper.Map<{{ProjectItem.ClassName}}>(e);
+
+                // TODO: Update additional properties here
+
+                return target;
+            }));
+        }
+
+        /// <summary>
+        /// Runs when the specified instance(s) is updated.
+        /// </summary>
+        /// <param name="instance">The instance(s).</param>
+        public void RunOnDeleted(params {{Entity}}[] instance)
+        {
+            _data.Update(instance.Select(e => _mapper.Map<{{ProjectItem.ClassName}}>(e)));
+        }
+    }
+}

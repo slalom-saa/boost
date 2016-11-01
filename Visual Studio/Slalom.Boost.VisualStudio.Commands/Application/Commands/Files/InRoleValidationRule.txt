@@ -1,0 +1,24 @@
+﻿using System;
+using Slalom.Boost.Validation;
+
+namespace {{RootNamespace}}.Application.{{Namespace}}.Rules
+{
+	// TODO: Update with URL to roles [URL to Roles]
+	// TODO: Update with Role name [Role]
+	// TODO: Update class name
+	// TODO: Update user facing message with [role] and [perform task].
+    
+	/// <summary>
+    /// Validates the <see cref="{{Command}}"/> by ensuring that the user executing the command is in the <see href="[URL to Roles]">[Role]</see> role.
+    /// </summary>
+    public class user_in_role : InRoleSecurityRule<{{Command}}>
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="user_in_role"/> class.
+        /// </summary>
+        public user_in_role()
+            : base("You must have [role] permissions to [perform task].", "[Role]")
+        {
+        }
+    }
+}

@@ -1,0 +1,31 @@
+﻿using System;
+using Slalom.Boost.Domain;
+
+namespace {{RootNameSpace}}.Domain.Model
+{
+    public class {{Name}} : EventSource
+    {
+        protected {{Name}}()
+        {
+        }
+
+        protected {{Name}}(Guid id) 
+			: base(id)
+        {
+        }       
+
+        public string Name { get; private set; }
+
+		public static {{Name}} Create(string name)
+        {
+            var target = new {{Name}}();
+            target.Process(new {{Name}}Added(target.Id, name));
+            return target;
+        }
+
+		protected void On{{Name}}Added({{Name}}Added instance)
+        {
+            this.Name = instance.Name;
+        }
+    }
+}

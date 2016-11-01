@@ -1,0 +1,25 @@
+﻿<div>
+    <h1 class="page-title" ui-sref="admin.logs">Logs</h1>
+    <div style="padding: 10px;" class="ui-view">
+        <table class="row-border hover" datatable="ng">
+            <thead>
+            <tr>
+                <th>Started</th>
+                <th>Command</th>
+                <th class="hidden-sm hidden-xs">Session</th>
+                <th class="hidden-xs">Success</th>
+                <th class="hidden-xs">Username</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="result in vm.results">
+                <td>{{ result.started | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                <td ui-sref="admin.logs.command({commandName:result.commandName})">{{ result.commandName }}</td>
+                <td class="hidden-sm hidden-xs" ui-sref="admin.logs.session({id:result.session})">{{ result.session }}</td>
+                <td class="hidden-xs"  ui-sref="admin.logs.success({success:result.successful})">{{ result.successful }}</td>
+                <td class="hidden-xs" ui-sref="admin.logs.user({userName:result.userName})">{{ result.userName }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
