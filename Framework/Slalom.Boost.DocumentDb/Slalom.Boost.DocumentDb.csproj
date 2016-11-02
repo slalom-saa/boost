@@ -76,7 +76,6 @@
     </Compile>
     <Compile Include="DocumentDbConnectionManager.cs" />
     <Compile Include="DocumentDbMappingsManager.cs" />
-    <Compile Include="DocumentDbModule.cs" />
     <Compile Include="DocumentDbOptions.cs" />
     <Compile Include="DocumentDbRepository.cs" />
     <Compile Include="DocumentItem.cs" />

@@ -37,58 +37,5 @@
             <typeparam name="TRoot">The type of aggregate root to use.</typeparam>
             <seealso cref="T:Slalom.Boost.Domain.IRepository`1" />
         </member>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbRepository`1.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Slalom.Boost.DocumentDb.DocumentDbRepository`1" /> class.
-            </summary>
-        </member>
-        <member name="P:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Collection">
-            <summary>
-            Gets the collection factory.
-            </summary>
-        </member>
-        <member name="P:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Factory">
-            <summary>
-            Gets or sets the configured <see cref="T:Slalom.Boost.DocumentDb.DocumentDbConnectionManager"/> instance.
-            </summary>
-            <value>The current <see cref="T:Slalom.Boost.DocumentDb.DocumentDbConnectionManager"/> instance.</value>
-        </member>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Register``4">
-            <summary>
-            Creates and registers class maps.
-            </summary>
-            <typeparam name="TClass1">The first type of class.</typeparam>
-            <typeparam name="TClass2">The second type of class.</typeparam>
-            <typeparam name="TClass3">The third type of class.</typeparam>
-            <typeparam name="TClass4">The fourth type of class.</typeparam>
-        </member>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Register``3">
-            <summary>
-            Creates and registers class maps.
-            </summary>
-            <typeparam name="TClass1">The first type of class.</typeparam>
-            <typeparam name="TClass2">The second type of class.</typeparam>
-            <typeparam name="TClass3">The third type of class.</typeparam>
-        </member>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Register``2">
-            <summary>
-            Creates and registers class maps.
-            </summary>
-            <typeparam name="TClass1">The first type of class.</typeparam>
-            <typeparam name="TClass2">The second type of class.</typeparam>
-        </member>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Register``1">
-            <summary>
-             Creates and registers a class map.
-            </summary>
-            <typeparam name="TClass">The class.</typeparam>
-        </member>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Register``1(System.Action{MongoDB.Bson.Serialization.BsonClassMap{``0}})">
-            <summary>
-            Creates and registers a class map.
-            </summary>
-            <typeparam name="TClass">The class.</typeparam>
-            <param name="classMapInitializer">The class map initializer.</param>
-        </member>
     </members>
 </doc>

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
 using Slalom.Boost.Domain;
 
 namespace Slalom.Boost.DocumentDb
@@ -14,138 +14,81 @@ namespace Slalom.Boost.DocumentDb
     /// <seealso cref="Slalom.Boost.Domain.IRepository{TEntity}" />
     public abstract class DocumentDbRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DocumentDbRepository{TRoot}" /> class.
-        /// </summary>
-        protected DocumentDbRepository()
+        private static readonly string endpointUrl = "https://patolus-documents.documents.azure.com:443/";
+        private static readonly string authorizationKey = "ASdxo55GhyAEXKFCyK21kkQpsu09XTmb6mYmrJhxe0hyllq7b7jfCuhSeZ6JrmPIQvfAcQxWtL8IJkLJIjY4Qw==";
+        private static readonly string databaseName = "treatment";
+        private static readonly string collectionName = "entries";
+        private DocumentClient client;
+
+        Uri collectionUri = UriFactory.CreateDocumentCollectionUri(databaseName, collectionName);
+
+        public DocumentDbRepository()
         {
-            this.Collection = new Lazy<IMongoCollection<DocumentItem<TRoot>>>(() => this.Factory.GetCollection<DocumentItem<TRoot>>());
+            client = GetClient();
         }
 
-        /// <summary>
-        /// Gets the collection factory.
-        /// </summary>
-        public Lazy<IMongoCollection<DocumentItem<TRoot>>> Collection { get; }
+        private DocumentClient GetClient()
+        {
+            ConnectionPolicy connectionPolicy = new ConnectionPolicy();
+            connectionPolicy.UserAgentSuffix = " samples-net/3";
+            connectionPolicy.ConnectionMode = ConnectionMode.Direct;
+            connectionPolicy.ConnectionProtocol = Protocol.Tcp;
 
-        /// <summary>
-        /// Gets or sets the configured <see cref="DocumentDbConnectionManager"/> instance.
-        /// </summary>
-        /// <value>The current <see cref="DocumentDbConnectionManager"/> instance.</value>
-        [RuntimeBinding.RuntimeBindingDependency]
-        public DocumentDbConnectionManager Factory { get; set; }
+            // Set the read region selection preference order
+            connectionPolicy.PreferredLocations.Add(LocationNames.WestUS); // first preference
+            connectionPolicy.PreferredLocations.Add(LocationNames.EastUS); // second preference
+
+            return new DocumentClient(new Uri(endpointUrl), authorizationKey, connectionPolicy);
+        }
 
         public virtual void Delete()
         {
-            this.Collection.Value.DeleteMany(e => true);
+            var items = client.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
+                              .Select(e => e.Id)
+                              .ToList();
+            foreach (var item in items)
+            {
+                client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseName, collectionName, item.ToString())).Wait();
+            }
         }
 
         public virtual void Delete(TRoot[] instances)
         {
-            var ids = instances.Select(e => e.Id).ToList();
-            this.Collection.Value.DeleteMany(e => ids.Contains(e.Id));
+            foreach (var item in instances)
+            {
+                client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseName, collectionName, item.Id.ToString())).Wait();
+            }
         }
 
         public virtual TRoot Find(Guid id)
         {
-            var target = this.Collection.Value.Find(e => e.Id == id).FirstOrDefault();
-
-            return target.Value;
+            return client.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
+                         .Where(e => e.Id == id)
+                         .Select(e => e.Value)
+                         .ToList()
+                         .FirstOrDefault();
         }
 
         public virtual IQueryable<TRoot> Find()
         {
-            return this.Collection.Value.AsQueryable().Where(e => e.PartitionKey == typeof(TRoot).Name).Select(e => e.Value);
+            return client.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
+                         .Select(e => e.Value);
         }
 
         public virtual void Add(TRoot[] instances)
         {
-            this.Collection.Value.InsertMany(instances.Select(e => new DocumentItem<TRoot>(e)));
+            foreach (var instance in instances)
+            {
+                client.CreateDocumentAsync(collectionUri, new DocumentItem<TRoot>(instance)).Wait();
+            }
         }
 
         public virtual void Update(TRoot[] instances)
         {
-            instances.ToList().ForEach(e =>
+            foreach (var instance in instances)
             {
-                this.Collection.Value.ReplaceOne(x => x.Id == e.Id, new DocumentItem<TRoot>(e), new UpdateOptions { IsUpsert = true });
-            });
-        }
-
-        /// <summary>
-        /// Creates and registers class maps.
-        /// </summary>
-        /// <typeparam name="TClass1">The first type of class.</typeparam>
-        /// <typeparam name="TClass2">The second type of class.</typeparam>
-        /// <typeparam name="TClass3">The third type of class.</typeparam>
-        /// <typeparam name="TClass4">The fourth type of class.</typeparam>
-        public static void Register<TClass1, TClass2, TClass3, TClass4>()
-        {
-            Register<TClass1>();
-            Register<TClass2>();
-            Register<TClass3>();
-            Register<TClass4>();
-        }
-
-        /// <summary>
-        /// Creates and registers class maps.
-        /// </summary>
-        /// <typeparam name="TClass1">The first type of class.</typeparam>
-        /// <typeparam name="TClass2">The second type of class.</typeparam>
-        /// <typeparam name="TClass3">The third type of class.</typeparam>
-        public static void Register<TClass1, TClass2, TClass3>()
-        {
-            Register<TClass1>();
-            Register<TClass2>();
-            Register<TClass3>();
-        }
-
-        /// <summary>
-        /// Creates and registers class maps.
-        /// </summary>
-        /// <typeparam name="TClass1">The first type of class.</typeparam>
-        /// <typeparam name="TClass2">The second type of class.</typeparam>
-        public static void Register<TClass1, TClass2>()
-        {
-            Register<TClass1>();
-            Register<TClass2>();
-        }
-
-        /// <summary>
-        ///  Creates and registers a class map.
-        /// </summary>
-        /// <typeparam name="TClass">The class.</typeparam>
-        public static void Register<TClass>()
-        {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(TClass)))
-            {
-                BsonClassMap.RegisterClassMap<TClass>(e => e.AutoMap());
+                client.UpsertDocumentAsync(collectionUri, new DocumentItem<TRoot>(instance)).Wait();
             }
-        }
-
-        /// <summary>
-        /// Creates and registers a class map.
-        /// </summary>
-        /// <typeparam name="TClass">The class.</typeparam>
-        /// <param name="classMapInitializer">The class map initializer.</param>
-        public static void Register<TClass>(Action<BsonClassMap<TClass>> classMapInitializer)
-        {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(TClass)))
-            {
-                BsonClassMap.RegisterClassMap(classMapInitializer);
-            }
-        }
-
-        public virtual Task RemoveAsync(TRoot[] instances)
-        {
-            var ids = instances.Select(e => e.Id).ToList();
-            return this.Collection.Value.DeleteManyAsync(e => ids.Contains(e.Id));
-        }
-
-        public virtual Task UpdateAsync(TRoot[] instances)
-        {
-            return Task.WhenAll(instances.ToList().Select(e =>
-            {
-                return this.Collection.Value.ReplaceOneAsync(x => x.Id == e.Id, new DocumentItem<TRoot>(e), new UpdateOptions { IsUpsert = true });
-            }));
         }
     }
 }

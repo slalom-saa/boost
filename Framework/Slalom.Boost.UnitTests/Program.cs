@@ -3,6 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using Patolus.Treatment.Domain.Practices;
+using Patolus.Treatment.Domain.Users;
+using Patolus.Treatment.Persistence.Domain;
 using Slalom.Boost.DocumentDb;
 using Slalom.Boost.Domain;
 using Slalom.Boost.RuntimeBinding;
@@ -60,7 +63,7 @@ namespace Slalom.Boost.UnitTests
             Console.WriteLine("Press any key to exit...");
             Console.WriteLine();
 
-            Console.ReadLine();
+            Console.ReadKey();
         }
 
         public async Task Start()
@@ -70,30 +73,41 @@ namespace Slalom.Boost.UnitTests
 
 
 
-                BsonSerializer.RegisterSerializer(typeof(DateTimeOffset?), new DateTimeOffsetSerializer());
+                //BsonSerializer.RegisterSerializer(typeof(DateTimeOffset?), new DateTimeOffsetSerializer());
 
                 using (var container = new ApplicationContainer(this))
                 {
-                    container.Register(new DocumentDbOptions
-                    {
-                        Host = "patolus-development.documents.azure.com",
-                        Port = 10250,
-                        UserName = "patolus-development",
-                        Password = "Uu7Zr7w5xl92c68X6to5iBEKXcE33W1LW9l28ayjlFH5q7RdHRcQzXrkmftUWAK1Jk55Ob7ZyLAXDx7ywa4erQ==",
-                        Database = "treatment",
-                        Collection = "Entities"
-                    });
+                    //container.Register(new DocumentDbOptions
+                    //{
+                    //    Host = "patolus-development.documents.azure.com",
+                    //    Port = 10250,
+                    //    UserName = "patolus-development",
+                    //    Password = "Uu7Zr7w5xl92c68X6to5iBEKXcE33W1LW9l28ayjlFH5q7RdHRcQzXrkmftUWAK1Jk55Ob7ZyLAXDx7ywa4erQ==",
+                    //    Database = "treatment",
+                    //    Collection = "Entities"
+                    //});
 
-                    var item = new Item("name")
-                    {
-                        BirthDate = DateTime.Now
-                    };
+                    // container.Register<IRepository<User>, UserRepository>();
 
-                    container.DataFacade.Add(item);
+                    //var target = container.DataFacade.Find<Item>()
+                    //                      .ToList();
 
-                    var current = container.DataFacade.Find<Item>(item.Id);
+                    //Console.WriteLine(target.Count);
 
-                    Console.WriteLine(current?.BirthDate);
+                    container.DataFacade.Add(new Item("__"));
+
+                    Console.WriteLine(container.DataFacade.Find<Item>().ToList().Count());
+
+                    //var item = new Item("name")
+                    //{
+                    //    BirthDate = DateTime.Now
+                    //};
+
+                    //container.DataFacade.Add(item);
+
+                    //var current = container.DataFacade.Find<Item>(item.Id);
+
+                    //Console.WriteLine(current?.BirthDate);
                 }
             }
             catch (Exception exception)
