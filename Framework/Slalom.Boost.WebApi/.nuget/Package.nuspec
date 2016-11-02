@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Slalom.Boost.WebApi</id>
-    <version>1.2.52</version>
+    <version>1.2.53</version>
     <title>Slalom Boost Framework - Web API</title>
     <authors>Slalom</authors>
     <owners>George Olson</owners>

@@ -49,6 +49,7 @@ namespace Slalom.Boost.Domain
             var results = this.Validate().ToArray();
             if (results.Any())
             {
+
                 throw new ValidationException(results);
             }
         }
