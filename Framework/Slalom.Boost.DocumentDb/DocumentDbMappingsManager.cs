@@ -127,7 +127,19 @@ namespace Slalom.Boost.DocumentDb
         {
             foreach (var info in properties.Where(e => e.DeclaringType == target && !e.GetCustomAttributes<SecurePropertyAttribute>().Any()))
             {
-                map.MapProperty(info.Name);
+                if (info.PropertyType == typeof(DateTime?) || info.PropertyType == typeof(DateTimeOffset?))
+                {
+                    map.MapProperty(info.Name).SetShouldSerializeMethod(obj =>
+                    {
+                        var value = info.GetValue(obj);
+
+                        return value != null && Convert.ToDateTime(value) > new DateTime(1900, 1, 1);
+                    });
+                }
+                else
+                {
+                    map.MapProperty(info.Name);
+                }
             }
         }
     }

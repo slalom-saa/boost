@@ -12,12 +12,12 @@ namespace Slalom.Boost.DocumentDb
     /// </summary>
     /// <typeparam name="TRoot">The type of aggregate root to use.</typeparam>
     /// <seealso cref="Slalom.Boost.Domain.IRepository{TEntity}" />
-    public abstract class MongoRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
+    public abstract class DocumentDbRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}" /> class.
+        /// Initializes a new instance of the <see cref="DocumentDbRepository{TRoot}" /> class.
         /// </summary>
-        protected MongoRepository()
+        protected DocumentDbRepository()
         {
             this.Collection = new Lazy<IMongoCollection<DocumentItem<TRoot>>>(() => this.Factory.GetCollection<DocumentItem<TRoot>>());
         }
