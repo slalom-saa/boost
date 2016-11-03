@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson.IO;
@@ -82,9 +83,17 @@ namespace Slalom.Boost.UnitTests
                         CollectionId = "entries"
                     });
 
-                    container.Resolve<ScriptManager>().EnsureScripts();
+                    //container.Resolve<ScriptManager>().EnsureScripts();
 
-                    container.DataFacade.Add(new Item("Asdf"));
+                    //var target = new List<Item>();
+                    //for (int i = 0; i < 1500; i++)
+                    //{
+                    //    target.Add(new Item(i.ToString()));
+                    //}
+
+                    //container.DataFacade.Add(target);
+
+                    Console.WriteLine(container.DataFacade.Find<Practice>().ToList().Count);
 
                 }
             }

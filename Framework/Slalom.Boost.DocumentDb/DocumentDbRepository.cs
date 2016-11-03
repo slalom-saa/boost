@@ -16,7 +16,7 @@ namespace Slalom.Boost.DocumentDb
     public abstract class DocumentDbRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
 
-        private Uri collectionUri;
+        private Uri collectionUri => UriFactory.CreateDocumentCollectionUri(Options.DatabaseId, Options.CollectionId);
 
         [RuntimeBinding.RuntimeBindingDependency]
         public DocumentDbOptions Options { get; set; }
@@ -47,6 +47,7 @@ namespace Slalom.Boost.DocumentDb
             var items = Client.Value.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
                               .Select(e => e.Id)
                               .ToList();
+
             foreach (var item in items)
             {
                 Client.Value.DeleteDocumentAsync(UriFactory.CreateDocumentUri(Options.DatabaseId, Options.CollectionId, item.ToString("D").ToLower())).Wait();
@@ -78,6 +79,7 @@ namespace Slalom.Boost.DocumentDb
 
         public virtual void Add(TRoot[] instances)
         {
+            Console.WriteLine("Adding " + typeof(TRoot).Name);
             InvokeBulkImportSproc(instances).Wait();
         }
 
