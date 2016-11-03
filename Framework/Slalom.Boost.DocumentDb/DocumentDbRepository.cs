@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
@@ -14,19 +15,19 @@ namespace Slalom.Boost.DocumentDb
     /// <seealso cref="Slalom.Boost.Domain.IRepository{TEntity}" />
     public abstract class DocumentDbRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
-        private static readonly string endpointUrl = "https://patolus-documents.documents.azure.com:443/";
-        private static readonly string authorizationKey = "ASdxo55GhyAEXKFCyK21kkQpsu09XTmb6mYmrJhxe0hyllq7b7jfCuhSeZ6JrmPIQvfAcQxWtL8IJkLJIjY4Qw==";
-        private static readonly string databaseName = "treatment";
-        private static readonly string collectionName = "entries";
-        private DocumentClient client;
 
-        Uri collectionUri = UriFactory.CreateDocumentCollectionUri(databaseName, collectionName);
+        private Uri collectionUri;
+
+        [RuntimeBinding.RuntimeBindingDependency]
+        public DocumentDbOptions Options { get; set; }
+
+
+        private Lazy<DocumentClient> Client;
 
         public DocumentDbRepository()
         {
-            client = GetClient();
+            Client = new Lazy<DocumentClient>(() => GetClient());
         }
-
         private DocumentClient GetClient()
         {
             ConnectionPolicy connectionPolicy = new ConnectionPolicy();
@@ -38,17 +39,17 @@ namespace Slalom.Boost.DocumentDb
             connectionPolicy.PreferredLocations.Add(LocationNames.WestUS); // first preference
             connectionPolicy.PreferredLocations.Add(LocationNames.EastUS); // second preference
 
-            return new DocumentClient(new Uri(endpointUrl), authorizationKey, connectionPolicy);
+            return new DocumentClient(new Uri(Options.ServiceEndpoint), Options.AuthorizationKey, connectionPolicy);
         }
 
         public virtual void Delete()
         {
-            var items = client.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
+            var items = Client.Value.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
                               .Select(e => e.Id)
                               .ToList();
             foreach (var item in items)
             {
-                client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseName, collectionName, item.ToString())).Wait();
+                Client.Value.DeleteDocumentAsync(UriFactory.CreateDocumentUri(Options.DatabaseId, Options.CollectionId, item.ToString("D").ToLower())).Wait();
             }
         }
 
@@ -56,13 +57,13 @@ namespace Slalom.Boost.DocumentDb
         {
             foreach (var item in instances)
             {
-                client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(databaseName, collectionName, item.Id.ToString())).Wait();
+                Client.Value.DeleteDocumentAsync(UriFactory.CreateDocumentUri(Options.DatabaseId, Options.CollectionId, item.Id.ToString())).Wait();
             }
         }
 
         public virtual TRoot Find(Guid id)
         {
-            return client.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
+            return Client.Value.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
                          .Where(e => e.Id == id)
                          .Select(e => e.Value)
                          .ToList()
@@ -71,23 +72,29 @@ namespace Slalom.Boost.DocumentDb
 
         public virtual IQueryable<TRoot> Find()
         {
-            return client.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
+            return Client.Value.CreateDocumentQuery<DocumentItem<TRoot>>(collectionUri)
                          .Select(e => e.Value);
         }
 
         public virtual void Add(TRoot[] instances)
         {
-            foreach (var instance in instances)
-            {
-                client.CreateDocumentAsync(collectionUri, new DocumentItem<TRoot>(instance)).Wait();
-            }
+            InvokeBulkImportSproc(instances).Wait();
+        }
+
+        private async Task InvokeBulkImportSproc(IEnumerable<TRoot> instances)
+        {
+            string scriptName = "bulkImport";
+
+            Uri sprocUri = UriFactory.CreateStoredProcedureUri(Options.DatabaseId, Options.CollectionId, scriptName);
+
+            await Client.Value.ExecuteStoredProcedureAsync<int>(sprocUri, instances.Select(e => new DocumentItem<TRoot>(e)), true);
         }
 
         public virtual void Update(TRoot[] instances)
         {
             foreach (var instance in instances)
             {
-                client.UpsertDocumentAsync(collectionUri, new DocumentItem<TRoot>(instance)).Wait();
+                Client.Value.UpsertDocumentAsync(collectionUri, new DocumentItem<TRoot>(instance)).Wait();
             }
         }
     }

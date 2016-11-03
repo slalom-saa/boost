@@ -4,26 +4,6 @@
         <name>Slalom.Boost.DocumentDb</name>
     </assembly>
     <members>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbConnectionManager.#ctor(Slalom.Boost.DocumentDb.DocumentDbMappingsManager,Slalom.Boost.DocumentDb.DocumentDbOptions)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Slalom.Boost.DocumentDb.DocumentDbConnectionManager" /> class.
-            </summary>
-            <param name="mappings">The mappings.</param>
-            <param name="options">The options.</param>
-        </member>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbConnectionManager.GetCollection``1">
-            <summary>
-            Gets the collection with the specified database and name.
-            </summary>
-            <typeparam name="T">The type of collection.</typeparam>
-            <returns>Returns the collection with the specified database and name.</returns>
-        </member>
-        <member name="M:Slalom.Boost.DocumentDb.DocumentDbConnectionManager.GetDatabase">
-            <summary>
-            Gets the database with the specified name.
-            </summary>
-            <returns>Returns the database with the specified name.</returns>
-        </member>
         <member name="M:Slalom.Boost.DocumentDb.DocumentDbMappingsManager.BuildMap(System.Type)">
             <summary>
             Dynamically builds a map for the specified type.
@@ -37,5 +17,22 @@
             <typeparam name="TRoot">The type of aggregate root to use.</typeparam>
             <seealso cref="T:Slalom.Boost.Domain.IRepository`1" />
         </member>
+        <member name="T:Slalom.Boost.DocumentDb.Scripts">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.Scripts.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.Scripts.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Slalom.Boost.DocumentDb.Scripts.bulkImport" -->
     </members>
 </doc>

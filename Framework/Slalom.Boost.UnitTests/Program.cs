@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using Patolus.Treatment.Domain.Notifications;
 using Patolus.Treatment.Domain.Practices;
 using Patolus.Treatment.Domain.Users;
 using Patolus.Treatment.Persistence.Domain;
@@ -70,44 +71,21 @@ namespace Slalom.Boost.UnitTests
         {
             try
             {
-
-
-
-                //BsonSerializer.RegisterSerializer(typeof(DateTimeOffset?), new DateTimeOffsetSerializer());
-
                 using (var container = new ApplicationContainer(this))
                 {
-                    //container.Register(new DocumentDbOptions
-                    //{
-                    //    Host = "patolus-development.documents.azure.com",
-                    //    Port = 10250,
-                    //    UserName = "patolus-development",
-                    //    Password = "Uu7Zr7w5xl92c68X6to5iBEKXcE33W1LW9l28ayjlFH5q7RdHRcQzXrkmftUWAK1Jk55Ob7ZyLAXDx7ywa4erQ==",
-                    //    Database = "treatment",
-                    //    Collection = "Entities"
-                    //});
+                    container.Register<IRepository<Practice>, PracticeRepository>();
+                    container.Register(new DocumentDbOptions
+                    {
+                        ServiceEndpoint = "https://patolus-documents.documents.azure.com:443/",
+                        AuthorizationKey = "ASdxo55GhyAEXKFCyK21kkQpsu09XTmb6mYmrJhxe0hyllq7b7jfCuhSeZ6JrmPIQvfAcQxWtL8IJkLJIjY4Qw==",
+                        DatabaseId = "treatment",
+                        CollectionId = "entries"
+                    });
 
-                    // container.Register<IRepository<User>, UserRepository>();
+                    container.Resolve<ScriptManager>().EnsureScripts();
 
-                    //var target = container.DataFacade.Find<Item>()
-                    //                      .ToList();
+                    container.DataFacade.Add(new Item("Asdf"));
 
-                    //Console.WriteLine(target.Count);
-
-                    container.DataFacade.Add(new Item("__"));
-
-                    Console.WriteLine(container.DataFacade.Find<Item>().ToList().Count());
-
-                    //var item = new Item("name")
-                    //{
-                    //    BirthDate = DateTime.Now
-                    //};
-
-                    //container.DataFacade.Add(item);
-
-                    //var current = container.DataFacade.Find<Item>(item.Id);
-
-                    //Console.WriteLine(current?.BirthDate);
                 }
             }
             catch (Exception exception)
