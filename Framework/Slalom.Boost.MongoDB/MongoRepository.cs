@@ -4,6 +4,7 @@ using System.Linq;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Slalom.Boost.Domain;
+using Slalom.Boost.Logging;
 using Slalom.Boost.MongoDB.Aspects;
 using Slalom.Boost.RuntimeBinding;
 
@@ -47,11 +48,20 @@ namespace Slalom.Boost.MongoDB
         public IMongoConnectionFactory Factory { get; set; }
 
         /// <summary>
+        /// Gets or sets the configured <see cref="ILogger"/> instance.
+        /// </summary>
+        /// <value>The configured <see cref="ILogger"/> instance.</value>
+        [RuntimeBindingDependency]
+        public ILogger Logger { get; set; }
+
+        /// <summary>
         /// Adds the specified instances.
         /// </summary>
         /// <param name="instances">The instances to update.</param>
         public virtual void Add(params TRoot[] instances)
         {
+            this.Logger.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
             this.Collection.Value.InsertMany(instances);
         }
 
@@ -60,6 +70,8 @@ namespace Slalom.Boost.MongoDB
         /// </summary>
         public virtual void Delete()
         {
+            this.Logger.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+
             this.Collection.Value.DeleteMany(e => true);
         }
 
@@ -69,6 +81,8 @@ namespace Slalom.Boost.MongoDB
         /// <param name="instances">The instances to remove.</param>
         public virtual void Delete(params TRoot[] instances)
         {
+            this.Logger.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
             var ids = instances.Select(e => e.Id).ToList();
             this.Collection.Value.DeleteMany(e => ids.Contains(e.Id));
         }
@@ -79,6 +93,8 @@ namespace Slalom.Boost.MongoDB
         /// <returns>Returns a query for all instances.</returns>
         public virtual IQueryable<TRoot> Find()
         {
+            this.Logger.Verbose("Finding all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+
             return this.Collection.Value.AsQueryable();
         }
 
@@ -89,7 +105,23 @@ namespace Slalom.Boost.MongoDB
         /// <returns>Returns the instance with the specified identifier.</returns>
         public virtual TRoot Find(Guid id)
         {
+            this.Logger.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
+
             return this.Collection.Value.Find(e => e.Id == id).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Updates the specified instance.
+        /// </summary>
+        /// <param name="instances">The instance.</param>
+        public virtual void Update(params TRoot[] instances)
+        {
+            this.Logger.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            instances.ToList().ForEach(e =>
+            {
+                this.Collection.Value.ReplaceOne(x => x.Id == e.Id, e, new UpdateOptions { IsUpsert = true });
+            });
         }
 
         /// <summary>
@@ -154,18 +186,6 @@ namespace Slalom.Boost.MongoDB
             {
                 BsonClassMap.RegisterClassMap(classMapInitializer);
             }
-        }
-
-        /// <summary>
-        /// Updates the specified instance.
-        /// </summary>
-        /// <param name="instance">The instance.</param>
-        public virtual void Update(params TRoot[] instance)
-        {
-            instance.ToList().ForEach(e =>
-            {
-                this.Collection.Value.ReplaceOne(x => x.Id == e.Id, e, new UpdateOptions { IsUpsert = true });
-            });
         }
     }
 }

@@ -34,6 +34,35 @@ namespace Slalom.Boost
         }
 
         /// <summary>
+        /// Gets all properties recursively.
+        /// </summary>
+        /// <param name="type">The root type.</param>
+        /// <returns>All discovered properties.</returns>
+        internal static IEnumerable<PropertyInfo> GetPropertiesRecursive(this Type type)
+        {
+            var seenNames = new HashSet<string>();
+
+            var currentTypeInfo = type.GetTypeInfo();
+
+            while (currentTypeInfo.AsType() != typeof(object))
+            {
+                var unseenProperties = currentTypeInfo.DeclaredProperties.Where(p => p.CanRead &&
+                                                                                     p.GetMethod.IsPublic &&
+                                                                                     !p.GetMethod.IsStatic &&
+                                                                                     (p.Name != "Item" || p.GetIndexParameters().Length == 0) &&
+                                                                                     !seenNames.Contains(p.Name));
+
+                foreach (var propertyInfo in unseenProperties)
+                {
+                    seenNames.Add(propertyInfo.Name);
+                    yield return propertyInfo;
+                }
+
+                currentTypeInfo = currentTypeInfo.BaseType.GetTypeInfo();
+            }
+        }
+
+        /// <summary>
         /// Safely gets all types when some referenced assemblies may not be available.
         /// </summary>
         /// <param name="assemblies">The instance.</param>

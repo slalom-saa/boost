@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using MongoDB.Bson.Serialization;
 using Slalom.Boost.Aspects;
+using Slalom.Boost.Serialization;
 
 namespace Slalom.Boost.MongoDB
 {
@@ -28,7 +29,7 @@ namespace Slalom.Boost.MongoDB
 
                 foreach (var info in properties.Where(e => e.DeclaringType == target))
                 {
-                    if (!info.GetCustomAttributes<SecurePropertyAttribute>().Any())
+                    if (!info.GetCustomAttributes<SecureAttribute>().Any())
                     {
                         if (info.PropertyType == typeof(DateTime?) || info.PropertyType == typeof(DateTimeOffset?))
                         {

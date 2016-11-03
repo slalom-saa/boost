@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
+using Slalom.Boost.Logging;
 using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Events
@@ -82,13 +83,8 @@ namespace Slalom.Boost.Events
                 }
                 catch (Exception exception)
                 {
-                    if (instance is ApplicationEvent)
-                    {
-                        throw;
-                    }
-
                     var logger = Container.Resolve<ILogger>();
-                    logger.Error("An exception occurred while handling an event.", instance, context, exception);
+                    logger.Error(exception, "An exception occurred while handling an event. {@Event} {@Context}", instance, context);
                     throw;
                 }
             }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Slalom.Boost.Aspects;
+using Slalom.Boost.Logging;
 using Slalom.Boost.RuntimeBinding;
 using Slalom.Boost.Validation;
 

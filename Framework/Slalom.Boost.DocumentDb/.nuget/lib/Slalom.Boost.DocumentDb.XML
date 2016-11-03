@@ -17,6 +17,12 @@
             <typeparam name="TRoot">The type of aggregate root to use.</typeparam>
             <seealso cref="T:Slalom.Boost.Domain.IRepository`1" />
         </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Logger">
+            <summary>
+            Gets or sets the configured <see cref="T:Slalom.Boost.Logging.ILogger"/> instance.
+            </summary>
+            <value>The configured <see cref="T:Slalom.Boost.Logging.ILogger"/> instance.</value>
+        </member>
         <member name="T:Slalom.Boost.DocumentDb.Scripts">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.

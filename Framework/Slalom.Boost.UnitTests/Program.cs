@@ -4,12 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
-using Patolus.Treatment.Domain.Notifications;
-using Patolus.Treatment.Domain.Practices;
-using Patolus.Treatment.Domain.Users;
-using Patolus.Treatment.Persistence.Domain;
 using Slalom.Boost.DocumentDb;
 using Slalom.Boost.Domain;
+using Slalom.Boost.Logging;
+using Slalom.Boost.MongoDB;
 using Slalom.Boost.RuntimeBinding;
 #pragma warning disable 4014
 
@@ -52,7 +50,7 @@ namespace Slalom.Boost.UnitTests
         public Type ValueType { get; }
     }
 
-    public class ItemRepository : DocumentDbRepository<Item>
+    public class ItemRepository : MongoRepository<Item>
     {
     }
 
@@ -74,7 +72,7 @@ namespace Slalom.Boost.UnitTests
             {
                 using (var container = new ApplicationContainer(this))
                 {
-                    container.Register<IRepository<Practice>, PracticeRepository>();
+                    //container.Register<IRepository<Practice>, PracticeRepository>();
                     container.Register(new DocumentDbOptions
                     {
                         ServiceEndpoint = "https://patolus-documents.documents.azure.com:443/",
@@ -82,6 +80,16 @@ namespace Slalom.Boost.UnitTests
                         DatabaseId = "treatment",
                         CollectionId = "entries"
                     });
+
+
+                    //container.DataFacade.Delete<Item>();
+
+                    container.DataFacade.Add(new Item("_"));
+
+                    Console.WriteLine(container.DataFacade.Find<Item>().Count());
+
+                   // container.Resolve<ILogger>().Verbose("adsfasdfs");
+
 
                     //container.Resolve<ScriptManager>().EnsureScripts();
 
@@ -93,7 +101,7 @@ namespace Slalom.Boost.UnitTests
 
                     //container.DataFacade.Add(target);
 
-                    Console.WriteLine(container.DataFacade.Find<Practice>().ToList().Count);
+                    //Console.WriteLine(container.DataFacade.Find<Practice>().ToList().Count);
 
                 }
             }
