@@ -4,6 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
+using Patolus.Treatment.Application.Practices.CustomCodes.ImportCustomCodes;
+using Patolus.Treatment.Automation;
+using Patolus.Treatment.Domain.Users;
+using Patolus.Treatment.Persistence.Domain;
 using Slalom.Boost.DocumentDb;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Logging;
@@ -50,7 +54,7 @@ namespace Slalom.Boost.UnitTests
         public Type ValueType { get; }
     }
 
-    public class ItemRepository : MongoRepository<Item>
+    public class ItemRepository : DocumentDbRepository<Item>
     {
     }
 
@@ -70,7 +74,7 @@ namespace Slalom.Boost.UnitTests
         {
             try
             {
-                using (var container = new ApplicationContainer(this))
+                using (var container = new ApplicationContainer(typeof(ImportCustomCodesCommand)))
                 {
                     //container.Register<IRepository<Practice>, PracticeRepository>();
                     container.Register(new DocumentDbOptions
@@ -81,27 +85,23 @@ namespace Slalom.Boost.UnitTests
                         CollectionId = "entries"
                     });
 
+                    //var result = container.Bus.Send(new ImportCustomCodesCommand(Files.Data)).Result;
 
-                    //container.DataFacade.Delete<Item>();
-
-                    container.DataFacade.Add(new Item("_"));
-
-                    Console.WriteLine(container.DataFacade.Find<Item>().Count());
-
-                   // container.Resolve<ILogger>().Verbose("adsfasdfs");
+                    //Console.WriteLine(result.Successful);
+                    //Console.WriteLine(result.Elapsed);
 
 
+                    //container.Resolve<CollectionManger>().ResetDatabase();
                     //container.Resolve<ScriptManager>().EnsureScripts();
 
-                    //var target = new List<Item>();
-                    //for (int i = 0; i < 1500; i++)
-                    //{
-                    //    target.Add(new Item(i.ToString()));
-                    //}
+                    //var item = new Item("__");
 
-                    //container.DataFacade.Add(target);
+                    //container.DataFacade.Add(item);
 
-                    //Console.WriteLine(container.DataFacade.Find<Practice>().ToList().Count);
+
+                    //var item = container.DataFacade.Find<Item>().AsEnumerable().First();
+                    //item.Name = "_________";
+                    //container.DataFacade.Update(item);
 
                 }
             }

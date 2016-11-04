@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
+using Newtonsoft.Json;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Logging;
 using Slalom.Boost.RuntimeBinding;
+using Slalom.Boost.Serialization;
 
 namespace Slalom.Boost.DocumentDb
 {
@@ -22,6 +24,11 @@ namespace Slalom.Boost.DocumentDb
         public DocumentDbRepository()
         {
             Client = new Lazy<DocumentClient>(() => this.GetClient());
+
+            JsonConvert.DefaultSettings = () =>
+            {
+                return new DefaultSerializationSettings();
+            };
         }
 
         /// <summary>
@@ -40,14 +47,7 @@ namespace Slalom.Boost.DocumentDb
         {
             this.Logger.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
-            var items = Client.Value.CreateDocumentQuery<DocumentItem<TRoot>>(this.collectionUri)
-                              .Select(e => e.Id)
-                              .ToList();
-
-            foreach (var item in items)
-            {
-                Client.Value.DeleteDocumentAsync(UriFactory.CreateDocumentUri(this.Options.DatabaseId, this.Options.CollectionId, item.ToString("D").ToLower())).Wait();
-            }
+            this.InvokeBulkDeleteSproc().Wait();
         }
 
         public virtual void Delete(TRoot[] instances)
@@ -76,6 +76,7 @@ namespace Slalom.Boost.DocumentDb
             this.Logger.Verbose("Finding all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             return Client.Value.CreateDocumentQuery<DocumentItem<TRoot>>(this.collectionUri)
+                         .Where(e => e.PartitionKey == typeof(TRoot).Name)
                          .Select(e => e.Value);
         }
 
@@ -86,13 +87,34 @@ namespace Slalom.Boost.DocumentDb
             this.InvokeBulkImportSproc(instances).Wait();
         }
 
+        protected virtual void Add(TRoot[] instances, int batchSize)
+        {
+            this.Logger.Verbose("Adding {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
+
+            var current = instances.ToList();
+            while (current.Any())
+            {
+                this.InvokeBulkImportSproc(current.Take(batchSize)).Wait();
+                current = current.Skip(batchSize).ToList();
+            }
+        }
+
         public virtual void Update(TRoot[] instances)
         {
-            this.Logger.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
-            foreach (var instance in instances)
+            this.InvokeBulkImportSproc(instances).Wait();
+        }
+
+        protected virtual void Update(TRoot[] instances, int batchSize)
+        {
+            this.Logger.Verbose("Updating {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
+
+            var current = instances.ToList();
+            while (current.Any())
             {
-                Client.Value.UpsertDocumentAsync(this.collectionUri, new DocumentItem<TRoot>(instance)).Wait();
+                this.InvokeBulkImportSproc(current.Take(batchSize)).Wait();
+                current = current.Skip(batchSize).ToList();
             }
         }
 
@@ -110,13 +132,22 @@ namespace Slalom.Boost.DocumentDb
             return new DocumentClient(new Uri(this.Options.ServiceEndpoint), this.Options.AuthorizationKey, connectionPolicy);
         }
 
-        private async Task InvokeBulkImportSproc(IEnumerable<TRoot> instances)
+        private Task InvokeBulkImportSproc(IEnumerable<TRoot> instances)
         {
             var scriptName = "bulkImport";
 
             var sprocUri = UriFactory.CreateStoredProcedureUri(this.Options.DatabaseId, this.Options.CollectionId, scriptName);
 
-            await Client.Value.ExecuteStoredProcedureAsync<int>(sprocUri, instances.Select(e => new DocumentItem<TRoot>(e)), true);
+            return Client.Value.ExecuteStoredProcedureAsync<int>(sprocUri, instances.Select(e => new DocumentItem<TRoot>(e)), true);
+        }
+
+        private Task InvokeBulkDeleteSproc()
+        {
+            var scriptName = "bulkDelete";
+
+            var sprocUri = UriFactory.CreateStoredProcedureUri(this.Options.DatabaseId, this.Options.CollectionId, scriptName);
+
+            return Client.Value.ExecuteStoredProcedureAsync<Document>(sprocUri, typeof(TRoot).Name);
         }
     }
 }

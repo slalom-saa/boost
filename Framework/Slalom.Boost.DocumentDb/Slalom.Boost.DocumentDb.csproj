@@ -120,6 +120,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\bulkDelete.js" />
     <Content Include="Scripts\bulkImport.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -91,7 +91,7 @@ namespace Slalom.Boost.Commands
                     }
                     else if (exception.InnerException is TargetInvocationException)
                     {
-                        this.LogException(context, ((TargetInvocationException)exception.InnerException).InnerException);
+                        this.LogException(((TargetInvocationException)exception.InnerException).InnerException, context);
                         result.SetException(((TargetInvocationException)exception.InnerException).InnerException);
                     }
                     else
@@ -101,12 +101,12 @@ namespace Slalom.Boost.Commands
                 }
                 catch (TargetInvocationException exception)
                 {
-                    this.LogException(context, exception.InnerException);
+                    this.LogException(exception.InnerException, context);
                     result.SetException(exception.InnerException);
                 }
                 catch (Exception exception)
                 {
-                    this.LogException(context, exception);
+                    this.LogException(exception, context);
                     result.SetException(exception);
                 }
 
@@ -116,12 +116,12 @@ namespace Slalom.Boost.Commands
                 }
                 catch (TargetInvocationException exception)
                 {
-                    this.LogException(context, exception.InnerException);
+                    this.LogException(exception.InnerException, context);
                     result.SetException(exception.InnerException);
                 }
                 catch (Exception exception)
                 {
-                    this.LogException(context, exception);
+                    this.LogException(exception, context);
                     result.SetException(exception);
                 }
 
@@ -167,17 +167,10 @@ namespace Slalom.Boost.Commands
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "As designed.")]
-        protected virtual void LogException(CommandContext context, params object[] data)
+        protected virtual void LogException(Exception exception, CommandContext context, params object[] data)
         {
             var logger = Container.Resolve<ILogger>();
-            try
-            {
-                logger.Error("An unhandled exception occurred while executing a command.", data);
-            }
-            catch (Exception exception)
-            {
-                Trace.TraceError("Failed to write an error message to a logger.  " + exception.Message);
-            }
+            logger.Error(exception, "An unhandled exception occurred while executing a command.", data);
         }
 
         protected virtual void PublishRaisedEvents<TResponse>(CommandResult<TResponse> response)

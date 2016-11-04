@@ -85,6 +85,21 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Patolus.Treatment.Application">
+      <HintPath>..\..\..\Patolus - Treatment API\Patolus.Treatment.ConsoleClient\bin\Debug\Patolus.Treatment.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="Patolus.Treatment.Automation">
+      <HintPath>..\..\..\Patolus - Treatment API\Patolus.Treatment.Automation\bin\Debug\Patolus.Treatment.Automation.dll</HintPath>
+    </Reference>
+    <Reference Include="Patolus.Treatment.Domain">
+      <HintPath>..\..\..\Patolus - Treatment API\Patolus.Treatment.ConsoleClient\bin\Debug\Patolus.Treatment.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Patolus.Treatment.Integration">
+      <HintPath>..\..\..\Patolus - Treatment API\Patolus.Treatment.ConsoleClient\bin\Debug\Patolus.Treatment.Integration.dll</HintPath>
+    </Reference>
+    <Reference Include="Patolus.Treatment.Persistence">
+      <HintPath>..\..\..\Patolus - Treatment API\Patolus.Treatment.ConsoleClient\bin\Debug\Patolus.Treatment.Persistence.dll</HintPath>
+    </Reference>
     <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
       <HintPath>..\packages\Serilog.2.3.0\lib\net46\Serilog.dll</HintPath>
       <Private>True</Private>

@@ -61,6 +61,22 @@ namespace Slalom.Boost.DocumentDb {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /**
+        /// * A DocumentDB stored procedure that bulk deletes documents for a given query.&lt;br/&gt;
+        /// * Note: You may need to execute this sproc multiple times (depending whether the sproc is able to delete every document within the execution timeout limit).
+        /// *
+        /// * @function
+        /// * @param {string} query - A query that provides the documents to be deleted (e.g. &quot;SELECT * FROM c WHERE c.founded_year = 2008&quot;)
+        /// * @returns {Object.&lt;number, boolean&gt;} Returns an object with the two properties:&lt;br/&gt;
+        /// *   deleted - contains a [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string bulkDelete {
+            get {
+                return ResourceManager.GetString("bulkDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to //------------------------------------------------------------
         ///// Copyright (c) Microsoft Corporation.  All rights reserved.
         /////------------------------------------------------------------

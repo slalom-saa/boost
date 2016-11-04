@@ -61,7 +61,7 @@ namespace Slalom.Boost.Logging
 
                 if (pi.GetCustomAttributes<SecureAttribute>().Any())
                 {
-                    structureProperties.Add(new LogEventProperty(pi.Name, new ScalarValue("[SECURE]")));
+                    structureProperties.Add(new LogEventProperty(pi.Name, new ScalarValue(SecureAttribute.DefaultText)));
                     continue;
                 }
                 if (typeof(ClaimsPrincipal).IsAssignableFrom(pi.PropertyType))
