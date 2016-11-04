@@ -74,6 +74,7 @@
     <Compile Include="..\Slalom.Boost\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DocumentDbContext.cs" />
     <Compile Include="DocumentDbMappingsManager.cs" />
     <Compile Include="DocumentDbOptions.cs" />
     <Compile Include="DocumentDbRepository.cs" />

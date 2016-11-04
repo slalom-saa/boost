@@ -93,7 +93,7 @@ namespace Slalom.Boost.MongoDB
         /// <returns>Returns a query for all instances.</returns>
         public virtual IQueryable<TRoot> Find()
         {
-            this.Logger.Verbose("Finding all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             return this.Collection.Value.AsQueryable();
         }

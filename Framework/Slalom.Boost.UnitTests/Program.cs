@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
-using Patolus.Treatment.Application.Practices.CustomCodes.ImportCustomCodes;
-using Patolus.Treatment.Automation;
-using Patolus.Treatment.Domain.Users;
+using MongoDB.Driver;
+using Patolus.Treatment.Domain.TreatmentPlans;
 using Patolus.Treatment.Persistence.Domain;
 using Slalom.Boost.DocumentDb;
 using Slalom.Boost.Domain;
@@ -74,34 +74,41 @@ namespace Slalom.Boost.UnitTests
         {
             try
             {
-                using (var container = new ApplicationContainer(typeof(ImportCustomCodesCommand)))
+                using (var container = new ApplicationContainer(typeof(Program)))
                 {
-                    //container.Register<IRepository<Practice>, PracticeRepository>();
-                    container.Register(new DocumentDbOptions
+
+                    var credential = MongoCredential.CreateCredential("develop", "admin", "password");
+
+                    var mongoClientSettings = new MongoClientSettings
                     {
-                        ServiceEndpoint = "https://patolus-documents.documents.azure.com:443/",
-                        AuthorizationKey = "ASdxo55GhyAEXKFCyK21kkQpsu09XTmb6mYmrJhxe0hyllq7b7jfCuhSeZ6JrmPIQvfAcQxWtL8IJkLJIjY4Qw==",
-                        DatabaseId = "treatment",
-                        CollectionId = "entries"
-                    });
+                        Server = new MongoServerAddress("ds050189.mlab.com", 50189),
+                        Credentials = new List<MongoCredential> { credential }
+                    };
 
-                    //var result = container.Bus.Send(new ImportCustomCodesCommand(Files.Data)).Result;
+                    var client = new MongoClient(mongoClientSettings);
 
-                    //Console.WriteLine(result.Successful);
-                    //Console.WriteLine(result.Elapsed);
+                     await client.GetDatabase("develop").GetCollection<Item>("Items").InsertOneAsync(new Item("__"));
 
-
-                    //container.Resolve<CollectionManger>().ResetDatabase();
-                    //container.Resolve<ScriptManager>().EnsureScripts();
-
-                    //var item = new Item("__");
-
-                    //container.DataFacade.Add(item);
+                    //container.Register<IRepository<TreatmentPlan>, TreatmentPlanRepository>();
+                    //container.Register(new DocumentDbOptions
+                    //{
+                    //    ServiceEndpoint = "https://patolus-documents.documents.azure.com:443/",
+                    //    AuthorizationKey = "ASdxo55GhyAEXKFCyK21kkQpsu09XTmb6mYmrJhxe0hyllq7b7jfCuhSeZ6JrmPIQvfAcQxWtL8IJkLJIjY4Qw==",
+                    //    DatabaseId = "treatment",
+                    //    CollectionId = "entries"
+                    //});
 
 
-                    //var item = container.DataFacade.Find<Item>().AsEnumerable().First();
-                    //item.Name = "_________";
-                    //container.DataFacade.Update(item);
+                    //var plan = container.DataFacade.Find<TreatmentPlan>().Take(1).AsEnumerable().First();
+
+                    //var watch = Stopwatch.StartNew();
+                    //plan = container.DataFacade.Find<TreatmentPlan>().Take(1).AsEnumerable().First();
+                    //Console.WriteLine(watch.Elapsed);
+
+                    ////container.Resolve<CollectionManger>().ResetDatabase();
+                    ////container.Resolve<ScriptManager>().EnsureScripts();
+
+                    ////container.DataFacade.Add(new Item("ss"));
 
                 }
             }

@@ -4,6 +4,23 @@
         <name>Slalom.Boost.DocumentDb</name>
     </assembly>
     <members>
+        <member name="M:Slalom.Boost.DocumentDb.DocumentDbContext.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Slalom.Boost.DocumentDb.DocumentDbContext.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbContext.Logger">
+            <summary>
+            Gets or sets the configured <see cref="T:Slalom.Boost.Logging.ILogger"/> instance.
+            </summary>
+            <value>The configured <see cref="T:Slalom.Boost.Logging.ILogger"/> instance.</value>
+        </member>
         <member name="M:Slalom.Boost.DocumentDb.DocumentDbMappingsManager.BuildMap(System.Type)">
             <summary>
             Dynamically builds a map for the specified type.

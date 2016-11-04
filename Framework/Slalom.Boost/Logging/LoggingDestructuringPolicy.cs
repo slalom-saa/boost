@@ -13,7 +13,7 @@ using Slalom.Boost.Validation;
 
 namespace Slalom.Boost.Logging
 {
-    internal class LoggingDestructuringPolicy : IDestructuringPolicy
+    public class LoggingDestructuringPolicy : IDestructuringPolicy
     {
         private readonly Dictionary<Type, Func<object, ILogEventPropertyValueFactory, LogEventPropertyValue>> _cache = new Dictionary<Type, Func<object, ILogEventPropertyValueFactory, LogEventPropertyValue>>();
         private readonly object _cacheLock = new object();

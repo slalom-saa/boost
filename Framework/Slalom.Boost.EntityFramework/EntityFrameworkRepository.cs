@@ -69,7 +69,7 @@ namespace Slalom.Boost.EntityFramework
 
         public virtual IQueryable<TRoot> Find()
         {
-            this.Logger.Verbose("Finding all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             return Context.Set<TRoot>().AsNoTracking();
         }

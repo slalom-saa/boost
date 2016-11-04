@@ -48,7 +48,7 @@ namespace Slalom.Boost.DocumentDb
                 client.CreateDocumentCollectionAsync(
                     UriFactory.CreateDatabaseUri(_options.DatabaseId),
                     collectionDefinition,
-                    new RequestOptions { OfferThroughput = 1000 }).Wait();
+                    new RequestOptions { OfferThroughput = 10000 }).Wait();
             }
         }
     }
