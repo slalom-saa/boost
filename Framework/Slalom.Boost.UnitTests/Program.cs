@@ -76,18 +76,43 @@ namespace Slalom.Boost.UnitTests
             {
                 using (var container = new ApplicationContainer(typeof(Program)))
                 {
-
-                    var credential = MongoCredential.CreateCredential("develop", "admin", "password");
-
-                    var mongoClientSettings = new MongoClientSettings
+                    container.Register(new DocumentDbOptions
                     {
-                        Server = new MongoServerAddress("ds050189.mlab.com", 50189),
-                        Credentials = new List<MongoCredential> { credential }
-                    };
+                        ServiceEndpoint = "https://patolus-documents.documents.azure.com:443/",
+                        AuthorizationKey = "ASdxo55GhyAEXKFCyK21kkQpsu09XTmb6mYmrJhxe0hyllq7b7jfCuhSeZ6JrmPIQvfAcQxWtL8IJkLJIjY4Qw==",
+                        DatabaseId = "treatment",
+                        CollectionId = "entries"
+                    });
 
-                    var client = new MongoClient(mongoClientSettings);
+                    container.Register(new MongoDbOptions
+                    {
+                        Database = "develop",
+                        UserName = "admin",
+                        Password = "password",
+                        Server = "ds050189.mlab.com",
+                        Port = 50189
+                    });
 
-                     await client.GetDatabase("develop").GetCollection<Item>("Items").InsertOneAsync(new Item("__"));
+                    //container.Register(new MongoDbOptions
+                    //{
+                    //    Database = "treatment-development",
+                    //    UserName = "service",
+                    //    Password = "pass@word1",
+                    //    Server = "aws-us-west-2-portal.1.dblayer.com",
+                    //    Port = 15355,
+                    //    UseSsl = true
+                    //});
+
+
+                    container.DataFacade.Add(new Item("sss"));
+
+                    var watch = Stopwatch.StartNew();
+                    for (int i = 0; i < 100; i++)
+                    {
+                        container.DataFacade.Find<Item>().Where(e => e.Name == "sss").Take(1).ToList().First();
+                    }
+                    watch.Stop();
+                    Console.WriteLine(watch.Elapsed);
 
                     //container.Register<IRepository<TreatmentPlan>, TreatmentPlanRepository>();
                     //container.Register(new DocumentDbOptions

@@ -17,35 +17,17 @@ namespace Slalom.Boost.MongoDB
     /// <seealso cref="Slalom.Boost.Domain.IRepository{TEntity}" />
     public abstract class MongoRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MongoRepository{TEntity}"/> class.
-        /// </summary>
         protected MongoRepository()
-            : this(ConfigurationManager.AppSettings["mongo:Database"])
         {
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MongoAuditStore" /> class.
-        /// </summary>
-        protected MongoRepository(string database)
+        protected MongoRepository(MongoDbContext context)
         {
-            this.Collection = new Lazy<IMongoCollection<TRoot>>(() => this.Factory.GetCollection<TRoot>(database, typeof(TRoot).Name));
-
-            MongoMappings.EnsureInitialized(this);
+            this.Context = context;
         }
 
-        /// <summary>
-        /// Gets the collection factory.
-        /// </summary>
-        public Lazy<IMongoCollection<TRoot>> Collection { get; }
-
-        /// <summary>
-        /// Gets or sets the current <see cref="IMongoConnectionFactory"/> instance.
-        /// </summary>
-        /// <value>The current <see cref="IMongoConnectionFactory"/> instance.</value>
         [RuntimeBindingDependency]
-        public IMongoConnectionFactory Factory { get; set; }
+        public MongoDbContext Context { get; set; }
 
         /// <summary>
         /// Gets or sets the configured <see cref="ILogger"/> instance.
@@ -62,7 +44,7 @@ namespace Slalom.Boost.MongoDB
         {
             this.Logger.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
-            this.Collection.Value.InsertMany(instances);
+            this.Context.Add(instances);
         }
 
         /// <summary>
@@ -72,7 +54,7 @@ namespace Slalom.Boost.MongoDB
         {
             this.Logger.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
-            this.Collection.Value.DeleteMany(e => true);
+            this.Context.Delete<TRoot>();
         }
 
         /// <summary>
@@ -83,8 +65,7 @@ namespace Slalom.Boost.MongoDB
         {
             this.Logger.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
-            var ids = instances.Select(e => e.Id).ToList();
-            this.Collection.Value.DeleteMany(e => ids.Contains(e.Id));
+            this.Context.Delete(instances);
         }
 
         /// <summary>
@@ -95,7 +76,7 @@ namespace Slalom.Boost.MongoDB
         {
             this.Logger.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
-            return this.Collection.Value.AsQueryable();
+            return this.Context.Find<TRoot>();
         }
 
         /// <summary>
@@ -107,7 +88,7 @@ namespace Slalom.Boost.MongoDB
         {
             this.Logger.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
 
-            return this.Collection.Value.Find(e => e.Id == id).FirstOrDefault();
+            return this.Context.Find<TRoot>(id);
         }
 
         /// <summary>
@@ -116,12 +97,9 @@ namespace Slalom.Boost.MongoDB
         /// <param name="instances">The instance.</param>
         public virtual void Update(params TRoot[] instances)
         {
-            this.Logger.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
-            instances.ToList().ForEach(e =>
-            {
-                this.Collection.Value.ReplaceOne(x => x.Id == e.Id, e, new UpdateOptions { IsUpsert = true });
-            });
+            this.Context.Update(instances);
         }
 
         /// <summary>

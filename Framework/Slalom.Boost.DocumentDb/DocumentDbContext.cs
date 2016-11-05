@@ -17,30 +17,6 @@ namespace Slalom.Boost.DocumentDb
     {
         private readonly Lazy<DocumentClient> Client;
 
-        /// <summary>
-        /// Releases unmanaged and - optionally - managed resources.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (Client.IsValueCreated)
-                {
-                    Client.Value.Dispose();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        public void Dispose()
-        {
-            this.Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
         public DocumentDbContext(DocumentDbOptions options)
         {
             this.Options = options;
@@ -66,8 +42,6 @@ namespace Slalom.Boost.DocumentDb
 
         public virtual void Add<TRoot>(TRoot[] instances, int batchSize) where TRoot : IAggregateRoot
         {
-            
-
             var current = instances.ToList();
             while (current.Any())
             {
@@ -78,8 +52,14 @@ namespace Slalom.Boost.DocumentDb
 
         public virtual void Add<TRoot>(TRoot[] instances) where TRoot : IAggregateRoot
         {
-
-            this.InvokeBulkImportSproc(instances).Wait();
+            if (instances.Count() == 1)
+            {
+                Client.Value.CreateDocumentAsync(this.CollectionUri, new DocumentItem<TRoot>(instances[0]));
+            }
+            else
+            {
+                this.InvokeBulkImportSproc(instances).Wait();
+            }
         }
 
         public virtual void Delete<TRoot>() where TRoot : IAggregateRoot
@@ -95,10 +75,17 @@ namespace Slalom.Boost.DocumentDb
             }
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public virtual IQueryable<TRoot> Find<TRoot>() where TRoot : IAggregateRoot
         {
-            
-
             return Client.Value.CreateDocumentQuery<DocumentItem<TRoot>>(this.CollectionUri)
                          .Where(e => e.PartitionKey == typeof(TRoot).Name)
                          .Select(e => e.Value);
@@ -106,31 +93,45 @@ namespace Slalom.Boost.DocumentDb
 
         public virtual TRoot Find<TRoot>(Guid id) where TRoot : IAggregateRoot
         {
-            
+            var response = Client.Value.ReadDocumentAsync(UriFactory.CreateDocumentUri(this.Options.DatabaseId, this.Options.CollectionId, id.ToString())).Result;
 
-            return Client.Value.CreateDocumentQuery<DocumentItem<TRoot>>(this.CollectionUri)
-                         .Where(e => e.Id == id)
-                         .Select(e => e.Value)
-                         .ToList()
-                         .FirstOrDefault();
+            return (TRoot)(dynamic)response.Resource;
         }
 
         public virtual void Update<TRoot>(TRoot[] instances) where TRoot : IAggregateRoot
         {
-            
-
-            this.InvokeBulkImportSproc(instances).Wait();
+            if (instances.Count() == 1)
+            {
+                Client.Value.UpsertDocumentAsync(CollectionUri, new DocumentItem<TRoot>(instances[0]));
+            }
+            else
+            {
+                this.InvokeBulkImportSproc(instances).Wait();
+            }
         }
 
         public virtual void Update<TRoot>(TRoot[] instances, int batchSize) where TRoot : IAggregateRoot
         {
-            
-
             var current = instances.ToList();
             while (current.Any())
             {
                 this.InvokeBulkImportSproc(current.Take(batchSize)).Wait();
                 current = current.Skip(batchSize).ToList();
+            }
+        }
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (Client.IsValueCreated)
+                {
+                    Client.Value.Dispose();
+                }
             }
         }
 
@@ -154,7 +155,13 @@ namespace Slalom.Boost.DocumentDb
 
         private DocumentClient GetClient()
         {
-            return new DocumentClient(new Uri(this.Options.ServiceEndpoint), this.Options.AuthorizationKey);
+            var client = new DocumentClient(new Uri(this.Options.ServiceEndpoint), this.Options.AuthorizationKey, new ConnectionPolicy
+            {
+                ConnectionMode = ConnectionMode.Direct,
+                ConnectionProtocol = Protocol.Tcp
+            });
+            client.OpenAsync().Wait();
+            return client;
         }
     }
 }
