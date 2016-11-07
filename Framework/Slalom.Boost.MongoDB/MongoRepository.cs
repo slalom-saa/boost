@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Configuration;
 using System.Linq;
 using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Logging;
-using Slalom.Boost.MongoDB.Aspects;
 using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.MongoDB
@@ -17,32 +14,44 @@ namespace Slalom.Boost.MongoDB
     /// <seealso cref="Slalom.Boost.Domain.IRepository{TEntity}" />
     public abstract class MongoRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}"/> class.
+        /// </summary>
         protected MongoRepository()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}"/> class.  Use this constructor
+        /// to provide a non-default connection.
+        /// </summary>
+        /// <param name="context">The configured <see cref="MongoDbContext"/>.</param>
         protected MongoRepository(MongoDbContext context)
         {
             this.Context = context;
         }
 
+        /// <summary>
+        /// Gets or sets configured <see cref="MongoDbContext"/>.
+        /// </summary>
+        /// <value>The configured <see cref="MongoDbContext"/>.</value>
         [RuntimeBindingDependency]
         public MongoDbContext Context { get; set; }
 
         /// <summary>
-        /// Gets or sets the configured <see cref="ILogger"/> instance.
+        /// Gets or sets the configured <see cref="ILogger"/>.
         /// </summary>
-        /// <value>The configured <see cref="ILogger"/> instance.</value>
+        /// <value>The configured <see cref="ILogger"/>.</value>
         [RuntimeBindingDependency]
         public ILogger Logger { get; set; }
 
         /// <summary>
         /// Adds the specified instances.
         /// </summary>
-        /// <param name="instances">The instances to update.</param>
+        /// <param name="instances">The instances to add.</param>
         public virtual void Add(params TRoot[] instances)
         {
-            this.Logger.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Context.Add(instances);
         }
@@ -52,7 +61,7 @@ namespace Slalom.Boost.MongoDB
         /// </summary>
         public virtual void Delete()
         {
-            this.Logger.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Context.Delete<TRoot>();
         }
@@ -63,7 +72,7 @@ namespace Slalom.Boost.MongoDB
         /// <param name="instances">The instances to remove.</param>
         public virtual void Delete(params TRoot[] instances)
         {
-            this.Logger.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Context.Delete(instances);
         }
@@ -74,7 +83,7 @@ namespace Slalom.Boost.MongoDB
         /// <returns>Returns a query for all instances.</returns>
         public virtual IQueryable<TRoot> Find()
         {
-            this.Logger.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             return this.Context.Find<TRoot>();
         }
@@ -86,20 +95,9 @@ namespace Slalom.Boost.MongoDB
         /// <returns>Returns the instance with the specified identifier.</returns>
         public virtual TRoot Find(Guid id)
         {
-            this.Logger.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
+            this.Logger?.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
 
             return this.Context.Find<TRoot>(id);
-        }
-
-        /// <summary>
-        /// Updates the specified instance.
-        /// </summary>
-        /// <param name="instances">The instance.</param>
-        public virtual void Update(params TRoot[] instances)
-        {
-            this.Logger.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
-
-            this.Context.Update(instances);
         }
 
         /// <summary>
@@ -164,6 +162,17 @@ namespace Slalom.Boost.MongoDB
             {
                 BsonClassMap.RegisterClassMap(classMapInitializer);
             }
+        }
+
+        /// <summary>
+        /// Updates the specified instance.
+        /// </summary>
+        /// <param name="instances">The instance.</param>
+        public virtual void Update(params TRoot[] instances)
+        {
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Update(instances);
         }
     }
 }

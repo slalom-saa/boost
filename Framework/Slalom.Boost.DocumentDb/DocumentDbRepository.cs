@@ -37,56 +37,56 @@ namespace Slalom.Boost.DocumentDb
 
         public virtual void Add(TRoot[] instances)
         {
-            this.Logger.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Context.Add(instances);
         }
 
         public virtual void Add(TRoot[] instances, int batchSize)
         {
-            this.Logger.Verbose("Adding {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
+            this.Logger?.Verbose("Adding {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
 
             this.Context.Add(instances, batchSize);
         }
 
         public virtual void Delete()
         {
-            this.Logger.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType.Name);
+            this.Logger?.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Context.Delete<TRoot>();
         }
 
         public virtual void Delete(TRoot[] instances)
         {
-            this.Logger.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Context.Delete(instances);
         }
 
         public virtual TRoot Find(Guid id)
         {
-            this.Logger.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
+            this.Logger?.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
 
             return this.Context.Find<TRoot>(id);
         }
 
         public virtual IQueryable<TRoot> Find()
         {
-            this.Logger.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             return this.Context.Find<TRoot>();
         }
 
         public virtual void Update(TRoot[] instances)
         {
-            this.Logger.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Context.Update(instances);
         }
 
         public virtual void Update(TRoot[] instances, int batchSize)
         {
-            this.Logger.Verbose("Updating {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
 
             this.Context.Update(instances, batchSize);
         }

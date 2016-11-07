@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Slalom.Boost.MongoDB</id>
-    <version>1.2.54</version>
+    <version>1.2.60</version>
     <title>Slalom Boost Framework - MongoDB</title>
     <authors>Slalom</authors>
     <owners>Slalom</owners>
@@ -22,7 +22,7 @@
     <copyright>Copyright 2016</copyright>
     <dependencies>
          <group targetFramework="net461">
-          <dependency id="Slalom.Boost" version="1.2.54" />
+          <dependency id="Slalom.Boost" version="1.2.60" />
           <dependency id="Newtonsoft.Json" version="9.0.1" />
         </group>
         <group targetFramework="net452">

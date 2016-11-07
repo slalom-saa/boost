@@ -12,7 +12,7 @@ namespace Slalom.Boost.Logging
     /// A <see href="https://serilog.net/">Serilog</see> implementation of the <see cref="ILogger"/>.
     /// </summary>
     /// <seealso cref="ILogger" />
-    internal class SerilogLogger : ILogger
+    public class SerilogLogger : ILogger
     {
         private readonly Logger _logger;
 

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Authentication;
 using System.Threading.Tasks;
+using Microsoft.Azure.Documents.Client;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
@@ -13,6 +15,8 @@ using Slalom.Boost.Domain;
 using Slalom.Boost.Logging;
 using Slalom.Boost.MongoDB;
 using Slalom.Boost.RuntimeBinding;
+using ConnectionMode = MongoDB.Driver.ConnectionMode;
+
 #pragma warning disable 4014
 
 namespace Slalom.Boost.UnitTests
@@ -86,12 +90,63 @@ namespace Slalom.Boost.UnitTests
 
                     container.Register(new MongoDbOptions
                     {
-                        Database = "develop",
-                        UserName = "admin",
-                        Password = "password",
+                        Database = "treatment-development",
+                        UserName = "service",
+                        Password = "pass@word1",
                         Server = "ds050189.mlab.com",
                         Port = 50189
                     });
+
+
+                    RunDocumentDbTest();
+                    RunMongoTest();
+
+
+                    //container.DataFacade.Delete<Item>();
+
+                    //var target = new List<Item>();
+                    //for (int i = 0; i < 2000; i++)
+                    //{
+                    //    target.Add(new Item("Item " + i));
+                    //}
+
+                    //container.DataFacade.Add(target);
+
+                    //var watch = Stopwatch.StartNew();
+                    //for (int i = 0; i < 100; i++)
+                    //{
+                    //    var item = container.DataFacade.Find<Item>().Take(1).AsEnumerable().First();
+                    //    if (i % 10 == 0)
+                    //    {
+                    //        Console.WriteLine(item + " " + i);
+                    //    }
+                    //}
+                    //Console.WriteLine(watch.Elapsed);
+
+                   
+                    return;
+
+
+                    //for (int i = 0; i < 100; i++)
+                    //{
+                    //    var item = client.CreateDocumentQuery<DocumentItem<Item>>(collectionUri)
+                    //                     .Where(e => e.PartitionKey == typeof(Item).Name)
+                    //                     .Select(e => e.Value).Take(1).AsEnumerable().First() + " " + i;
+                    //    if (i % 10 == 0)
+                    //    {
+                    //        Console.WriteLine(item);
+                    //    }
+                    //}
+
+
+                    //container.Register(new MongoDbOptions
+                    //{
+                    //    Database = "develop",
+                    //    UserName = "admin",
+                    //    Password = "password",
+                    //    Server = "ds050189.mlab.com",
+                    //    Port = 50189
+                    //});
 
                     //container.Register(new MongoDbOptions
                     //{
@@ -103,16 +158,8 @@ namespace Slalom.Boost.UnitTests
                     //    UseSsl = true
                     //});
 
-
-                    container.DataFacade.Add(new Item("sss"));
-
-                    var watch = Stopwatch.StartNew();
-                    for (int i = 0; i < 100; i++)
-                    {
-                        container.DataFacade.Find<Item>().Where(e => e.Name == "sss").Take(1).ToList().First();
-                    }
-                    watch.Stop();
-                    Console.WriteLine(watch.Elapsed);
+                    RunMongoTest();
+                    RunDocumentDbTest();
 
                     //container.Register<IRepository<TreatmentPlan>, TreatmentPlanRepository>();
                     //container.Register(new DocumentDbOptions
@@ -141,6 +188,80 @@ namespace Slalom.Boost.UnitTests
             {
                 Console.WriteLine(exception);
             }
+        }
+
+        private static void RunMongoTest()
+        {
+            var options = new MongoDbOptions
+            {
+                Database = "treatment-development",
+                UserName = "service",
+                Password = "pass@word1",
+                Server = "ds050189.mlab.com",
+                Port = 50189
+            };
+            var settings = new MongoClientSettings
+            {
+                Server = new MongoServerAddress(options.Server, options.Port),
+
+            };
+
+            var identity = new MongoInternalIdentity(options.Database, options.UserName);
+            var evidence = new PasswordEvidence(options.Password);
+
+            settings.Credentials = new List<MongoCredential>
+                    {
+                        new MongoCredential("SCRAM-SHA-1", identity, evidence)
+                    };
+
+            var client = new MongoClient(settings);
+            var database = client.GetDatabase(options.Database);
+
+            var collection = database.GetCollection<Item>("Items");
+
+            var watch = Stopwatch.StartNew();
+            for (int i = 0; i < 100; i++)
+            {
+                var item = collection.AsQueryable().Take(1).AsEnumerable().First();
+                if (i % 10 == 0)
+                {
+                    Console.WriteLine("MongoDB " + i);
+                }
+            }
+            watch.Stop();
+            Console.WriteLine(watch.Elapsed);
+        }
+
+        private static void RunDocumentDbTest()
+        {
+            var options = new DocumentDbOptions
+            {
+                ServiceEndpoint = "https://patolus-documents.documents.azure.com:443/",
+                AuthorizationKey = "ASdxo55GhyAEXKFCyK21kkQpsu09XTmb6mYmrJhxe0hyllq7b7jfCuhSeZ6JrmPIQvfAcQxWtL8IJkLJIjY4Qw==",
+                DatabaseId = "treatment",
+                CollectionId = "entries"
+            };
+            var client = new DocumentClient(new Uri(options.ServiceEndpoint), options.AuthorizationKey, new ConnectionPolicy
+            {
+                ConnectionMode = Microsoft.Azure.Documents.Client.ConnectionMode.Direct,
+                ConnectionProtocol = Protocol.Tcp
+            });
+            client.OpenAsync().Wait();
+            var collectionUri = UriFactory.CreateDocumentCollectionUri(options.DatabaseId, options.CollectionId);
+
+            var watch = Stopwatch.StartNew();
+            for (int i = 0; i < 100; i++)
+            {
+                var item = client.CreateDocumentQuery<DocumentItem<Item>>(collectionUri)
+                                 .Where(e => e.PartitionKey == typeof(Item).Name)
+                                 .Select(e => e.Value).Take(1).AsEnumerable().First();
+                if (i % 10 == 0)
+                {
+                    Console.WriteLine("DocumentDB " + i);
+                }
+            }
+            watch.Stop();
+            Console.WriteLine(watch.Elapsed);
         }
     }
 }

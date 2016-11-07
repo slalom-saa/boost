@@ -28,7 +28,7 @@ namespace Slalom.Boost.EntityFramework
 
         public virtual void Delete()
         {
-            this.Logger.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Set.RemoveRange(this.Set);
             Context.SaveChanges();
@@ -41,7 +41,7 @@ namespace Slalom.Boost.EntityFramework
                 throw new ArgumentNullException(nameof(instances));
             }
 
-            this.Logger.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
             var ids = instances.Select(e => e.Id).ToList();
             this.Set.RemoveRange(this.Set.Where(e => ids.Contains(e.Id)));
@@ -62,21 +62,21 @@ namespace Slalom.Boost.EntityFramework
                 throw new ArgumentNullException(nameof(id));
             }
 
-            this.Logger.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
+            this.Logger?.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
 
             return Context.Set<TRoot>().Find(id);
         }
 
         public virtual IQueryable<TRoot> Find()
         {
-            this.Logger.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
             return Context.Set<TRoot>().AsNoTracking();
         }
 
         public virtual void Add(params TRoot[] instances)
         {
-            this.Logger.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
             this.Set.AddRange(instances);
             Context.SaveChanges();
@@ -84,7 +84,7 @@ namespace Slalom.Boost.EntityFramework
 
         public virtual void Update(params TRoot[] instances)
         {
-            this.Logger.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
 
             Context.Set<TRoot>().AddOrUpdate(instances);
             Context.SaveChanges();

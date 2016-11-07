@@ -2,10 +2,10 @@
 <package >
   <metadata>
     <id>Slalom.Boost.RabbitMQ</id>
-    <version>1.2.43</version>
+    <version>1.2.60</version>
     <title>Slalom Boost Framework - Rabbit MQ</title>
     <authors>Slalom</authors>
-    <owners>George Olson</owners>
+    <owners>Slalom</owners>
     <description>
       No description.
     </description>

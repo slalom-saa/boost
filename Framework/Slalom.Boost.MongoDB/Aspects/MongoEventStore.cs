@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Linq;
 using MongoDB.Driver;
 using Slalom.Boost.Aspects;
@@ -19,32 +18,24 @@ namespace Slalom.Boost.MongoDB.Aspects
         /// Initializes a new instance of the <see cref="MongoEventStore"/> class.
         /// </summary>
         protected MongoEventStore()
-            : this(ConfigurationManager.AppSettings["mongo:Database"])
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoEventStore"/> class.
         /// </summary>
-        /// <param name="database">The database.</param>
-        protected MongoEventStore(string database)
+        /// <param name="context">The context.</param>
+        protected MongoEventStore(MongoDbContext context)
         {
-            this.Collection = new Lazy<IMongoCollection<Event>>(() => (this.Factory ?? new MongoConnectionFactory()).GetCollection<Event>(database, "Log"));
-
-            MongoMappings.EnsureInitialized(this);
+            this.Context = context;
         }
 
         /// <summary>
-        /// Gets the collection factory.
+        /// Gets or sets the current <see cref="MongoDbContext"/> instance.
         /// </summary>
-        public Lazy<IMongoCollection<Event>> Collection { get; }
-
-        /// <summary>
-        /// Gets or sets the current <see cref="IMongoConnectionFactory"/> instance.
-        /// </summary>
-        /// <value>The current <see cref="IMongoConnectionFactory"/> instance.</value>
+        /// <value>The current <see cref="MongoDbContext"/> instance.</value>
         [RuntimeBindingDependency]
-        public IMongoConnectionFactory Factory { get; set; }
+        public MongoDbContext Context { get; set; }
 
         /// <summary>
         /// Gets or sets the current <see cref="IMapper"/> instance.
@@ -66,7 +57,7 @@ namespace Slalom.Boost.MongoDB.Aspects
         /// <param name="context">The current <see cref="T:Slalom.Boost.Commands.CommandContext" /> instance.</param>
         public void Append(Event instance, CommandContext context)
         {
-            this.Collection.Value.InsertOne(instance);
+            this.Context.GetCollection<Event>().InsertOne(instance);
         }
 
         /// <summary>
@@ -75,7 +66,7 @@ namespace Slalom.Boost.MongoDB.Aspects
         /// <returns>An IQueryable&lt;Event&gt; that can be used to filter and project.</returns>
         public IQueryable<Event> Find()
         {
-            return this.Collection.Value.AsQueryable();
+            return this.Context.GetCollection<Event>().AsQueryable();
         }
 
         /// <summary>

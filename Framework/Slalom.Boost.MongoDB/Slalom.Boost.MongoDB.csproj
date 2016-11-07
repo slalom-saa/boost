@@ -69,11 +69,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Aspects\MongoAuditStore.cs" />
-    <Compile Include="Aspects\MongoScheduledTaskStore.cs" />
     <Compile Include="MongoDbContext.cs" />
-    <Compile Include="IMongoConnectionFactory.cs" />
     <Compile Include="Aspects\MongoEventStore.cs" />
-    <Compile Include="MongoConnectionFactory.cs" />
     <Compile Include="MongoDbOptions.cs" />
     <Compile Include="MongoRepository.cs" />
     <Compile Include="MongoMappings.cs" />
