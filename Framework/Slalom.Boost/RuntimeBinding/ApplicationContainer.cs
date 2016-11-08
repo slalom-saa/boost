@@ -219,7 +219,7 @@ namespace Slalom.Boost.RuntimeBinding
         /// <returns>Returns all instances of the specified type.</returns>
         public IEnumerable<object> ResolveAll(Type type)
         {
-            foreach (var instance in _registeredObjects.Where(e => e.Contract == type))
+            foreach (var instance in _registeredObjects.Where(e => e.Contract == type).ToList())
             {
                 yield return this.GetInstance(instance);
             }

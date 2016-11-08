@@ -170,7 +170,14 @@ namespace Slalom.Boost.Commands
         protected virtual void LogException(Exception exception, CommandContext context, params object[] data)
         {
             var logger = Container.Resolve<ILogger>();
-            logger.Error(exception, "An unhandled exception occurred while executing a command.", data);
+            try
+            {
+                logger.Error(exception, "An unhandled exception occurred while executing a command.", data);
+            }
+            catch (Exception caught)
+            {
+                Trace.TraceError(caught.ToString());
+            }
         }
 
         protected virtual void PublishRaisedEvents<TResponse>(CommandResult<TResponse> response)

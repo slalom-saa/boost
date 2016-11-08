@@ -19,6 +19,7 @@ namespace Slalom.Boost.MongoDB
         /// </summary>
         protected MongoRepository()
         {
+            MongoMappings.EnsureInitialized(this);
         }
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace Slalom.Boost.MongoDB
         /// to provide a non-default connection.
         /// </summary>
         /// <param name="context">The configured <see cref="MongoDbContext"/>.</param>
-        protected MongoRepository(MongoDbContext context)
+        protected MongoRepository(MongoDbContext context) : this()
         {
             this.Context = context;
         }

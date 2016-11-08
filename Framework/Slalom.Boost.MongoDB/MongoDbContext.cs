@@ -29,7 +29,7 @@ namespace Slalom.Boost.MongoDB
         /// to use a non-default connection.
         /// </summary>
         /// <param name="options">The configured <see cref="MongoDbOptions"/>.</param>
-        public MongoDbContext(MongoDbOptions options)
+        public MongoDbContext(MongoDbOptions options) : this()
         {
             this.Options = options;
         }

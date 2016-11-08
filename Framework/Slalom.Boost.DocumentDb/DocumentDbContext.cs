@@ -155,7 +155,7 @@ namespace Slalom.Boost.DocumentDb
 
         private DocumentClient GetClient()
         {
-            this.Logger?.Verbose("Initializing DocumentDB connection with {ServiceEndpoint}.", this.Options.ServiceEndpoint);
+            this.Logger?.Verbose("Initializing DocumentDB connection with {ServiceEndpoint} {Database} {Collection}.", this.Options.ServiceEndpoint, this.Options.DatabaseId, this.Options.CollectionId);
 
             var client = new DocumentClient(new Uri(this.Options.ServiceEndpoint), this.Options.AuthorizationKey, new ConnectionPolicy
             {

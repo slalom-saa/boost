@@ -27,6 +27,36 @@
             </summary>
             <param name="target">The target.</param>
         </member>
+        <member name="T:Slalom.Boost.DocumentDb.DocumentDbOptions">
+            <summary>
+            Contains options needed to configure a DocumentDB connection.  The default implemenation is to use appsettings:
+            DocumentDB:ServiceEndpoint, DocumentDB:AuthorizationKey, DocumentDB:DatabaseId, DocumentDB:CollectionId.
+            </summary>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbOptions.AuthorizationKey">
+            <summary>
+            Gets or sets the authorization key.
+            </summary>
+            <value>The authorization key.</value>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbOptions.CollectionId">
+            <summary>
+            Gets or sets the collection identifier.
+            </summary>
+            <value>The collection identifier.</value>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbOptions.DatabaseId">
+            <summary>
+            Gets or sets the database identifier.
+            </summary>
+            <value>The database identifier.</value>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbOptions.ServiceEndpoint">
+            <summary>
+            Gets or sets the service endpoint.
+            </summary>
+            <value>The service endpoint.</value>
+        </member>
         <member name="T:Slalom.Boost.DocumentDb.DocumentDbRepository`1">
             <summary>
             Provides a DocumentDB based <see cref="T:Slalom.Boost.Domain.IRepository`1"/> implementation.

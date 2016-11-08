@@ -80,6 +80,15 @@ namespace Slalom.Boost.UnitTests
             {
                 using (var container = new ApplicationContainer(typeof(Program)))
                 {
+                    container.Register<IRepository<TreatmentPlan>, TreatmentPlanRepository>();
+
+                    var plan = TreatmentPlan.Create("asdf", Guid.Empty, Guid.Empty);
+                    plan.AddProcedure(Procedure.Create("asdf", "asdf", Guid.Empty, 1, "adf", "asdf", 2, 2, "asdf"));
+
+                    container.DataFacade.Add(plan);
+
+                    return;
+
                     container.Register(new DocumentDbOptions
                     {
                         ServiceEndpoint = "https://patolus-documents.documents.azure.com:443/",
@@ -90,15 +99,16 @@ namespace Slalom.Boost.UnitTests
 
                     container.Register(new MongoDbOptions
                     {
-                        Database = "treatment-development",
+                        Database = "treatment-dev",
                         UserName = "service",
                         Password = "pass@word1",
-                        Server = "ds050189.mlab.com",
-                        Port = 50189
+                        Server = "aws-us-west-2-portal.1.dblayer.com",
+                        Port = 15370,
+                        UseSsl = true
                     });
 
 
-                    RunDocumentDbTest();
+                    //RunDocumentDbTest();
                     RunMongoTest();
 
 
@@ -194,11 +204,12 @@ namespace Slalom.Boost.UnitTests
         {
             var options = new MongoDbOptions
             {
-                Database = "treatment-development",
+                Database = "treatment-dev",
                 UserName = "service",
                 Password = "pass@word1",
-                Server = "ds050189.mlab.com",
-                Port = 50189
+                Server = "aws-us-west-2-portal.1.dblayer.com",
+                Port = 15370,
+                UseSsl = true
             };
             var settings = new MongoClientSettings
             {
