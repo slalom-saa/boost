@@ -65,7 +65,8 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Aspects\AuditMapping.cs" />
-    <Compile Include="Aspects\EntityFrameworkCommandResultStore.cs" />
+    <Compile Include="Aspects\EntityFrameworkAuditStore.cs" />
+    <Compile Include="Aspects\EntityFrameworkEventStore.cs" />
     <Compile Include="EntityFrameworkReadModelFacade.cs" />
     <Compile Include="BoostDbContext.cs" />
     <Compile Include="EntityFrameworkRepository.cs" />

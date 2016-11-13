@@ -57,16 +57,16 @@ namespace Slalom.Boost.MongoDB.Aspects
         /// <param name="context">The current <see cref="T:Slalom.Boost.Commands.CommandContext" /> instance.</param>
         public void Append(Event instance, CommandContext context)
         {
-            this.Context.GetCollection<Event>().InsertOne(instance);
+            this.Context.GetCollection<EventAudit>().InsertOne(new EventAudit(instance, context));
         }
 
         /// <summary>
         /// Finds all <see cref="T:Slalom.Boost.Events.Event" /> instances.
         /// </summary>
         /// <returns>An IQueryable&lt;Event&gt; that can be used to filter and project.</returns>
-        public IQueryable<Event> Find()
+        public IQueryable<EventAudit> Find()
         {
-            return this.Context.GetCollection<Event>().AsQueryable();
+            return this.Context.GetCollection<EventAudit>().AsQueryable();
         }
 
         /// <summary>

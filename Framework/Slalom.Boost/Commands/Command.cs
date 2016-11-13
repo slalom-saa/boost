@@ -1,4 +1,5 @@
 ﻿using System;
+using MassTransit;
 using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Commands
@@ -19,7 +20,13 @@ namespace Slalom.Boost.Commands
         /// Gets the command ID.
         /// </summary>
         /// <value>The command ID.</value>
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; } = NewId.NextGuid();
+
+        /// <summary>
+        /// Gets the time stamp.
+        /// </summary>
+        /// <value>The time stamp.</value>
+        public DateTimeOffset TimeStamp { get; } = DateTimeOffset.Now;
 
         /// <summary>
         /// Determines if another event instance is equal to this instance.

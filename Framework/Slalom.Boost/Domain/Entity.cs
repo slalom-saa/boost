@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using MassTransit;
 
 namespace Slalom.Boost.Domain
 {
@@ -14,7 +15,7 @@ namespace Slalom.Boost.Domain
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         protected Entity()
-            : this(Guid.NewGuid())
+            : this(NewId.NextGuid())
         {
         }
 

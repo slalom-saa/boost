@@ -26,14 +26,14 @@ namespace Slalom.Boost.WebApi.Controllers
             }
         }
 
-        protected IEnumerable<IQueryable<Event>> GetEventQueries()
-        {
-            foreach (var item in this.EventStores.Where(e => e.CanRead))
-            {
-                yield return item.Find()
-                                 .OrderByDescending(e => e.TimeStamp)
-                                 .Take(10);
-            }
-        }
+        //protected IEnumerable<IQueryable<Event>> GetEventQueries()
+        //{
+        //    foreach (var item in this.EventStores.Where(e => e.CanRead))
+        //    {
+        //        yield return item.Find()
+        //                         .OrderByDescending(e => e.TimeStamp)
+        //                         .Take(10);
+        //    }
+        //}
     }
 }

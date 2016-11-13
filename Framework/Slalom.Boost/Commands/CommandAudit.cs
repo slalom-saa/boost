@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MassTransit;
 using Newtonsoft.Json;
 using Slalom.Boost.Events;
 using Slalom.Boost.ReadModel;
@@ -33,7 +34,7 @@ namespace Slalom.Boost.Commands
                 throw new ArgumentNullException(nameof(result));
             }
 
-            this.TimeStamp = DateTime.Now;
+            this.TimeStamp = command.TimeStamp;
             this.Canceled = result.Canceled;
             this.Completed = result.Completed;
             this.Elapsed = result.Elapsed;
@@ -63,13 +64,19 @@ namespace Slalom.Boost.Commands
             this.Session = result.Context.Session;
             this.UserName = result.Context.UserName;
             this.AdditionalInformation = new Dictionary<string, string>(result.Context.AdditionalData);
+            this.MachineName = result.Context.MachineName;
+            this.Application = result.Context.Application;
         }
+
+        public string MachineName { get; set; }
+
+        public string Application { get; set; }
 
         /// <summary>
         /// Gets or sets the time stamp.
         /// </summary>
         /// <value>The time stamp.</value>
-        public DateTime TimeStamp { get; set; }
+        public DateTimeOffset TimeStamp { get; set; }
 
         /// <summary>
         /// Gets the command payload.
@@ -177,7 +184,7 @@ namespace Slalom.Boost.Commands
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid Id { get; set; } = NewId.NextGuid();
 
         /// <summary>
         /// Creates a dictionary from the instance.

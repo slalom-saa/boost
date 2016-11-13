@@ -8,5 +8,10 @@ namespace Slalom.Boost.Commands
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1040:AvoidEmptyInterfaces")]
     public interface ICommand : IHaveIdentity
     {
+        /// <summary>
+        /// Gets the time stamp.
+        /// </summary>
+        /// <value>The time stamp.</value>
+        DateTimeOffset TimeStamp { get; }
     }
 }

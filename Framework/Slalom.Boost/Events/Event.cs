@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using MassTransit;
 using Newtonsoft.Json;
 
 namespace Slalom.Boost.Events
@@ -32,7 +33,7 @@ namespace Slalom.Boost.Events
         /// Gets the event ID.
         /// </summary>
         /// <value>The event ID.</value>
-        public Guid Id { get; private set; } = Guid.NewGuid();
+        public Guid Id { get; private set; } = NewId.NextGuid();
 
         /// <summary>
         /// Gets the type of the event.
@@ -50,7 +51,7 @@ namespace Slalom.Boost.Events
         /// Gets the time stamp of when the event was created.
         /// </summary>
         /// <value>The time stamp of when the event was created.</value>
-        public DateTime TimeStamp { get; } = DateTime.Now;
+        public DateTimeOffset TimeStamp { get; } = DateTimeOffset.Now;
 
         /// <summary>
         /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.

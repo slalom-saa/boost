@@ -50,7 +50,7 @@ namespace Slalom.Boost.WebApi
         /// </summary>
         /// <returns>An IQueryable&lt;Event&gt; that can be used to filter and project.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual IQueryable<Event> Find()
+        public virtual IQueryable<EventAudit> Find()
         {
             throw new NotImplementedException();
         }

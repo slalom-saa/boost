@@ -12,7 +12,7 @@ namespace Slalom.Boost.WebApi
         {
             if (HttpContext.Current == null)
             {
-                var target = new ExecutionContext(new GenericIdentity("Unknown"), "Invalid");
+                var target = new ExecutionContext(new GenericIdentity("Not Authenticated"), "None");
                 target.Data.Add("Error", "Invalid execution context.  Make sure to unregister this type if not running in an HTTP context.");
                 return target;
             }

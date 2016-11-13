@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading;
@@ -63,6 +64,8 @@ namespace Slalom.Boost.Commands
             this.Created = DateTime.Now;
             this.AdditionalData = new ReadOnlyDictionary<string, string>(context.Data);
             this.CorrelationId = context.CorrelationId;
+            this.Application = ConfigurationManager.AppSettings["Application"];
+            this.MachineName = Environment.MachineName;
         }
 
         /// <summary>
@@ -148,6 +151,18 @@ namespace Slalom.Boost.Commands
         /// </summary>
         /// <value>The name of the actor initiating the command.</value>
         public string UserName { get; private set; }
+
+        /// <summary>
+        /// Gets the application name.
+        /// </summary>
+        /// <value>The application name.</value>
+        public string Application { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the machine.
+        /// </summary>
+        /// <value>The name of the machine.</value>
+        public string MachineName { get; private set; }
 
         /// <summary>
         /// Adds the raised events to the collection.
