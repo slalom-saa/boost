@@ -8,6 +8,7 @@ using System.Security.Principal;
 using System.Threading;
 using Newtonsoft.Json;
 using Slalom.Boost.Events;
+using Slalom.Boost.Serialization;
 using ExecutionContext = Slalom.Boost.Aspects.ExecutionContext;
 
 namespace Slalom.Boost.Commands
@@ -72,10 +73,8 @@ namespace Slalom.Boost.Commands
         /// Gets or sets the cancellation token.
         /// </summary>
         /// <value>The cancellation token.</value>
-        public CancellationToken CancellationToken
-        {
-            get { return _cancellationToken; }
-        }
+        [Ignore]
+        public CancellationToken CancellationToken => _cancellationToken;
 
         /// <summary>
         /// Gets any additional data about the context.
@@ -107,6 +106,7 @@ namespace Slalom.Boost.Commands
         /// Gets the identity executing the command.
         /// </summary>
         /// <value>The identity executing the command.</value>
+        [Ignore]
         public IIdentity Identity => _identity;
 
         /// <summary>

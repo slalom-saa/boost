@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -64,12 +65,23 @@ namespace Slalom.Boost.Logging
                     structureProperties.Add(new LogEventProperty(pi.Name, new ScalarValue(SecureAttribute.DefaultText)));
                     continue;
                 }
+
                 if (typeof(ClaimsPrincipal).IsAssignableFrom(pi.PropertyType))
                 {
                     var user = pi.GetValue(value) as ClaimsPrincipal;
                     if (user != null)
                     {
                         structureProperties.Add(new LogEventProperty(pi.Name, new ScalarValue(user.Identity?.Name)));
+                    }
+                    continue;
+                }
+
+                if (typeof(ClaimsIdentity).IsAssignableFrom(pi.PropertyType))
+                {
+                    var user = pi.GetValue(value) as ClaimsIdentity;
+                    if (user != null)
+                    {
+                        structureProperties.Add(new LogEventProperty(pi.Name, new ScalarValue(user.Name)));
                     }
                     continue;
                 }
@@ -98,6 +110,11 @@ namespace Slalom.Boost.Logging
                     continue;
                 }
 
+
+                if (pi.DeclaringType.Name == "RuntimeType")
+                {
+                    continue;
+                }
                 object propValue;
                 try
                 {
@@ -115,9 +132,14 @@ namespace Slalom.Boost.Logging
                 {
                     pv = new ScalarValue(null);
                 }
+                else if (propValue is Type)
+                {
+                    structureProperties.Add(new LogEventProperty(pi.Name, new ScalarValue(((Type)propValue).AssemblyQualifiedName)));
+                    continue;
+                }
                 else
                 {
-                    pv = propertyValueFactory.CreatePropertyValue(propValue, true);
+                    pv = propertyValueFactory.CreatePropertyValue(propValue, !typeof(IEnumerable).IsAssignableFrom(pi.PropertyType));
                 }
 
                 structureProperties.Add(new LogEventProperty(pi.Name, pv));

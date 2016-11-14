@@ -61,6 +61,8 @@ namespace Slalom.Boost.RuntimeBinding
         /// <value>The loaded assemblies.</value>
         public IEnumerable<_Assembly> LoadedAssemblies => _registeredObjects.Select(e => e.Implementation?.Assembly).Distinct();
 
+       
+
         /// <summary>
         /// Gets the loaded repositories.
         /// </summary>
@@ -136,6 +138,16 @@ namespace Slalom.Boost.RuntimeBinding
             _registeredObjects.Add(new RegisteredObject(typeof(TContract), typeof(TImplementation)));
         }
 
+        /// <summary>
+        /// Registers an implementation of the specified type.
+        /// </summary>
+        /// <typeparam name="TContract">The contract type.</typeparam>
+        /// <typeparam name="TImplementation">The implementation type.</typeparam>
+        /// <param name="name">The registration name.</param>
+        public void Register<TContract, TImplementation>(string name) where TContract : class where TImplementation : class, TContract
+        {
+            _registeredObjects.Add(new RegisteredObject(typeof(TContract), typeof(TImplementation), name));
+        }
         /// <summary>
         /// Registers an instance of the specified type.
         /// </summary>

@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using Serilog.Core;
 using Slalom.Boost.Commands;
 using Slalom.Boost.EntityFramework;
 using Slalom.Boost.Events;
+using Slalom.Boost.Logging;
 using Slalom.Boost.RuntimeBinding;
 using Slalom.Boost.Serialization;
 
@@ -36,6 +39,7 @@ namespace Slalom.Boost.UnitTests
     {
         public override TestEvent HandleCommand(TestCommand command)
         {
+            throw new Exception("...");
             return new TestEvent(command.Content);
         }
     }
@@ -86,6 +90,9 @@ namespace Slalom.Boost.UnitTests
             {
                 using (var container = new ApplicationContainer(this))
                 {
+                    container.Register<IDestructuringPolicy, LoggingDestructuringPolicy>(Guid.NewGuid().ToString());
+
+
                     var result = await container.Bus.Send(new TestCommand("content"));
 
                     Console.WriteLine(result.Successful);

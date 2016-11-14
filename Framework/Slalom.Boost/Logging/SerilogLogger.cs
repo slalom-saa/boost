@@ -4,6 +4,7 @@ using System.Linq;
 using Serilog;
 using Serilog.Core;
 using Serilog.Exceptions;
+using Serilog.Formatting.Json;
 using Slalom.Boost.AutoMapper;
 
 namespace Slalom.Boost.Logging
@@ -24,7 +25,6 @@ namespace Slalom.Boost.Logging
         {
             var builder = new LoggerConfiguration()
                 .ReadFrom.AppSettings()
-                //.WriteTo.LiterateConsole()
                 .Enrich.WithExceptionDetails()
                 .Destructure.With(policies.ToArray());
 

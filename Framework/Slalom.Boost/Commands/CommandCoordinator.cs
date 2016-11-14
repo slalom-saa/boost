@@ -55,15 +55,8 @@ namespace Slalom.Boost.Commands
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "As designed.")]
         public virtual Task<CommandResult<TResponse>> Handle<TResponse>(Command<TResponse> command, CommandContext context)
         {
-            if (command == null)
-            {
-                throw new ArgumentNullException(nameof(command));
-            }
-
-            if (context == null)
-            {
-                throw new ArgumentNullException(nameof(context));
-            }
+            Argument.NotNull(() => command);
+            Argument.NotNull(() => context);
 
             return Task<CommandResult<TResponse>>.Factory.StartNew(() =>
             {
@@ -91,7 +84,7 @@ namespace Slalom.Boost.Commands
                     }
                     else if (exception.InnerException is TargetInvocationException)
                     {
-                        this.LogException(((TargetInvocationException)exception.InnerException).InnerException, context);
+                        this.LogException(((TargetInvocationException)exception.InnerException).InnerException, command, context);
                         result.SetException(((TargetInvocationException)exception.InnerException).InnerException);
                     }
                     else
@@ -101,12 +94,12 @@ namespace Slalom.Boost.Commands
                 }
                 catch (TargetInvocationException exception)
                 {
-                    this.LogException(exception.InnerException, context);
+                    this.LogException(exception.InnerException, command, context);
                     result.SetException(exception.InnerException);
                 }
                 catch (Exception exception)
                 {
-                    this.LogException(exception, context);
+                    this.LogException(exception, command, context);
                     result.SetException(exception);
                 }
 
@@ -116,12 +109,12 @@ namespace Slalom.Boost.Commands
                 }
                 catch (TargetInvocationException exception)
                 {
-                    this.LogException(exception.InnerException, context);
+                    this.LogException(exception.InnerException, command, context);
                     result.SetException(exception.InnerException);
                 }
                 catch (Exception exception)
                 {
-                    this.LogException(exception, context);
+                    this.LogException(exception, command, context);
                     result.SetException(exception);
                 }
 
@@ -167,12 +160,12 @@ namespace Slalom.Boost.Commands
         }
 
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "As designed.")]
-        protected virtual void LogException(Exception exception, CommandContext context, params object[] data)
+        protected virtual void LogException<TResult>(Exception exception, Command<TResult> command, CommandContext context)
         {
             var logger = Container.Resolve<ILogger>();
             try
             {
-                logger.Error(exception, "An unhandled exception occurred while executing a command.", data);
+                logger.Error(exception, "An unhandled exception occurred while executing a command. {@Command} {@Context}", command, context);
             }
             catch (Exception caught)
             {
