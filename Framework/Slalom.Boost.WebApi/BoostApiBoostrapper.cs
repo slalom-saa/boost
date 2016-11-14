@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
@@ -69,6 +70,12 @@ namespace Slalom.Boost.WebApi
         {
             this.Container.Register<IEnumerable<IDestructuringPolicy>>(new[] { new LoggingDestructuringPolicy() });
             configuration.Filters.Add(Container.Resolve<WebApiExceptionFilter>());
+
+            var instrumentationKey = ConfigurationManager.AppSettings["ApplicationInsights:InstrumentationKey"];
+            if (!String.IsNullOrWhiteSpace(instrumentationKey))
+            {
+                TelemetryConfiguration.Active.InstrumentationKey = instrumentationKey;
+            }
         }
 
         protected virtual void ConfigureSecurity(IAppBuilder application, HttpConfiguration configuration)

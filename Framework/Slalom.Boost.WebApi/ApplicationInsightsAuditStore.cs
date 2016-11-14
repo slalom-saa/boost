@@ -29,7 +29,8 @@ namespace Slalom.Boost.WebApi
         {
             var model = new CommandAudit(command, result);
             var telemetry = new TelemetryClient();
-            telemetry.TrackEvent(result.CommandName, model.ToDictionary());
+            telemetry.TrackEvent("Audit: " + result.CommandName, model.ToDictionary());
+            telemetry.Flush();
             return Task.FromResult(0);
         }
 

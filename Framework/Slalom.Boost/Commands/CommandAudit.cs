@@ -66,6 +66,7 @@ namespace Slalom.Boost.Commands
             this.AdditionalInformation = new Dictionary<string, string>(result.Context.AdditionalData);
             this.MachineName = result.Context.MachineName;
             this.Application = result.Context.Application;
+            this.ChangesState = typeof(Event).IsAssignableFrom(command.GetType().BaseType?.GetGenericArguments()[0]);
         }
 
         public string MachineName { get; set; }
@@ -181,6 +182,12 @@ namespace Slalom.Boost.Commands
         public string CommandType { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether changes state.
+        /// </summary>
+        /// <value><c>true</c> if changes state; otherwise, <c>false</c>.</value>
+        public bool ChangesState { get; set; }
+
+        /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
@@ -194,21 +201,23 @@ namespace Slalom.Boost.Commands
         {
             var target = new Dictionary<string, string>
             {
-                { "Canceled", this.Canceled.ToString() },
-                { "CommandId", this.CommandId.ToString() },
-                { "CommandName", this.CommandName },
-                { "CommandType", this.CommandType },
-                { "Completed", this.Completed?.ToString() },
+                { "Command.Canceled", this.Canceled.ToString() },
+                { "Command.Id", this.CommandId.ToString() },
+                { "Command.Name", this.CommandName },
+                { "Command.Type", this.CommandType },
+                { "Result.Completed", this.Completed?.ToString() },
                 { "CorrelationId", this.CorrelationId.ToString() },
-                { "Elapsed", this.Elapsed.ToString() },
-                { "Exception", this.Exception },
-                { "Event", this.RaisedEvent },
+                { "Result.Elapsed", this.Elapsed.ToString() },
+                { "Result.Exception", this.Exception },
+                { "Result.RaisedEvent", this.RaisedEvent },
                 { "UserName", this.UserName },
-                { "Successful", this.Successful.ToString() },
-                { "CommandPayload", this.CommandPayload },
+                { "Result.Successful", this.Successful.ToString() },
+                { "Result.ChangesState", this.ChangesState.ToString() },
+                { "Command.Payload", this.CommandPayload },
                 { "Session", this.Session },
                 { "ValidationMessages", string.Join("\n", this.ValidationMessages.Select(e => e.MessageType + ": " + e.Message)) }
             };
+            
             foreach (var item in this.AdditionalInformation)
             {
                 target.Add(item.Key, item.Value);

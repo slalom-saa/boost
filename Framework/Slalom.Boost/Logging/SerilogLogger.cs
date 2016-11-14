@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Serilog;
 using Serilog.Core;
@@ -27,8 +28,6 @@ namespace Slalom.Boost.Logging
                 .ReadFrom.AppSettings()
                 .Enrich.WithExceptionDetails()
                 .Destructure.With(policies.ToArray());
-
-            // this.AddApplicationInsightsSink(builder, configuration);
 
             _logger = builder.CreateLogger();
         }
@@ -179,14 +178,5 @@ namespace Slalom.Boost.Logging
                 _logger?.Dispose();
             }
         }
-
-        //private void AddApplicationInsightsSink(LoggerConfiguration builder, IConfiguration configuration)
-        //{
-        //    var value = configuration["ApplicationInsights:InstrumentationKey"];
-        //    if (value != null)
-        //    {
-        //        builder.WriteTo.ApplicationInsightsEvents(value);
-        //    }
-        //}
     }
 }

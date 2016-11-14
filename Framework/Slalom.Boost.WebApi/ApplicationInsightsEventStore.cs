@@ -14,7 +14,7 @@ namespace Slalom.Boost.WebApi
     /// </summary>
     /// <seealso cref="Slalom.Boost.Events.IEventStore" />
     /// <seealso cref="Slalom.Boost.Events.IHandleEvent" />
-    public abstract class ApplicationInsightsEventStore : IEventStore, IHandleEvent
+    public abstract class ApplicationInsightsEventStore : IEventStore
     {
         /// <summary>
         /// Gets a value indicating whether this instance can read.
@@ -31,18 +31,24 @@ namespace Slalom.Boost.WebApi
         {
             var telemetry = new TelemetryClient();
 
-            var dictionary = new Dictionary<string, string>();
-            dictionary.Add("EventId", instance.Id.ToString());
-            dictionary.Add("EventName", instance.EventName);
-            dictionary.Add("EventType", instance.EventType.ToString());
-            dictionary.Add("TimeStamp", instance.TimeStamp.ToString(CultureInfo.InvariantCulture));
-            dictionary.Add("CorrelationId", context?.CorrelationId.ToString());
-            dictionary.Add("Payload", JsonConvert.SerializeObject(instance, new JsonSerializerSettings
+            var dictionary = new Dictionary<string, string>
             {
-                ContractResolver = new JsonEventContractResolver()
-            }));
+                { "EventId", instance.Id.ToString() },
+                { "EventName", instance.EventName },
+                { "EventType", instance.EventType.ToString() },
+                { "TimeStamp", instance.TimeStamp.ToString(CultureInfo.InvariantCulture) },
+                { "CorrelationId", context?.CorrelationId.ToString() },
+                {
+                    "Payload", JsonConvert.SerializeObject(instance, new JsonSerializerSettings
+                    {
+                        ContractResolver = new JsonEventContractResolver()
+                    })
+                }
+            };
 
-            telemetry.TrackEvent(instance.EventName, dictionary);
+            telemetry.TrackEvent("Event: " + instance.EventName, dictionary);
+
+            telemetry.Flush();
         }
 
         /// <summary>
