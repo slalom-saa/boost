@@ -65,8 +65,8 @@ namespace Slalom.Boost.Commands
             this.Created = DateTime.Now;
             this.AdditionalData = new ReadOnlyDictionary<string, string>(context.Data);
             this.CorrelationId = context.CorrelationId;
-            this.Application = ConfigurationManager.AppSettings["Application"];
-            this.MachineName = Environment.MachineName;
+            this.Application = context.Application; 
+            this.MachineName = context.MachineName;
         }
 
         /// <summary>
