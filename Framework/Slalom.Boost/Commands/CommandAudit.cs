@@ -59,6 +59,7 @@ namespace Slalom.Boost.Commands
             {
                 ContractResolver = new JsonCommandContractResolver()
             });
+
             this.ValidationMessages = result.ValidationMessages;
             this.CorrelationId = result.Context.CorrelationId;
             this.Session = result.Context.Session;

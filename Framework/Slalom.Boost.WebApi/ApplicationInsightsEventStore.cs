@@ -4,8 +4,10 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
+using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
 using Slalom.Boost.Events;
+using Slalom.Boost.Serialization;
 
 namespace Slalom.Boost.WebApi
 {
@@ -35,15 +37,13 @@ namespace Slalom.Boost.WebApi
             {
                 { "EventId", instance.Id.ToString() },
                 { "EventName", instance.EventName },
-                { "EventType", instance.EventType.ToString() },
+                { "UserName", context.UserName },
+                { "MachineName", context.MachineName },
+                { "Application", context.Application },
+                { "Session", context.Session },
                 { "TimeStamp", instance.TimeStamp.ToString(CultureInfo.InvariantCulture) },
                 { "CorrelationId", context?.CorrelationId.ToString() },
-                {
-                    "Payload", JsonConvert.SerializeObject(instance, new JsonSerializerSettings
-                    {
-                        ContractResolver = new JsonEventContractResolver()
-                    })
-                }
+                { "Payload", GetEventPayload(instance) }
             };
 
             telemetry.TrackEvent("Event: " + instance.EventName, dictionary);
@@ -69,6 +69,24 @@ namespace Slalom.Boost.WebApi
         public virtual void Handle(Event instance, CommandContext context)
         {
             this.Append(instance, context);
+        }
+
+        private static string GetEventPayload(Event instance)
+        {
+            if (instance is ISpecifySerializationPayload)
+            {
+                return JsonConvert.SerializeObject(((ISpecifySerializationPayload)instance).GetSerializationPayload(), new JsonSerializerSettings
+                {
+                    ContractResolver = new SecureJsonContractResolver()
+                });
+            }
+            else
+            {
+                return JsonConvert.SerializeObject(instance, new JsonSerializerSettings
+                {
+                    ContractResolver = new JsonEventContractResolver()
+                });
+            }
         }
     }
 }

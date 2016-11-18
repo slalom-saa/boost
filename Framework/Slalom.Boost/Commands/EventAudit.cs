@@ -2,15 +2,15 @@
 using System.Linq;
 using MassTransit;
 using Newtonsoft.Json;
+using Slalom.Boost.Aspects;
 using Slalom.Boost.Events;
 using Slalom.Boost.ReadModel;
+using Slalom.Boost.Serialization;
 
 namespace Slalom.Boost.Commands
 {
     public class EventAudit : IReadModelElement
     {
-        public Guid CommandId { get; set; }
-
         public EventAudit()
         {
         }
@@ -26,11 +26,24 @@ namespace Slalom.Boost.Commands
             this.Application = context.Application;
             this.Session = context.Session;
             this.CommandId = context.CommandTrace.FirstOrDefault();
-            this.Payload = JsonConvert.SerializeObject(@event, new JsonSerializerSettings
+
+            if (@event is ISpecifySerializationPayload)
             {
-                ContractResolver = new JsonCommandContractResolver()
-            });
+                this.Payload = JsonConvert.SerializeObject(((ISpecifySerializationPayload)@event).GetSerializationPayload(), new JsonSerializerSettings
+                {
+                    ContractResolver = new SecureJsonContractResolver()
+                });
+            }
+            else
+            {
+                this.Payload = JsonConvert.SerializeObject(@event, new JsonSerializerSettings
+                {
+                    ContractResolver = new JsonEventContractResolver()
+                });
+            }
         }
+
+        public Guid CommandId { get; set; }
 
         public string MachineName { get; set; }
 

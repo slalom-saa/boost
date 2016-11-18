@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.ApplicationInsights;
+using Newtonsoft.Json;
 using Serilog.Core;
 using Slalom.Boost.Commands;
 using Slalom.Boost.EntityFramework;
@@ -88,16 +91,41 @@ namespace Slalom.Boost.UnitTests
         {
             try
             {
-                using (var container = new ApplicationContainer(this))
+                var instance = new
                 {
-                    container.Register<IDestructuringPolicy, LoggingDestructuringPolicy>(Guid.NewGuid().ToString());
+                    Name = new
+                    {
+                        Out = "Fred"
+                    },
+                    Max = 3
+                };
+
+                var content = JsonConvert.DeserializeXNode(JsonConvert.SerializeObject(instance), "Item");
+                Console.WriteLine(content);
 
 
-                    var result = await container.Bus.Send(new TestCommand("content"));
 
-                    Console.WriteLine(result.Successful);
-                    Console.WriteLine(result.Elapsed);
-                }
+                //using (var container = new ApplicationContainer(this))
+                //{
+                //    container.Register<IDestructuringPolicy, LoggingDestructuringPolicy>(Guid.NewGuid().ToString());
+
+                //    for (int i = 0; i < 2; i++)
+                //    {
+                //        container.Resolve<ILogger>().Error(new InvalidOperationException("xxxxx"), "ex");
+                //    }
+
+                //    Console.WriteLine(11);
+                //    //var result = await container.Bus.Send(new TestCommand("content"));
+
+                //    //Console.WriteLine(result.Successful);
+                //    //Console.WriteLine(result.Elapsed);
+
+                //    var client = new TelemetryClient
+                //    {
+                //        InstrumentationKey  = "a384f093-adf9-4cb9-bf75-1b7822042932"
+                //    };
+                //    client.Flush();
+                //}
             }
             catch (Exception exception)
             {
