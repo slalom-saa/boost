@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using MassTransit;
-using Newtonsoft.Json;
 
 namespace Slalom.Boost.Events
 {
@@ -93,6 +92,15 @@ namespace Slalom.Boost.Events
         protected bool Equals(Event other)
         {
             return other != null && this.Id.Equals(other.Id);
+        }
+
+        /// <summary>
+        /// Gets the event payload to serialize and forward.
+        /// </summary>
+        /// <returns>Returns the event payload to serialize and forward.</returns>
+        public virtual object GetPayload()
+        {
+            return this;
         }
     }
 }

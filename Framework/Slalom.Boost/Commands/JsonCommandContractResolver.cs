@@ -57,7 +57,7 @@ namespace Slalom.Boost.Commands
                 return prop;
             }
             var declaringType = (member as PropertyInfo)?.DeclaringType;
-            if (((declaringType?.IsGenericType ?? false) && declaringType?.GetGenericTypeDefinition() == typeof(Event)) || declaringType == typeof(IHaveIdentity))
+            if (declaringType == typeof(Event) || declaringType == typeof(IHaveIdentity))
             {
                 prop.Ignored = true;
                 return prop;

@@ -4,10 +4,8 @@ using System.Globalization;
 using System.Linq;
 using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
-using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
 using Slalom.Boost.Events;
-using Slalom.Boost.Serialization;
 
 namespace Slalom.Boost.WebApi
 {
@@ -42,8 +40,7 @@ namespace Slalom.Boost.WebApi
                 { "Application", context.Application },
                 { "Session", context.Session },
                 { "TimeStamp", instance.TimeStamp.ToString(CultureInfo.InvariantCulture) },
-                { "CorrelationId", context?.CorrelationId.ToString() },
-                { "Payload", GetEventPayload(instance) }
+                { "CorrelationId", context?.CorrelationId.ToString() }
             };
 
             telemetry.TrackEvent("Event: " + instance.EventName, dictionary);
@@ -73,19 +70,16 @@ namespace Slalom.Boost.WebApi
 
         private static string GetEventPayload(Event instance)
         {
-            if (instance is ISpecifySerializationPayload)
+            try
             {
-                return JsonConvert.SerializeObject(((ISpecifySerializationPayload)instance).GetSerializationPayload(), new JsonSerializerSettings
-                {
-                    ContractResolver = new SecureJsonContractResolver()
-                });
-            }
-            else
-            {
-                return JsonConvert.SerializeObject(instance, new JsonSerializerSettings
+                return JsonConvert.SerializeObject(instance.GetPayload(), new JsonSerializerSettings
                 {
                     ContractResolver = new JsonEventContractResolver()
                 });
+            }
+            catch (Exception exception)
+            {
+                return "Serialization failed: " + exception;
             }
         }
     }

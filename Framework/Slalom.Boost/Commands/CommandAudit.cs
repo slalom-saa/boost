@@ -193,37 +193,5 @@ namespace Slalom.Boost.Commands
         /// </summary>
         /// <value>The identifier.</value>
         public Guid Id { get; set; } = NewId.NextGuid();
-
-        /// <summary>
-        /// Creates a dictionary from the instance.
-        /// </summary>
-        /// <returns>Returns a dictionary from the instance.</returns>
-        public Dictionary<string, string> ToDictionary()
-        {
-            var target = new Dictionary<string, string>
-            {
-                { "Command.Canceled", this.Canceled.ToString() },
-                { "Command.Id", this.CommandId.ToString() },
-                { "Command.Name", this.CommandName },
-                { "Command.Type", this.CommandType },
-                { "Result.Completed", this.Completed?.ToString() },
-                { "CorrelationId", this.CorrelationId.ToString() },
-                { "Result.Elapsed", this.Elapsed.ToString() },
-                { "Result.Exception", this.Exception },
-                { "Result.RaisedEvent", this.RaisedEvent },
-                { "UserName", this.UserName },
-                { "Result.Successful", this.Successful.ToString() },
-                { "Result.ChangesState", this.ChangesState.ToString() },
-                { "Command.Payload", this.CommandPayload },
-                { "Session", this.Session },
-                { "ValidationMessages", string.Join("\n", this.ValidationMessages.Select(e => e.MessageType + ": " + e.Message)) }
-            };
-            
-            foreach (var item in this.AdditionalInformation)
-            {
-                target.Add(item.Key, item.Value);
-            }
-            return target;
-        }
     }
 }

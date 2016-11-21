@@ -118,6 +118,11 @@ namespace Slalom.Boost.Commands
                     result.SetException(exception);
                 }
 
+                if (!result.Successful)
+                {
+
+                }
+
                 return result;
             }, context.CancellationToken);
         }

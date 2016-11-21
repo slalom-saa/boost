@@ -27,19 +27,16 @@ namespace Slalom.Boost.Commands
             this.Session = context.Session;
             this.CommandId = context.CommandTrace.FirstOrDefault();
 
-            if (@event is ISpecifySerializationPayload)
+            try
             {
-                this.Payload = JsonConvert.SerializeObject(((ISpecifySerializationPayload)@event).GetSerializationPayload(), new JsonSerializerSettings
-                {
-                    ContractResolver = new SecureJsonContractResolver()
-                });
-            }
-            else
-            {
-                this.Payload = JsonConvert.SerializeObject(@event, new JsonSerializerSettings
+                this.Payload = JsonConvert.SerializeObject(@event.GetPayload(), new JsonSerializerSettings
                 {
                     ContractResolver = new JsonEventContractResolver()
                 });
+            }
+            catch (Exception exception)
+            {
+                this.Payload = "Serialization failed: " + exception;
             }
         }
 

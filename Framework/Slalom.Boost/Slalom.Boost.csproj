@@ -99,7 +99,6 @@
     <Compile Include="Events\IEventStore.cs" />
     <Compile Include="Aspects\SecureJsonContractResolver.cs" />
     <Compile Include="IServiceBus.cs" />
-    <Compile Include="Serialization\ISpecifySerializationPayload.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggingDestructuringPolicy.cs" />
     <Compile Include="Logging\NullLogger.cs" />

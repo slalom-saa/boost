@@ -34,6 +34,15 @@ namespace Slalom.Boost.Domain
         /// <value>The entity identifier.</value>
         public Guid Id { get; private set; }
 
+        /// <summary>
+        /// Gets the entity keys.  This may be combinatino of human and non-human readable keys.
+        /// </summary>
+        /// <returns>Returns the entity keys.</returns>
+        public virtual object GetKeys()
+        {
+            return this.Id;
+        }
+
         #region Equality Members
 
         /// <summary>
