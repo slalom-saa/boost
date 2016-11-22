@@ -3,6 +3,8 @@ using System.Reflection;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Slalom.Boost.Serialization;
+using DefaultContractResolver = Newtonsoft.Json.Serialization.DefaultContractResolver;
 
 namespace Slalom.Boost.Aspects
 {
@@ -21,7 +23,7 @@ namespace Slalom.Boost.Aspects
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var prop = base.CreateProperty(member, memberSerialization);
-            if ((member as PropertyInfo)?.GetCustomAttributes<SecurePropertyAttribute>().Any() ?? false)
+            if ((member as PropertyInfo)?.GetCustomAttributes<SecureAttribute>().Any() ?? false)
             {
                 prop.Converter = new SecureJsonConverter();
             }

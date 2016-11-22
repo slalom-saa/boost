@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MassTransit;
 using Newtonsoft.Json;
 using Slalom.Boost.Events;
 using Slalom.Boost.ReadModel;
@@ -33,7 +34,7 @@ namespace Slalom.Boost.Commands
                 throw new ArgumentNullException(nameof(result));
             }
 
-            this.TimeStamp = DateTime.Now;
+            this.TimeStamp = command.TimeStamp;
             this.Canceled = result.Canceled;
             this.Completed = result.Completed;
             this.Elapsed = result.Elapsed;
@@ -58,18 +59,26 @@ namespace Slalom.Boost.Commands
             {
                 ContractResolver = new JsonCommandContractResolver()
             });
+
             this.ValidationMessages = result.ValidationMessages;
             this.CorrelationId = result.Context.CorrelationId;
             this.Session = result.Context.Session;
             this.UserName = result.Context.UserName;
             this.AdditionalInformation = new Dictionary<string, string>(result.Context.AdditionalData);
+            this.MachineName = result.Context.MachineName;
+            this.Application = result.Context.Application;
+            this.ChangesState = typeof(Event).IsAssignableFrom(command.GetType().BaseType?.GetGenericArguments()[0]);
         }
+
+        public string MachineName { get; set; }
+
+        public string Application { get; set; }
 
         /// <summary>
         /// Gets or sets the time stamp.
         /// </summary>
         /// <value>The time stamp.</value>
-        public DateTime TimeStamp { get; set; }
+        public DateTimeOffset TimeStamp { get; set; }
 
         /// <summary>
         /// Gets the command payload.
@@ -174,39 +183,15 @@ namespace Slalom.Boost.Commands
         public string CommandType { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether changes state.
+        /// </summary>
+        /// <value><c>true</c> if changes state; otherwise, <c>false</c>.</value>
+        public bool ChangesState { get; set; }
+
+        /// <summary>
         /// Gets or sets the identifier.
         /// </summary>
         /// <value>The identifier.</value>
-        public Guid Id { get; set; } = Guid.NewGuid();
-
-        /// <summary>
-        /// Creates a dictionary from the instance.
-        /// </summary>
-        /// <returns>Returns a dictionary from the instance.</returns>
-        public Dictionary<string, string> ToDictionary()
-        {
-            var target = new Dictionary<string, string>
-            {
-                { "Canceled", this.Canceled.ToString() },
-                { "CommandId", this.CommandId.ToString() },
-                { "CommandName", this.CommandName },
-                { "CommandType", this.CommandType },
-                { "Completed", this.Completed?.ToString() },
-                { "CorrelationId", this.CorrelationId.ToString() },
-                { "Elapsed", this.Elapsed.ToString() },
-                { "Exception", this.Exception },
-                { "Event", this.RaisedEvent },
-                { "UserName", this.UserName },
-                { "Successful", this.Successful.ToString() },
-                { "CommandPayload", this.CommandPayload },
-                { "Session", this.Session },
-                { "ValidationMessages", string.Join("\n", this.ValidationMessages.Select(e => e.MessageType + ": " + e.Message)) }
-            };
-            foreach (var item in this.AdditionalInformation)
-            {
-                target.Add(item.Key, item.Value);
-            }
-            return target;
-        }
+        public Guid Id { get; set; } = NewId.NextGuid();
     }
 }

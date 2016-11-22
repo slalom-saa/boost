@@ -17,6 +17,14 @@ namespace Slalom.Boost.Aspects.Default
         public DefaultJsonSerializationSettings()
         {
             this.ContractResolver = new JsonPrivateMemberContractResolver();
+
+            JsonConvert.DefaultSettings = () =>
+            {
+                return new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                };
+            };
         }
     }
 }

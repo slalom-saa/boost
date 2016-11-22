@@ -5,10 +5,12 @@ using System.Linq;
 using System.Linq.Expressions;
 using Slalom.Boost.Domain;
 using Slalom.Boost.EntityFramework.GraphDiff;
+using Slalom.Boost.Logging;
+using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.EntityFramework
 {
-    public abstract class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEntity : class, IAggregateRoot
+    public abstract class EntityFrameworkRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
         protected readonly DbContext Context;
 
@@ -22,54 +24,73 @@ namespace Slalom.Boost.EntityFramework
             Context = context;
         }
 
-        protected DbSet<TEntity> Set => Context.Set<TEntity>();
+        protected DbSet<TRoot> Set => Context.Set<TRoot>();
 
-        public void Delete()
+        public virtual void Delete()
         {
+            this.Logger?.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+
             this.Set.RemoveRange(this.Set);
-            this.Context.SaveChanges();
+            Context.SaveChanges();
         }
 
-        public void Delete(params TEntity[] instances)
+        public virtual void Delete(params TRoot[] instances)
         {
             if (instances == null)
             {
                 throw new ArgumentNullException(nameof(instances));
             }
 
+            this.Logger?.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
             var ids = instances.Select(e => e.Id).ToList();
             this.Set.RemoveRange(this.Set.Where(e => ids.Contains(e.Id)));
-            this.Context.SaveChanges();
+            Context.SaveChanges();
         }
 
-        public virtual TEntity Find(Guid id)
+        /// <summary>
+        /// Gets or sets the configured <see cref="ILogger"/> instance.
+        /// </summary>
+        /// <value>The configured <see cref="ILogger"/> instance.</value>
+        [RuntimeBindingDependency]
+        public ILogger Logger { get; set; }
+
+        public virtual TRoot Find(Guid id)
         {
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
             }
 
-            return Context.Set<TEntity>().Find(id);
+            this.Logger?.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
+
+            return Context.Set<TRoot>().Find(id);
         }
 
-        public virtual IQueryable<TEntity> Find()
+        public virtual IQueryable<TRoot> Find()
         {
-            return Context.Set<TEntity>().AsNoTracking();
+            this.Logger?.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+
+            return Context.Set<TRoot>().AsNoTracking();
         }
 
-        public virtual void Add(params TEntity[] instances)
+        public virtual void Add(params TRoot[] instances)
         {
+            this.Logger?.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
             this.Set.AddRange(instances);
-            this.Context.SaveChanges();
-        }
-
-        public virtual void Update(params TEntity[] instances)
-        {
-            Context.Set<TEntity>().AddOrUpdate(instances);
             Context.SaveChanges();
         }
 
-        protected void UpdateGraph(TEntity[] instance, Expression<Func<IUpdateConfiguration<TEntity>, object>> expression)
+        public virtual void Update(params TRoot[] instances)
+        {
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            Context.Set<TRoot>().AddOrUpdate(instances);
+            Context.SaveChanges();
+        }
+
+        protected void UpdateGraph(TRoot[] instance, Expression<Func<IUpdateConfiguration<TRoot>, object>> expression)
         {
             instance.ToList().ForEach(e =>
             {

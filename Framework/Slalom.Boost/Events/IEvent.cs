@@ -29,6 +29,12 @@ namespace Slalom.Boost.Events
         /// Gets the time stamp of when the event was created.
         /// </summary>
         /// <value>The time stamp of when the event was created.</value>
-        DateTime TimeStamp { get; }
+        DateTimeOffset TimeStamp { get; }
+
+        /// <summary>
+        /// Gets the event payload to serialize and forward.
+        /// </summary>
+        /// <returns>Returns the event payload to serialize and forward.</returns>
+        object GetPayload();
     }
 }

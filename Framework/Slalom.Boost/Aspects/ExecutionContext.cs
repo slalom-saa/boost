@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Principal;
 using System.Web;
@@ -22,7 +23,21 @@ namespace Slalom.Boost.Aspects
         {
             this.Identity = identity;
             this.Session = session;
+            this.Application = ConfigurationManager.AppSettings["Application"];
+            this.MachineName = Environment.MachineName;
         }
+
+        /// <summary>
+        /// Gets the application name.
+        /// </summary>
+        /// <value>The application name.</value>
+        public string Application { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the machine.
+        /// </summary>
+        /// <value>The name of the machine.</value>
+        public string MachineName { get; private set; }
 
         /// <summary>
         /// Gets the identity being used during execution.

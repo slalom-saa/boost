@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Slalom.Boost.DocumentDb</name>
+    </assembly>
+    <members>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbContext.Logger">
+            <summary>
+            Gets or sets the configured <see cref="T:Slalom.Boost.Logging.ILogger"/> instance.
+            </summary>
+            <value>The configured <see cref="T:Slalom.Boost.Logging.ILogger"/> instance.</value>
+        </member>
+        <member name="M:Slalom.Boost.DocumentDb.DocumentDbContext.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:Slalom.Boost.DocumentDb.DocumentDbContext.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Slalom.Boost.DocumentDb.DocumentDbMappingsManager.BuildMap(System.Type)">
+            <summary>
+            Dynamically builds a map for the specified type.
+            </summary>
+            <param name="target">The target.</param>
+        </member>
+        <member name="T:Slalom.Boost.DocumentDb.DocumentDbOptions">
+            <summary>
+            Contains options needed to configure a DocumentDB connection.  The default implemenation is to use appsettings:
+            DocumentDB:ServiceEndpoint, DocumentDB:AuthorizationKey, DocumentDB:DatabaseId, DocumentDB:CollectionId.
+            </summary>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbOptions.AuthorizationKey">
+            <summary>
+            Gets or sets the authorization key.
+            </summary>
+            <value>The authorization key.</value>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbOptions.CollectionId">
+            <summary>
+            Gets or sets the collection identifier.
+            </summary>
+            <value>The collection identifier.</value>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbOptions.DatabaseId">
+            <summary>
+            Gets or sets the database identifier.
+            </summary>
+            <value>The database identifier.</value>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbOptions.ServiceEndpoint">
+            <summary>
+            Gets or sets the service endpoint.
+            </summary>
+            <value>The service endpoint.</value>
+        </member>
+        <member name="T:Slalom.Boost.DocumentDb.DocumentDbRepository`1">
+            <summary>
+            Provides a DocumentDB based <see cref="T:Slalom.Boost.Domain.IRepository`1"/> implementation.
+            </summary>
+            <typeparam name="TRoot">The type of aggregate root to use.</typeparam>
+            <seealso cref="T:Slalom.Boost.Domain.IRepository`1" />
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.DocumentDbRepository`1.Logger">
+            <summary>
+            Gets or sets the configured <see cref="T:Slalom.Boost.Logging.ILogger"/> instance.
+            </summary>
+            <value>The configured <see cref="T:Slalom.Boost.Logging.ILogger"/> instance.</value>
+        </member>
+        <member name="T:Slalom.Boost.DocumentDb.Scripts">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.Scripts.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.Scripts.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Slalom.Boost.DocumentDb.Scripts.bulkDelete">
+            <summary>
+              Looks up a localized string similar to /**
+            * A DocumentDB stored procedure that bulk deletes documents for a given query.&lt;br/&gt;
+            * Note: You may need to execute this sproc multiple times (depending whether the sproc is able to delete every document within the execution timeout limit).
+            *
+            * @function
+            * @param {string} query - A query that provides the documents to be deleted (e.g. &quot;SELECT * FROM c WHERE c.founded_year = 2008&quot;)
+            * @returns {Object.&lt;number, boolean&gt;} Returns an object with the two properties:&lt;br/&gt;
+            *   deleted - contains a [rest of string was truncated]&quot;;.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Slalom.Boost.DocumentDb.Scripts.bulkImport" -->
+    </members>
+</doc>

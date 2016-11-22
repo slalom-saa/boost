@@ -1,5 +1,6 @@
 using System.Web.Http.ExceptionHandling;
 using Slalom.Boost.Aspects;
+using Slalom.Boost.Logging;
 using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.WebApi

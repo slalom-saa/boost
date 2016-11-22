@@ -1,85 +1,131 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
-using Slalom.Boost.Aspects;
+using Serilog.Core;
 using Slalom.Boost.Commands;
-using Slalom.Boost.Domain;
 using Slalom.Boost.EntityFramework;
 using Slalom.Boost.Events;
-using Slalom.Boost.MongoDB;
-using Slalom.Boost.MongoDB.Aspects;
-using Slalom.Boost.ReadModel;
+using Slalom.Boost.Logging;
 using Slalom.Boost.RuntimeBinding;
-using Slalom.Boost.Tasks;
+using Slalom.Boost.Serialization;
+
+#pragma warning disable 4014
 
 namespace Slalom.Boost.UnitTests
 {
-
-    public class AddMemberCommand : Command<MemberAddedEvent>
+    public class TestEvent : Event
     {
-        public string Name { get; private set; }
-
-        public AddMemberCommand(string name)
+        public TestEvent(string content)
         {
-            this.Name = name;
+            this.Content = content;
+        }
+
+        public string Content { get; }
+    }
+
+    public class TestCommand : Command<TestEvent>
+    {
+        [Ignore]
+        public string Content { get; }
+
+        public TestCommand(string content)
+        {
+            this.Content = content;
         }
     }
 
-    public class AddMemberCommandHandler : CommandHandler<AddMemberCommand, MemberAddedEvent>
+    public class TestCommandHandler : CommandHandler<TestCommand, TestEvent>
     {
-        public override MemberAddedEvent HandleCommand(AddMemberCommand command)
+        public override TestEvent HandleCommand(TestCommand command)
         {
-            Console.WriteLine(command.Name);
-
-            return new MemberAddedEvent();
+            throw new Exception("...");
+            return new TestEvent(command.Content);
         }
-    }
-
-    [Serializable]
-    public class MemberAddedEvent : Event
-    {
-    }
-
-    public class ScheduledTaskRepository : MongoScheduledTaskStore
-    {
-
     }
 
     public class TestContext : BoostDbContext
     {
-        public DbSet<TestReadModel> Items { get; set; }
-    }
-
-    public class Facade : EntityFrameworkReadModelFacade
-    {
-        public Facade(TestContext context) : base(context)
+        public TestContext() : base("Name=Local")
         {
         }
     }
 
-    public class TestReadModel : IReadModelElement
+    public class AuditStore : EntityFramework.Aspects.EntityFrameworkAuditStore
     {
-        public Guid Id { get; }
+        public AuditStore(TestContext context)
+            : base(context)
+        {
+        }
     }
 
-    class Program
+    public class EventStore : EntityFramework.Aspects.EntityFrameworkEventStore, IHandleEvent
     {
-        static void Main(string[] args)
+        public EventStore(TestContext context)
+            : base(context)
+        {
+        }
+
+        public override void Append(Event instance, CommandContext context)
+        {
+            base.Append(instance, context);
+        }
+    }
+
+    public class Program
+    {
+        public static void Main()
+        {
+            new Program().Start();
+
+            Console.WriteLine(@"Running program.  Press any key to exit...");
+            Console.WriteLine();
+
+            Console.ReadKey();
+        }
+
+        public async Task Start()
         {
             try
             {
-                using (var container = new ApplicationContainer(typeof(Program)))
+                var instance = new
                 {
+                    Name = new
+                    {
+                        Out = "Fred"
+                    },
+                    Max = 3
+                };
 
-                    container.DataFacade.Add(new TestReadModel());
+                var content = JsonConvert.DeserializeXNode(JsonConvert.SerializeObject(instance), "Item");
+                Console.WriteLine(content);
 
 
-                }
+
+                //using (var container = new ApplicationContainer(this))
+                //{
+                //    container.Register<IDestructuringPolicy, LoggingDestructuringPolicy>(Guid.NewGuid().ToString());
+
+                //    for (int i = 0; i < 2; i++)
+                //    {
+                //        container.Resolve<ILogger>().Error(new InvalidOperationException("xxxxx"), "ex");
+                //    }
+
+                //    Console.WriteLine(11);
+                //    //var result = await container.Bus.Send(new TestCommand("content"));
+
+                //    //Console.WriteLine(result.Successful);
+                //    //Console.WriteLine(result.Elapsed);
+
+                //    var client = new TelemetryClient
+                //    {
+                //        InstrumentationKey  = "a384f093-adf9-4cb9-bf75-1b7822042932"
+                //    };
+                //    client.Flush();
+                //}
             }
             catch (Exception exception)
             {

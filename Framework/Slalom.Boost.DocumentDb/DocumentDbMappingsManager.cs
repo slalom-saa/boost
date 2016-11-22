@@ -7,6 +7,7 @@ using MongoDB.Bson.Serialization;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Events;
 using Slalom.Boost.Reflection;
+using Slalom.Boost.Serialization;
 
 namespace Slalom.Boost.DocumentDb
 {
@@ -125,9 +126,21 @@ namespace Slalom.Boost.DocumentDb
 
         private static void MapStandardProperties(Type target, PropertyInfo[] properties, BsonClassMap map)
         {
-            foreach (var info in properties.Where(e => e.DeclaringType == target && !e.GetCustomAttributes<SecurePropertyAttribute>().Any()))
+            foreach (var info in properties.Where(e => e.DeclaringType == target && !e.GetCustomAttributes<SecureAttribute>().Any()))
             {
-                map.MapProperty(info.Name);
+                if (info.PropertyType == typeof(DateTime?) || info.PropertyType == typeof(DateTimeOffset?))
+                {
+                    map.MapProperty(info.Name).SetShouldSerializeMethod(obj =>
+                    {
+                        var value = info.GetValue(obj);
+
+                        return value != null && Convert.ToDateTime(value) > new DateTime(1900, 1, 1);
+                    });
+                }
+                else
+                {
+                    map.MapProperty(info.Name);
+                }
             }
         }
     }

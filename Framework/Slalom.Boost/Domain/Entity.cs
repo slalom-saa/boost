@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
+using MassTransit;
 
 namespace Slalom.Boost.Domain
 {
@@ -14,7 +15,7 @@ namespace Slalom.Boost.Domain
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         protected Entity()
-            : this(Guid.NewGuid())
+            : this(NewId.NextGuid())
         {
         }
 
@@ -32,6 +33,15 @@ namespace Slalom.Boost.Domain
         /// </summary>
         /// <value>The entity identifier.</value>
         public Guid Id { get; private set; }
+
+        /// <summary>
+        /// Gets the entity keys.  This may be combinatino of human and non-human readable keys.
+        /// </summary>
+        /// <returns>Returns the entity keys.</returns>
+        public virtual object GetKeys()
+        {
+            return this.Id;
+        }
 
         #region Equality Members
 

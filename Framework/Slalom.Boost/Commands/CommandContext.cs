@@ -2,11 +2,13 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using Newtonsoft.Json;
 using Slalom.Boost.Events;
+using Slalom.Boost.Serialization;
 using ExecutionContext = Slalom.Boost.Aspects.ExecutionContext;
 
 namespace Slalom.Boost.Commands
@@ -63,16 +65,16 @@ namespace Slalom.Boost.Commands
             this.Created = DateTime.Now;
             this.AdditionalData = new ReadOnlyDictionary<string, string>(context.Data);
             this.CorrelationId = context.CorrelationId;
+            this.Application = context.Application; 
+            this.MachineName = context.MachineName;
         }
 
         /// <summary>
         /// Gets or sets the cancellation token.
         /// </summary>
         /// <value>The cancellation token.</value>
-        public CancellationToken CancellationToken
-        {
-            get { return _cancellationToken; }
-        }
+        [Ignore]
+        public CancellationToken CancellationToken => _cancellationToken;
 
         /// <summary>
         /// Gets any additional data about the context.
@@ -104,6 +106,7 @@ namespace Slalom.Boost.Commands
         /// Gets the identity executing the command.
         /// </summary>
         /// <value>The identity executing the command.</value>
+        [Ignore]
         public IIdentity Identity => _identity;
 
         /// <summary>
@@ -148,6 +151,18 @@ namespace Slalom.Boost.Commands
         /// </summary>
         /// <value>The name of the actor initiating the command.</value>
         public string UserName { get; private set; }
+
+        /// <summary>
+        /// Gets the application name.
+        /// </summary>
+        /// <value>The application name.</value>
+        public string Application { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the machine.
+        /// </summary>
+        /// <value>The name of the machine.</value>
+        public string MachineName { get; private set; }
 
         /// <summary>
         /// Adds the raised events to the collection.

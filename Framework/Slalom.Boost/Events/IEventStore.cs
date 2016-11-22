@@ -10,7 +10,7 @@ namespace Slalom.Boost.Events
     /// Defines a contract for logging application messages.
     /// </summary>
     [RuntimeBindingContract(ContractBindingType.Multiple)]
-    public interface IEventStore
+    public interface IEventStore : IHandleEvent
     {
         /// <summary>
         /// Gets a value indicating whether this instance can read.
@@ -29,6 +29,6 @@ namespace Slalom.Boost.Events
         /// Finds all <see cref="Event"/> instances.
         /// </summary>
         /// <returns>An IQueryable&lt;Event&gt; that can be used to filter and project.</returns>
-        IQueryable<Event> Find();
+        IQueryable<EventAudit> Find();
     }
 }

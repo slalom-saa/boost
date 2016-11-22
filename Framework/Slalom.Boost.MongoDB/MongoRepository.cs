@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Configuration;
 using System.Linq;
 using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
 using Slalom.Boost.Domain;
-using Slalom.Boost.MongoDB.Aspects;
+using Slalom.Boost.Logging;
 using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.MongoDB
@@ -17,69 +15,78 @@ namespace Slalom.Boost.MongoDB
     public abstract class MongoRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoRepository{TEntity}"/> class.
+        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}"/> class.
         /// </summary>
         protected MongoRepository()
-            : this(ConfigurationManager.AppSettings["mongo:Database"])
         {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MongoAuditStore" /> class.
-        /// </summary>
-        protected MongoRepository(string database)
-        {
-            this.Collection = new Lazy<IMongoCollection<TRoot>>(() => this.Factory.GetCollection<TRoot>(database, typeof(TRoot).Name));
-
             MongoMappings.EnsureInitialized(this);
         }
 
         /// <summary>
-        /// Gets the collection factory.
+        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}"/> class.  Use this constructor
+        /// to provide a non-default connection.
         /// </summary>
-        public Lazy<IMongoCollection<TRoot>> Collection { get; }
+        /// <param name="context">The configured <see cref="MongoDbContext"/>.</param>
+        protected MongoRepository(MongoDbContext context) : this()
+        {
+            this.Context = context;
+        }
 
         /// <summary>
-        /// Gets or sets the current <see cref="IMongoConnectionFactory"/> instance.
+        /// Gets or sets configured <see cref="MongoDbContext"/>.
         /// </summary>
-        /// <value>The current <see cref="IMongoConnectionFactory"/> instance.</value>
+        /// <value>The configured <see cref="MongoDbContext"/>.</value>
         [RuntimeBindingDependency]
-        public IMongoConnectionFactory Factory { get; set; }
+        public MongoDbContext Context { get; set; }
+
+        /// <summary>
+        /// Gets or sets the configured <see cref="ILogger"/>.
+        /// </summary>
+        /// <value>The configured <see cref="ILogger"/>.</value>
+        [RuntimeBindingDependency]
+        public ILogger Logger { get; set; }
 
         /// <summary>
         /// Adds the specified instances.
         /// </summary>
-        /// <param name="instances">The instances to update.</param>
-        public void Add(params TRoot[] instances)
+        /// <param name="instances">The instances to add.</param>
+        public virtual void Add(params TRoot[] instances)
         {
-            this.Collection.Value.InsertMany(instances);
+            this.Logger?.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Add(instances);
         }
 
         /// <summary>
         /// Removes all instances.
         /// </summary>
-        public void Delete()
+        public virtual void Delete()
         {
-            this.Collection.Value.DeleteMany(e => true);
+            this.Logger?.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Delete<TRoot>();
         }
 
         /// <summary>
         /// Removes the specified instances.
         /// </summary>
         /// <param name="instances">The instances to remove.</param>
-        public void Delete(params TRoot[] instances)
+        public virtual void Delete(params TRoot[] instances)
         {
-            var ids = instances.Select(e => e.Id).ToList();
-            this.Collection.Value.DeleteMany(e => ids.Contains(e.Id));
+            this.Logger?.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Delete(instances);
         }
 
         /// <summary>
         /// Finds all instances.
         /// </summary>
         /// <returns>Returns a query for all instances.</returns>
-        public IQueryable<TRoot> Find()
+        public virtual IQueryable<TRoot> Find()
         {
-            return this.Collection.Value.AsQueryable();
+            this.Logger?.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+
+            return this.Context.Find<TRoot>();
         }
 
         /// <summary>
@@ -89,7 +96,9 @@ namespace Slalom.Boost.MongoDB
         /// <returns>Returns the instance with the specified identifier.</returns>
         public virtual TRoot Find(Guid id)
         {
-            return this.Collection.Value.Find(e => e.Id == id).FirstOrDefault();
+            this.Logger?.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
+
+            return this.Context.Find<TRoot>(id);
         }
 
         /// <summary>
@@ -159,13 +168,12 @@ namespace Slalom.Boost.MongoDB
         /// <summary>
         /// Updates the specified instance.
         /// </summary>
-        /// <param name="instance">The instance.</param>
-        public void Update(params TRoot[] instance)
+        /// <param name="instances">The instance.</param>
+        public virtual void Update(params TRoot[] instances)
         {
-            instance.ToList().ForEach(e =>
-            {
-                this.Collection.Value.ReplaceOne(x => x.Id == e.Id, e, new UpdateOptions { IsUpsert = true });
-            });
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Update(instances);
         }
     }
 }

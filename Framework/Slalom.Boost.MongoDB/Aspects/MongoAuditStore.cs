@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using MongoDB.Driver;
@@ -15,33 +14,28 @@ namespace Slalom.Boost.MongoDB.Aspects
     /// <seealso cref="IAuditStore" />
     public abstract class MongoAuditStore : IAuditStore
     {
-        private readonly Lazy<IMongoCollection<CommandAudit>> _collection;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="MongoAuditStore"/> class.
         /// </summary>
         protected MongoAuditStore()
-            : this(ConfigurationManager.AppSettings["mongo:Database"])
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoEventStore" /> class.
+        /// Initializes a new instance of the <see cref="MongoAuditStore"/> class.
         /// </summary>
-        /// <param name="database">The name of the database.</param>
-        protected MongoAuditStore(string database)
+        /// <param name="context">The context.</param>
+        protected MongoAuditStore(MongoDbContext context)
         {
-            _collection = new Lazy<IMongoCollection<CommandAudit>>(() => (this.Factory ?? new MongoConnectionFactory()).GetCollection<CommandAudit>(database, "Audit"));
-
-            MongoMappings.EnsureInitialized(this);
+            this.Context = context;
         }
 
         /// <summary>
-        /// Gets or sets the current <see cref="IMongoConnectionFactory"/> instance.
+        /// Gets or sets the current <see cref="MongoDbContext"/> instance.
         /// </summary>
-        /// <value>The current <see cref="IMongoConnectionFactory"/> instance.</value>
+        /// <value>The current <see cref="MongoDbContext"/> instance.</value>
         [RuntimeBindingDependency]
-        public IMongoConnectionFactory Factory { get; set; }
+        public MongoDbContext Context { get; set; }
 
         /// <summary>
         /// Gets or sets the current <see cref="IMapper"/> instance.
@@ -51,19 +45,19 @@ namespace Slalom.Boost.MongoDB.Aspects
         public IMapper Mapper { get; set; }
 
         /// <summary>
+        /// Gets a value indicating whether this instance can read.
+        /// </summary>
+        /// <value><c>true</c> if this instance can read; otherwise, <c>false</c>.</value>
+        public bool CanRead { get; } = true;
+
+        /// <summary>
         /// Finds this instance.
         /// </summary>
         /// <returns>IQueryable&lt;CommandAudit&gt;.</returns>
         public IQueryable<CommandAudit> Find()
         {
-            return _collection.Value.AsQueryable();
+            return this.Context.GetCollection<CommandAudit>().AsQueryable();
         }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance can read.
-        /// </summary>
-        /// <value><c>true</c> if this instance can read; otherwise, <c>false</c>.</value>
-        public bool CanRead { get; } = true;
 
         /// <summary>
         /// Saves the executed <see cref="T:Slalom.Boost.Commands.Command">command</see> and <see cref="T:Slalom.Boost.Commands.CommandResult">result</see>.
@@ -73,7 +67,7 @@ namespace Slalom.Boost.MongoDB.Aspects
         /// <returns>A <see cref="T:System.Threading.Tasks.Task" /> that saves the executed <see cref="T:Slalom.Boost.Commands.Command">command</see> and <see cref="T:Slalom.Boost.Commands.CommandResult">result</see>.</returns>
         public Task SaveAsync<TResponse>(Commands.Command<TResponse> command, CommandResult<TResponse> result)
         {
-            return _collection.Value.InsertOneAsync(new CommandAudit(command, result));
+            return this.Context.GetCollection<CommandAudit>().InsertOneAsync(new CommandAudit(command, result));
         }
     }
 }

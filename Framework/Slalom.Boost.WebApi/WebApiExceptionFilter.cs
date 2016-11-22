@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http.Filters;
 using Slalom.Boost.Aspects;
+using Slalom.Boost.Logging;
 
 namespace Slalom.Boost.WebApi
 {

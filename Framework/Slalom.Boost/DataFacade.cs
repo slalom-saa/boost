@@ -248,7 +248,7 @@ namespace Slalom.Boost
         /// <exception cref="System.NotSupportedException">Thrown when an unsupported type is used.</exception>
         public bool Exists<TInstance>(Guid id) where TInstance : IHaveIdentity
         {
-            return this.Find<TInstance>().Any(e => e.Id == id);
+            return this.Find<TInstance>().Where(e => e.Id == id).Take(1).AsEnumerable().Any();
         }
 
         /// <summary>

@@ -61,6 +61,8 @@ namespace Slalom.Boost.RuntimeBinding
         /// <value>The loaded assemblies.</value>
         public IEnumerable<_Assembly> LoadedAssemblies => _registeredObjects.Select(e => e.Implementation?.Assembly).Distinct();
 
+       
+
         /// <summary>
         /// Gets the loaded repositories.
         /// </summary>
@@ -99,15 +101,31 @@ namespace Slalom.Boost.RuntimeBinding
             return _registeredObjects.Any(e => e.Contract == type);
         }
 
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (!disposed)
+                {
+                    disposed = true;
+
+                    foreach (var item in _registeredObjects.Where(e => e.Instance != null || e.CreatedInstances.Any() && e.Contract != typeof(IContainer)).SelectMany(e => e.CreatedInstances.Union(new[] { e.Instance })).Where(e => e is IDisposable))
+                    {
+                        ((IDisposable)item).Dispose();
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
-            foreach (var item in _registeredObjects.Where(e => e.CreatedInstances.Any() && e.Contract != typeof(IContainer)).SelectMany(e => e.CreatedInstances).Where(e => e is IDisposable))
-            {
-                ((IDisposable)item).Dispose();
-            }
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -120,6 +138,16 @@ namespace Slalom.Boost.RuntimeBinding
             _registeredObjects.Add(new RegisteredObject(typeof(TContract), typeof(TImplementation)));
         }
 
+        /// <summary>
+        /// Registers an implementation of the specified type.
+        /// </summary>
+        /// <typeparam name="TContract">The contract type.</typeparam>
+        /// <typeparam name="TImplementation">The implementation type.</typeparam>
+        /// <param name="name">The registration name.</param>
+        public void Register<TContract, TImplementation>(string name) where TContract : class where TImplementation : class, TContract
+        {
+            _registeredObjects.Add(new RegisteredObject(typeof(TContract), typeof(TImplementation), name));
+        }
         /// <summary>
         /// Registers an instance of the specified type.
         /// </summary>
@@ -203,7 +231,7 @@ namespace Slalom.Boost.RuntimeBinding
         /// <returns>Returns all instances of the specified type.</returns>
         public IEnumerable<object> ResolveAll(Type type)
         {
-            foreach (var instance in _registeredObjects.Where(e => e.Contract == type))
+            foreach (var instance in _registeredObjects.Where(e => e.Contract == type).ToList())
             {
                 yield return this.GetInstance(instance);
             }
@@ -238,7 +266,10 @@ namespace Slalom.Boost.RuntimeBinding
 
                 foreach (var property in dependencies)
                 {
-                    property.SetValue(instance, this.Resolve(property.PropertyType));
+                    if (property.CanWrite && property.GetValue(instance) == null)
+                    {
+                        property.SetValue(instance, this.Resolve(property.PropertyType));
+                    }
                 }
             }
         }
@@ -318,9 +349,20 @@ namespace Slalom.Boost.RuntimeBinding
             var registeredObject = _registeredObjects.LastOrDefault(o => o.Contract == typeToResolve);
             if (registeredObject == null && typeToResolve.IsClass)
             {
-                var instance = Activator.CreateInstance(typeToResolve, this.ResolveConstructorParameters(typeToResolve).ToArray());
-                this.BuildUp(instance);
-                return instance;
+                if (typeToResolve.GetAllAttributes<RuntimeBindingImplementationAttribute>().Any(e => e.BindingType == ImplementationBindingType.Singleton))
+                {
+                    var instance = Activator.CreateInstance(typeToResolve, this.ResolveConstructorParameters(typeToResolve).ToArray());
+                    this.BuildUp(instance);
+                    _registeredObjects.Add(new RegisteredObject(typeToResolve, instance));
+                    return instance;
+                }
+                else
+                {
+
+                    var instance = Activator.CreateInstance(typeToResolve, this.ResolveConstructorParameters(typeToResolve).ToArray());
+                    this.BuildUp(instance);
+                    return instance;
+                }
             }
 
             return registeredObject?.Instance ?? this.GetInstance(registeredObject);

@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using MongoDB.Bson.Serialization;
 using Slalom.Boost.Aspects;
+using Slalom.Boost.Serialization;
 
 namespace Slalom.Boost.MongoDB
 {
@@ -28,9 +29,21 @@ namespace Slalom.Boost.MongoDB
 
                 foreach (var info in properties.Where(e => e.DeclaringType == target))
                 {
-                    if (!info.GetCustomAttributes<SecurePropertyAttribute>().Any())
+                    if (!info.GetCustomAttributes<SecureAttribute>().Any())
                     {
-                        map.MapProperty(info.Name);
+                        if (info.PropertyType == typeof(DateTime?) || info.PropertyType == typeof(DateTimeOffset?))
+                        {
+                            map.MapProperty(info.Name).SetShouldSerializeMethod(obj =>
+                            {
+                                var value = info.GetValue(obj);
+
+                                return value != null && Convert.ToDateTime(value) > new DateTime(1900, 1, 1);
+                            });
+                        }
+                        else
+                        {
+                            map.MapProperty(info.Name);
+                        }
                     }
                 }
 

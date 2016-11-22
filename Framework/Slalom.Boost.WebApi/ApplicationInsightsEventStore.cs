@@ -14,7 +14,7 @@ namespace Slalom.Boost.WebApi
     /// </summary>
     /// <seealso cref="Slalom.Boost.Events.IEventStore" />
     /// <seealso cref="Slalom.Boost.Events.IHandleEvent" />
-    public abstract class ApplicationInsightsEventStore : IEventStore, IHandleEvent
+    public abstract class ApplicationInsightsEventStore : IEventStore
     {
         /// <summary>
         /// Gets a value indicating whether this instance can read.
@@ -31,18 +31,21 @@ namespace Slalom.Boost.WebApi
         {
             var telemetry = new TelemetryClient();
 
-            var dictionary = new Dictionary<string, string>();
-            dictionary.Add("EventId", instance.Id.ToString());
-            dictionary.Add("EventName", instance.EventName);
-            dictionary.Add("EventType", instance.EventType.ToString());
-            dictionary.Add("TimeStamp", instance.TimeStamp.ToString(CultureInfo.InvariantCulture));
-            dictionary.Add("CorrelationId", context?.CorrelationId.ToString());
-            dictionary.Add("Payload", JsonConvert.SerializeObject(instance, new JsonSerializerSettings
+            var dictionary = new Dictionary<string, string>
             {
-                ContractResolver = new JsonEventContractResolver()
-            }));
+                { "EventId", instance.Id.ToString() },
+                { "EventName", instance.EventName },
+                { "UserName", context.UserName },
+                { "MachineName", context.MachineName },
+                { "Application", context.Application },
+                { "Session", context.Session },
+                { "TimeStamp", instance.TimeStamp.ToString(CultureInfo.InvariantCulture) },
+                { "CorrelationId", context?.CorrelationId.ToString() }
+            };
 
-            telemetry.TrackEvent(instance.EventName, dictionary);
+            telemetry.TrackEvent("Event: " + instance.EventName, dictionary);
+
+            telemetry.Flush();
         }
 
         /// <summary>
@@ -50,7 +53,7 @@ namespace Slalom.Boost.WebApi
         /// </summary>
         /// <returns>An IQueryable&lt;Event&gt; that can be used to filter and project.</returns>
         /// <exception cref="System.NotImplementedException"></exception>
-        public virtual IQueryable<Event> Find()
+        public virtual IQueryable<EventAudit> Find()
         {
             throw new NotImplementedException();
         }
@@ -63,6 +66,21 @@ namespace Slalom.Boost.WebApi
         public virtual void Handle(Event instance, CommandContext context)
         {
             this.Append(instance, context);
+        }
+
+        private static string GetEventPayload(Event instance)
+        {
+            try
+            {
+                return JsonConvert.SerializeObject(instance.GetPayload(), new JsonSerializerSettings
+                {
+                    ContractResolver = new JsonEventContractResolver()
+                });
+            }
+            catch (Exception exception)
+            {
+                return "Serialization failed: " + exception;
+            }
         }
     }
 }

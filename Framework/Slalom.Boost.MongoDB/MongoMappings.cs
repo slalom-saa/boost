@@ -46,21 +46,26 @@ namespace Slalom.Boost.MongoDB
 
         private static void CreateKnownMaps()
         {
-            BsonClassMap.RegisterClassMap<Entity>(x =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Entity)))
             {
-                x.AutoMap();
-                x.SetIsRootClass(true);
-                x.MapIdField(e => e.Id);
-            });
+                BsonClassMap.RegisterClassMap<Entity>(x =>
+                {
+                    x.AutoMap();
+                    x.SetIsRootClass(true);
+                    x.MapIdField(e => e.Id);
+                });
+            }
 
-
-            BsonClassMap.RegisterClassMap<Event>(x =>
+            if (!BsonClassMap.IsClassMapRegistered(typeof(Event)))
             {
-                x.AutoMap();
-                x.SetIsRootClass(true);
-                x.MapProperty(e => e.EventName);
-                x.MapProperty(e => e.TimeStamp);
-            });
+                BsonClassMap.RegisterClassMap<Event>(x =>
+                {
+                    x.AutoMap();
+                    x.SetIsRootClass(true);
+                    x.MapProperty(e => e.EventName);
+                    x.MapProperty(e => e.TimeStamp);
+                });
+            }
         }
     }
 }

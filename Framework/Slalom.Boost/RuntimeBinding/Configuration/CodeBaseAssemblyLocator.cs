@@ -29,7 +29,7 @@ namespace Slalom.Boost.RuntimeBinding.Configuration
 
             var files = Directory.GetFiles(fileInfo.Directory.ToString(), "*.dll").ToList();
 
-            var assemblies = files.Where(e => !e.Contains("DocumentDb") && !e.Contains("Azure")).Select(Assembly.LoadFrom).OfType<_Assembly>();
+            var assemblies = files.Where(e => !e.Contains("DocumentDB") && !e.Contains("Azure")).Select(Assembly.LoadFrom).OfType<_Assembly>();
 
             return new ObservableCollection<_Assembly>(assemblies.Where(assembly => filters.Any(filter => filter.Filter(assembly))));
         }

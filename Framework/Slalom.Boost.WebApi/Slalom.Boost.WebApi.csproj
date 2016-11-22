@@ -119,6 +119,10 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.3.0\lib\net46\Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.4.0\lib\net40\Swashbuckle.Core.dll</HintPath>
       <Private>True</Private>
@@ -206,8 +210,8 @@
     <Compile Include="..\Slalom.Boost\Properties\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ApplicationInsightsEventStore.cs" />
     <Compile Include="ApplicationInsightsAuditStore.cs" />
+    <Compile Include="ApplicationInsightsEventStore.cs" />
     <Compile Include="ObjectToDictionaryHelper.cs" />
     <Compile Include="OmitCommandProperties.cs" />
     <Compile Include="BoostDependencyResolver.cs" />

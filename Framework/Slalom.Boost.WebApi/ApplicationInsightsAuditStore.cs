@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
@@ -28,8 +29,25 @@ namespace Slalom.Boost.WebApi
         public virtual Task SaveAsync<TResponse>(Command<TResponse> command, CommandResult<TResponse> result)
         {
             var model = new CommandAudit(command, result);
+            var target = new Dictionary<string, string>
+            {
+                { "Command.Canceled", model.Canceled.ToString() },
+                { "Command.Id", model.CommandId.ToString() },
+                { "Command.Name", model.CommandName },
+                { "Command.Type", model.CommandType },
+                { "Result.Completed", model.Completed?.ToString() },
+                { "CorrelationId", model.CorrelationId.ToString() },
+                { "Result.Elapsed", model.Elapsed.ToString() },
+                { "Result.Exception", model.Exception },
+                { "UserName", model.UserName },
+                { "Result.Successful", model.Successful.ToString() },
+                { "Result.ChangesState", model.ChangesState.ToString() },
+                { "Session", model.Session },
+                { "ValidationMessages", string.Join("\n", model.ValidationMessages.Select(e => e.MessageType + ": " + e.Message)) }
+            };
             var telemetry = new TelemetryClient();
-            telemetry.TrackEvent(result.CommandName, model.ToDictionary());
+            telemetry.TrackEvent("Audit: " + result.CommandName, target);
+            telemetry.Flush();
             return Task.FromResult(0);
         }
 

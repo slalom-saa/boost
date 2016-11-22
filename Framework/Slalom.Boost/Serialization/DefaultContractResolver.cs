@@ -1,14 +1,14 @@
-using System.Reflection;
+﻿using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Slalom.Boost.Aspects;
 
-namespace Slalom.Boost.Events
+namespace Slalom.Boost.Serialization
 {
     /// <summary>
-    /// A JSON Contract Resolver for <see cref="Event"/> instances.
+    /// Overrides the default behavior of skipping over private members.
     /// </summary>
-    public class JsonEventContractResolver : SecureJsonContractResolver
+    /// <seealso cref="Newtonsoft.Json.Serialization.DefaultContractResolver" />
+    public class DefaultContractResolver : Newtonsoft.Json.Serialization.DefaultContractResolver
     {
         /// <summary>
         /// Creates a <see cref="T:Newtonsoft.Json.Serialization.JsonProperty" /> for the given <see cref="T:System.Reflection.MemberInfo" />.
@@ -16,16 +16,23 @@ namespace Slalom.Boost.Events
         /// <param name="member">The member to create a <see cref="T:Newtonsoft.Json.Serialization.JsonProperty" /> for.</param>
         /// <param name="memberSerialization">The member's parent <see cref="T:Newtonsoft.Json.MemberSerialization" />.</param>
         /// <returns>A created <see cref="T:Newtonsoft.Json.Serialization.JsonProperty" /> for the given <see cref="T:System.Reflection.MemberInfo" />.</returns>
-        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+        protected override JsonProperty CreateProperty(
+            MemberInfo member,
+            MemberSerialization memberSerialization)
         {
             var prop = base.CreateProperty(member, memberSerialization);
-            var declaringType = (member as PropertyInfo)?.DeclaringType;
-            if (declaringType == typeof(Event) || declaringType == typeof(IHaveIdentity))
+
+            if (!prop.Writable)
             {
-                prop.Ignored = true;
-                return prop;
+                var property = member as PropertyInfo;
+                if (property != null)
+                {
+                    var hasPrivateSetter = property.GetSetMethod(true) != null;
+                    prop.Writable = hasPrivateSetter;
+                }
             }
-            return base.CreateProperty(member, memberSerialization);
+
+            return prop;
         }
     }
 }

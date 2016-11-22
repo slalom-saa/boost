@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
 using Slalom.Boost.Domain;
+using Slalom.Boost.Logging;
+using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.DocumentDb
 {
@@ -14,138 +13,82 @@ namespace Slalom.Boost.DocumentDb
     /// <seealso cref="Slalom.Boost.Domain.IRepository{TEntity}" />
     public abstract class DocumentDbRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DocumentDbRepository{TRoot}" /> class.
-        /// </summary>
+        [RuntimeBindingDependency]
+        public DocumentDbContext Context { get; set; }
+
         protected DocumentDbRepository()
         {
-            this.Collection = new Lazy<IMongoCollection<DocumentItem<TRoot>>>(() => this.Factory.GetCollection<DocumentItem<TRoot>>());
+        }
+
+        protected DocumentDbRepository(DocumentDbContext context)
+        {
+            this.Context = context;
         }
 
         /// <summary>
-        /// Gets the collection factory.
+        /// Gets or sets the configured <see cref="ILogger"/> instance.
         /// </summary>
-        public Lazy<IMongoCollection<DocumentItem<TRoot>>> Collection { get; }
+        /// <value>The configured <see cref="ILogger"/> instance.</value>
+        [RuntimeBindingDependency]
+        public ILogger Logger { get; set; }
 
-        /// <summary>
-        /// Gets or sets the configured <see cref="DocumentDbConnectionManager"/> instance.
-        /// </summary>
-        /// <value>The current <see cref="DocumentDbConnectionManager"/> instance.</value>
-        [RuntimeBinding.RuntimeBindingDependency]
-        public DocumentDbConnectionManager Factory { get; set; }
+        [RuntimeBindingDependency]
+        public DocumentDbOptions Options { get; set; }
 
-        public void Delete()
+        public virtual void Add(TRoot[] instances)
         {
-            this.Collection.Value.DeleteMany(e => true);
+            this.Logger?.Verbose("Adding {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Add(instances);
         }
 
-        public void Delete(TRoot[] instances)
+        public virtual void Add(TRoot[] instances, int batchSize)
         {
-            var ids = instances.Select(e => e.Id).ToList();
-            this.Collection.Value.DeleteMany(e => ids.Contains(e.Id));
+            this.Logger?.Verbose("Adding {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
+
+            this.Context.Add(instances, batchSize);
         }
 
-        public TRoot Find(Guid id)
+        public virtual void Delete()
         {
-            var target = this.Collection.Value.Find(e => e.Id == id).FirstOrDefault();
+            this.Logger?.Verbose("Deleting all items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
 
-            return target.Value;
+            this.Context.Delete<TRoot>();
         }
 
-        public IQueryable<TRoot> Find()
+        public virtual void Delete(TRoot[] instances)
         {
-            return this.Collection.Value.AsQueryable().Select(e => e.Value);
+            this.Logger?.Verbose("Deleting {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Delete(instances);
         }
 
-        public void Add(TRoot[] instances)
+        public virtual TRoot Find(Guid id)
         {
-            this.Collection.Value.InsertMany(instances.Select(e => new DocumentItem<TRoot>(e)));
+            this.Logger?.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
+
+            return this.Context.Find<TRoot>(id);
         }
 
-        public void Update(TRoot[] instances)
+        public virtual IQueryable<TRoot> Find()
         {
-            instances.ToList().ForEach(e =>
-            {
-                this.Collection.Value.ReplaceOne(x => x.Id == e.Id, new DocumentItem<TRoot>(e), new UpdateOptions { IsUpsert = true });
-            });
+            this.Logger?.Verbose("Creating query for items of type {Type} using {Repository}.", typeof(TRoot).Name, this.GetType().BaseType);
+
+            return this.Context.Find<TRoot>();
         }
 
-        /// <summary>
-        /// Creates and registers class maps.
-        /// </summary>
-        /// <typeparam name="TClass1">The first type of class.</typeparam>
-        /// <typeparam name="TClass2">The second type of class.</typeparam>
-        /// <typeparam name="TClass3">The third type of class.</typeparam>
-        /// <typeparam name="TClass4">The fourth type of class.</typeparam>
-        public static void Register<TClass1, TClass2, TClass3, TClass4>()
+        public virtual void Update(TRoot[] instances)
         {
-            Register<TClass1>();
-            Register<TClass2>();
-            Register<TClass3>();
-            Register<TClass4>();
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Update(instances);
         }
 
-        /// <summary>
-        /// Creates and registers class maps.
-        /// </summary>
-        /// <typeparam name="TClass1">The first type of class.</typeparam>
-        /// <typeparam name="TClass2">The second type of class.</typeparam>
-        /// <typeparam name="TClass3">The third type of class.</typeparam>
-        public static void Register<TClass1, TClass2, TClass3>()
+        public virtual void Update(TRoot[] instances, int batchSize)
         {
-            Register<TClass1>();
-            Register<TClass2>();
-            Register<TClass3>();
-        }
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
 
-        /// <summary>
-        /// Creates and registers class maps.
-        /// </summary>
-        /// <typeparam name="TClass1">The first type of class.</typeparam>
-        /// <typeparam name="TClass2">The second type of class.</typeparam>
-        public static void Register<TClass1, TClass2>()
-        {
-            Register<TClass1>();
-            Register<TClass2>();
-        }
-
-        /// <summary>
-        ///  Creates and registers a class map.
-        /// </summary>
-        /// <typeparam name="TClass">The class.</typeparam>
-        public static void Register<TClass>()
-        {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(TClass)))
-            {
-                BsonClassMap.RegisterClassMap<TClass>(e => e.AutoMap());
-            }
-        }
-
-        /// <summary>
-        /// Creates and registers a class map.
-        /// </summary>
-        /// <typeparam name="TClass">The class.</typeparam>
-        /// <param name="classMapInitializer">The class map initializer.</param>
-        public static void Register<TClass>(Action<BsonClassMap<TClass>> classMapInitializer)
-        {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(TClass)))
-            {
-                BsonClassMap.RegisterClassMap(classMapInitializer);
-            }
-        }
-
-        public virtual Task RemoveAsync(TRoot[] instances)
-        {
-            var ids = instances.Select(e => e.Id).ToList();
-            return this.Collection.Value.DeleteManyAsync(e => ids.Contains(e.Id));
-        }
-
-        public virtual Task UpdateAsync(TRoot[] instances)
-        {
-            return Task.WhenAll(instances.ToList().Select(e =>
-            {
-                return this.Collection.Value.ReplaceOneAsync(x => x.Id == e.Id, new DocumentItem<TRoot>(e), new UpdateOptions { IsUpsert = true });
-            }));
+            this.Context.Update(instances, batchSize);
         }
     }
 }
