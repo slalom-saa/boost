@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Slalom.Boost.RabbitMQ</id>
-    <version>1.2.67</version>
+    <version>1.2.69</version>
     <title>Slalom Boost Framework - Rabbit MQ</title>
     <authors>Slalom</authors>
     <owners>Slalom</owners>

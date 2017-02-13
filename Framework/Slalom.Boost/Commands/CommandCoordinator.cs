@@ -19,8 +19,8 @@ namespace Slalom.Boost.Commands
     public class CommandCoordinator : ICommandCoordinator
     {
         protected readonly IContainer Container;
-
         protected readonly ICommandValidator Validator;
+        private readonly Lazy<ILogger> _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandCoordinator"/> class.
@@ -42,6 +42,7 @@ namespace Slalom.Boost.Commands
             }
             Container = container;
             Validator = validator;
+            _logger = new Lazy<ILogger>(() => Container.Resolve<ILogger>());
         }
 
         /// <summary>
@@ -60,6 +61,8 @@ namespace Slalom.Boost.Commands
 
             return Task<CommandResult<TResponse>>.Factory.StartNew(() =>
             {
+                _logger.Value.Verbose("Starting execution for " + command.GetType() + ". {@Command}", command);
+
                 var result = CommandResult<TResponse>.Start(command, context);
                 try
                 {
@@ -118,11 +121,6 @@ namespace Slalom.Boost.Commands
                     result.SetException(exception);
                 }
 
-                if (!result.Successful)
-                {
-
-                }
-
                 return result;
             }, context.CancellationToken);
         }
@@ -134,6 +132,26 @@ namespace Slalom.Boost.Commands
             this.PublishRaisedEvents(result);
 
             this.SaveToCommandStores(command, result);
+
+            if (!result.Successful)
+            {
+                if (result.Exception != null)
+                {
+                    _logger.Value.Error(result.Exception, "An unhandled exception was raised while executing " + command.GetType().Name + ". {@Command} {@Context}", command, result.Context);
+                }
+                else if (result.ValidationMessages?.Any() ?? false)
+                {
+                    _logger.Value.Verbose("Execution completed with validation errors while executing " + command.GetType().Name + ". {@Command} {@ValidationErrors} {@Context}", command, result.ValidationMessages, result.Context);
+                }
+                else
+                {
+                    _logger.Value.Error("Execution completed unsuccessfully while executing " + command.GetType().Name + ". {@Command} {@Result} {@Context}", command, result, result.Context);
+                }
+            }
+            else
+            {
+                _logger.Value.Verbose("Successfully completed " + command.GetType().Name + ". {@Command} {@Result} {@Context}", command, result, result.Context);
+            }
         }
 
         protected virtual void ExecuteHandler<TResponse>(Command<TResponse> command, CommandResult<TResponse> result)

@@ -17,7 +17,7 @@ namespace Slalom.Boost.EntityFramework.Aspects
             _context = context;
         }
 
-        public bool CanRead { get; } = true;
+        public bool CanRead { get; } = false;
 
         public Task SaveAsync<TResponse>(Command<TResponse> command, CommandResult<TResponse> result)
         {
@@ -30,9 +30,9 @@ namespace Slalom.Boost.EntityFramework.Aspects
             return Task.FromResult(0);
         }
 
-        public IQueryable<CommandAudit> Find()
+        public IQueryable<Commands.CommandAudit> Find()
         {
-            return _context.Set<CommandAudit>();
+            throw new NotSupportedException();
         }
     }
 }
