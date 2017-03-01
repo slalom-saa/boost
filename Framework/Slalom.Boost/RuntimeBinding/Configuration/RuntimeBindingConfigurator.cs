@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Serilog.Core;
+using Slalom.Boost.Logging;
 
 namespace Slalom.Boost.RuntimeBinding.Configuration
 {
@@ -170,6 +172,7 @@ namespace Slalom.Boost.RuntimeBinding.Configuration
 
             container.Register(container);
             container.Register(new Reflection.DiscoveryService(this._assemblies.ToArray()));
+            container.Register<IEnumerable<IDestructuringPolicy>>(new[] { new LoggingDestructuringPolicy() });
 
             foreach (var item in container.ResolveAll<IRuntimeBindingConfiguration>())
             {

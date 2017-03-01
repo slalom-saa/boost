@@ -8,14 +8,14 @@ using Slalom.Boost.RuntimeBinding;
 namespace Slalom.Boost.MongoDB
 {
     /// <summary>
-    /// Provides a MongoDB based <see cref="IRepository{TRoot}"/> implementation.
+    /// Provides a MongoDB based <see cref="IRepository{TRoot}" /> implementation.
     /// </summary>
     /// <typeparam name="TRoot">The type of aggregate root to use.</typeparam>
     /// <seealso cref="Slalom.Boost.Domain.IRepository{TEntity}" />
     public abstract class MongoRepository<TRoot> : IRepository<TRoot> where TRoot : class, IAggregateRoot
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}"/> class.
+        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}" /> class.
         /// </summary>
         protected MongoRepository()
         {
@@ -23,26 +23,26 @@ namespace Slalom.Boost.MongoDB
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}"/> class.  Use this constructor
+        /// Initializes a new instance of the <see cref="MongoRepository{TRoot}" /> class.  Use this constructor
         /// to provide a non-default connection.
         /// </summary>
-        /// <param name="context">The configured <see cref="MongoDbContext"/>.</param>
+        /// <param name="context">The configured <see cref="MongoDbContext" />.</param>
         protected MongoRepository(MongoDbContext context) : this()
         {
             this.Context = context;
         }
 
         /// <summary>
-        /// Gets or sets configured <see cref="MongoDbContext"/>.
+        /// Gets or sets configured <see cref="MongoDbContext" />.
         /// </summary>
-        /// <value>The configured <see cref="MongoDbContext"/>.</value>
+        /// <value>The configured <see cref="MongoDbContext" />.</value>
         [RuntimeBindingDependency]
         public MongoDbContext Context { get; set; }
 
         /// <summary>
-        /// Gets or sets the configured <see cref="ILogger"/>.
+        /// Gets or sets the configured <see cref="ILogger" />.
         /// </summary>
-        /// <value>The configured <see cref="ILogger"/>.</value>
+        /// <value>The configured <see cref="ILogger" />.</value>
         [RuntimeBindingDependency]
         public ILogger Logger { get; set; }
 
@@ -99,6 +99,17 @@ namespace Slalom.Boost.MongoDB
             this.Logger?.Verbose("Finding item of type {Type} with ID {Id} using {Repository}.", typeof(TRoot).Name, id, this.GetType().BaseType);
 
             return this.Context.Find<TRoot>(id);
+        }
+
+        /// <summary>
+        /// Updates the specified instance.
+        /// </summary>
+        /// <param name="instances">The instance.</param>
+        public virtual void Update(params TRoot[] instances)
+        {
+            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
+
+            this.Context.Update(instances);
         }
 
         /// <summary>
@@ -159,21 +170,16 @@ namespace Slalom.Boost.MongoDB
         /// <param name="classMapInitializer">The class map initializer.</param>
         public static void Register<TClass>(Action<BsonClassMap<TClass>> classMapInitializer)
         {
-            if (!BsonClassMap.IsClassMapRegistered(typeof(TClass)))
+            var map = (BsonClassMap<TClass>)BsonClassMap.GetRegisteredClassMaps().FirstOrDefault(e => e.ClassType == typeof(TClass));
+            if (map == null)
             {
-                BsonClassMap.RegisterClassMap(classMapInitializer);
+                map = BsonClassMap.RegisterClassMap<TClass>();
             }
-        }
-
-        /// <summary>
-        /// Updates the specified instance.
-        /// </summary>
-        /// <param name="instances">The instance.</param>
-        public virtual void Update(params TRoot[] instances)
-        {
-            this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType);
-
-            this.Context.Update(instances);
+            else
+            {
+                map.Reset();
+            }
+            classMapInitializer(map);
         }
     }
 }
