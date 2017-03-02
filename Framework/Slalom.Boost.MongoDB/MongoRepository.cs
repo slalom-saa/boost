@@ -170,16 +170,10 @@ namespace Slalom.Boost.MongoDB
         /// <param name="classMapInitializer">The class map initializer.</param>
         public static void Register<TClass>(Action<BsonClassMap<TClass>> classMapInitializer)
         {
-            var map = (BsonClassMap<TClass>)BsonClassMap.GetRegisteredClassMaps().FirstOrDefault(e => e.ClassType == typeof(TClass));
-            if (map == null)
+            if (!BsonClassMap.IsClassMapRegistered(typeof(TClass)))
             {
-                map = BsonClassMap.RegisterClassMap<TClass>();
+                BsonClassMap.RegisterClassMap(classMapInitializer);
             }
-            else
-            {
-                map.Reset();
-            }
-            classMapInitializer(map);
         }
     }
 }
