@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Slalom.Boost.RuntimeBinding;
 using Slalom.Boost.Validation;
 
 namespace Slalom.Boost.Commands
@@ -9,7 +8,6 @@ namespace Slalom.Boost.Commands
     /// <summary>
     /// Defines a contract for validating commands.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Single)]
     public interface ICommandValidator
     {
         /// <summary>

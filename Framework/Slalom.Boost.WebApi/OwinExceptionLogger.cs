@@ -1,15 +1,15 @@
 using System.Web.Http.ExceptionHandling;
+using Autofac;
 using Slalom.Boost.Aspects;
 using Slalom.Boost.Logging;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.WebApi
 {
     public class OwinExceptionLogger : ExceptionLogger
     {
-        private readonly IContainer _container;
+        private readonly IComponentContext _container;
 
-        public OwinExceptionLogger(IContainer container)
+        public OwinExceptionLogger(IComponentContext container)
         {
             _container = container;
         }

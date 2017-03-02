@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using Slalom.Boost.Domain;
 using Slalom.Boost.EntityFramework.GraphDiff;
 using Slalom.Boost.Logging;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.EntityFramework
 {
@@ -52,7 +51,6 @@ namespace Slalom.Boost.EntityFramework
         /// Gets or sets the configured <see cref="ILogger"/> instance.
         /// </summary>
         /// <value>The configured <see cref="ILogger"/> instance.</value>
-        [RuntimeBindingDependency]
         public ILogger Logger { get; set; }
 
         public virtual TRoot Find(Guid id)

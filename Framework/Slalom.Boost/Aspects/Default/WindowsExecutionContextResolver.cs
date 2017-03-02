@@ -3,7 +3,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Security.Principal;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Aspects.Default
 {
@@ -11,7 +10,6 @@ namespace Slalom.Boost.Aspects.Default
     /// A <see cref="IExecutionContextResolver"/> implementation for Windows-based applications.
     /// </summary>
     /// <seealso cref="IExecutionContextResolver" />
-    [DefaultBinding]
     public sealed class WindowsExecutionContextResolver : IExecutionContextResolver
     {
         private static Guid sessionId = Guid.NewGuid();

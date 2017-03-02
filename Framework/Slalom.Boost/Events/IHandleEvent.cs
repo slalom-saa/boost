@@ -1,5 +1,4 @@
 ﻿using Slalom.Boost.Commands;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Events
 {
@@ -8,7 +7,6 @@ namespace Slalom.Boost.Events
     /// </summary>
     /// <typeparam name="TEvent">The type of event.</typeparam>
     /// <seealso cref="Event"/>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IHandleEvent<in TEvent> where TEvent : Event
     {
         /// <summary>
@@ -22,7 +20,6 @@ namespace Slalom.Boost.Events
     /// <summary>
     /// Defines a contract for handling all events.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IHandleEvent
     {
         /// <summary>

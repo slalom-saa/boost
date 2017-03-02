@@ -10,7 +10,6 @@ using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Events;
-using Slalom.Boost.RuntimeBinding;
 using Slalom.Boost.Validation;
 
 namespace Slalom.Boost.WebApi.Controllers

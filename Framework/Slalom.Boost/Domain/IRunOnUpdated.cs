@@ -1,14 +1,9 @@
-﻿using System;
-using System.Threading.Tasks;
-using Slalom.Boost.RuntimeBinding;
-
-namespace Slalom.Boost.Domain
+﻿namespace Slalom.Boost.Domain
 {
     /// <summary>
     /// Executes some logic after an update.
     /// </summary>
     /// <typeparam name="TAggregateRoot">The type of entity.</typeparam>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IRunOnUpdated<in TAggregateRoot>
     {
         /// <summary>

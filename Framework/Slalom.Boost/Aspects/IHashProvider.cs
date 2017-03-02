@@ -1,12 +1,10 @@
 ﻿using System;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Aspects
 {
     /// <summary>
     /// Defines a contract for hashing text.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Single)]
     public interface IHashProvider
     {
         /// <summary>

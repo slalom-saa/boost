@@ -3,7 +3,6 @@ using System.Linq;
 using Slalom.Boost.AutoMapper;
 using Slalom.Boost.AutoMapper.QueryableExtensions;
 using Slalom.Boost.Domain;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Aspects.Default
 {
@@ -11,7 +10,6 @@ namespace Slalom.Boost.Aspects.Default
     /// Provides a default <see cref="IMapper"/> implementation.
     /// </summary>
     /// <seealso cref="IMapper" />
-    [DefaultBinding(Warn = false)]
     public class AutoMapperMapper : IMapper
     {
         /// <summary>

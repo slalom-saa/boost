@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.ReadModel
 {
@@ -11,7 +10,6 @@ namespace Slalom.Boost.ReadModel
     /// many dependencies, in each class, for each data access component, the facade can be used and it will resolve the
     /// dependences as needed instead of on construction.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IReadModelFacade
     {
         /// <summary>

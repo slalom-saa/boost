@@ -1,13 +1,11 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Commands
 {
     /// <summary>
     /// Defines a contract for saving <see cref="Command{TResponse}">commands</see> and <see cref="CommandResult">results</see> as an Audit.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IAuditStore
     {
         /// <summary>

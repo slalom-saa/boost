@@ -3,7 +3,6 @@ using System.Linq;
 using MongoDB.Bson.Serialization;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Events;
-using Slalom.Boost.RuntimeBinding.Configuration;
 
 namespace Slalom.Boost.MongoDB
 {
@@ -33,15 +32,11 @@ namespace Slalom.Boost.MongoDB
 
         private static void CreateDynamicMaps(object instance)
         {
-            var filter = AssemblyFilter.Include(a => a.FullName.StartsWith(instance.GetType().Assembly.FullName.Split('.')[0]));
+           
 
-            var codeBase = new CodeBaseAssemblyLocator().Locate(filter);
-            var domain = new AppDomainAssemblyLocator().Locate(filter);
-            var all = codeBase.Union(domain).ToList();
+            //all.SafelyGetTypes<Event>().ToList().ForEach(MongoExtensions.BuildMap);
 
-            all.SafelyGetTypes<Event>().ToList().ForEach(MongoExtensions.BuildMap);
-
-            all.SafelyGetTypes<Entity>().ToList().ForEach(MongoExtensions.BuildMap);
+            //all.SafelyGetTypes<Entity>().ToList().ForEach(MongoExtensions.BuildMap);
         }
 
         private static void CreateKnownMaps()

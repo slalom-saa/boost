@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Domain
 {
@@ -7,7 +6,6 @@ namespace Slalom.Boost.Domain
     /// Executes some logic after a delete.
     /// </summary>
     /// <typeparam name="TAggregateRoot">The type of entity.</typeparam>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IRunOnDeleted<in TAggregateRoot> where TAggregateRoot : IAggregateRoot
     {
         /// <summary>

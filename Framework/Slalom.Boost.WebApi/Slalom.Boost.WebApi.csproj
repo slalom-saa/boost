@@ -35,6 +35,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi2.4.0.1\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
@@ -214,8 +222,6 @@
     <Compile Include="ApplicationInsightsEventStore.cs" />
     <Compile Include="ObjectToDictionaryHelper.cs" />
     <Compile Include="OmitCommandProperties.cs" />
-    <Compile Include="BoostDependencyResolver.cs" />
-    <Compile Include="BoostUnityContainer.cs" />
     <Compile Include="MultipleOperationsWithSameVerbFilter.cs" />
     <Compile Include="Controllers\CommandApiController.cs" />
     <Compile Include="OwinExceptionLogger.cs" />
@@ -225,8 +231,6 @@
     <Compile Include="BoostApiBoostrapper.cs" />
     <Compile Include="WebApiExecutionContextResolver.cs" />
     <Compile Include="AuthorizeClaims.cs" />
-    <Compile Include="UnityConfiguration.cs" />
-    <Compile Include="UnityContainerAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".nuget\NuGetPackage.ps1" />

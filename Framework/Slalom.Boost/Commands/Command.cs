@@ -1,13 +1,11 @@
 ﻿using System;
 using MassTransit;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Commands
 {
     /// <summary>
     /// A command that represents an operation that does alter the state of the system and does not return data.
     /// </summary>
-    [IgnoreBinding]
     public abstract class Command<TResponse> : IHaveIdentity, ICommand
     {
         /// <summary>

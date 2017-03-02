@@ -2,14 +2,12 @@
 using System.Linq;
 using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Events
 {
     /// <summary>
     /// Defines a contract for logging application messages.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IEventStore : IHandleEvent
     {
         /// <summary>

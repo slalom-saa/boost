@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.ReadModel.Default
 {
     /// <summary>
     /// An in-memory <see cref="IReadModelFacade" />, intended to be used with in-process applications or for test.
     /// </summary>
-    [DefaultBinding(Warn = false)]
     public class InMemoryReadModelFacade : IReadModelFacade
     {
         internal static readonly List<IReadModelElement> Items = new List<IReadModelElement>();

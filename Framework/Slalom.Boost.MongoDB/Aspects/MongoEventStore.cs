@@ -4,7 +4,6 @@ using MongoDB.Driver;
 using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
 using Slalom.Boost.Events;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.MongoDB.Aspects
 {
@@ -34,14 +33,12 @@ namespace Slalom.Boost.MongoDB.Aspects
         /// Gets or sets the current <see cref="MongoDbContext"/> instance.
         /// </summary>
         /// <value>The current <see cref="MongoDbContext"/> instance.</value>
-        [RuntimeBindingDependency]
         public MongoDbContext Context { get; set; }
 
         /// <summary>
         /// Gets or sets the current <see cref="IMapper"/> instance.
         /// </summary>
         /// <value>The current <see cref="IMapper"/> instance.</value>
-        [RuntimeBindingDependency]
         public IMapper Mapper { get; set; }
 
         /// <summary>

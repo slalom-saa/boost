@@ -1,5 +1,4 @@
 ﻿using Slalom.Boost.Commands;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Validation
 {
@@ -7,7 +6,6 @@ namespace Slalom.Boost.Validation
     /// Defines a contract for a business validation rule.
     /// </summary>
     /// <typeparam name="TCommand">The type of command to validate.</typeparam>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IBusinessValidationRule<in TCommand> : IValidationRule<TCommand, CommandContext> where TCommand : ICommand
     {
         /// <summary>

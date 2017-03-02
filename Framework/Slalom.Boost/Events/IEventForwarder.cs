@@ -1,13 +1,11 @@
 using System.Threading.Tasks;
 using Slalom.Boost.Commands;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Events
 {
     /// <summary>
     /// Defines a contract for an event forwarder that forwards events across boundaries.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IEventForwarder
     {
         /// <summary>

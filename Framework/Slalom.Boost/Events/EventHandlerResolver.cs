@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Slalom.Boost.RuntimeBinding;
+using Autofac;
+using Slalom.Boost.Configuration;
 
 namespace Slalom.Boost.Events
 {
@@ -11,16 +12,15 @@ namespace Slalom.Boost.Events
     /// </summary>
     /// <seealso cref="IContainer"/>
     /// <seealso cref="IHandleEvent{TEvent}"/>
-    [DefaultBinding(Warn = false)]
     public class EventHandlerResolver : IEventHandlerResolver
     {
-        private readonly IContainer _container;
+        private readonly IComponentContext _container;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventHandlerResolver"/> class.
         /// </summary>
         /// <param name="container">The container to use.</param>
-        public EventHandlerResolver(IContainer container)
+        public EventHandlerResolver(IComponentContext container)
         {
             if (container == null)
             {
