@@ -161,10 +161,13 @@ namespace Slalom.Boost.MongoDB
         /// <param name="instances">The instance.</param>
         public virtual void Update<TRoot>(TRoot[] instances) where TRoot : IAggregateRoot
         {
-            instances.ToList().ForEach(e =>
+            var requests = new List<ReplaceOneModel<TRoot>>(instances.Count());
+            foreach (var entity in instances)
             {
-                this.GetCollection<TRoot>().ReplaceOne(x => x.Id == e.Id, e, new UpdateOptions { IsUpsert = true });
-            });
+                var filter = new FilterDefinitionBuilder<TRoot>().Where(m => m.Id == entity.Id);
+                requests.Add(new ReplaceOneModel<TRoot>(filter, entity));
+            }
+            this.GetCollection<TRoot>().BulkWrite(requests);
         }
     }
 }

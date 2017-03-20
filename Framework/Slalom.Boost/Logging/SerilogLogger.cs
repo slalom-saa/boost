@@ -27,7 +27,7 @@ namespace Slalom.Boost.Logging
             var builder = new LoggerConfiguration()
                 .ReadFrom.AppSettings()
                 .Enrich.WithExceptionDetails()
-                .Destructure.With(policies.ToArray());
+                .Destructure.With(policies.Union(new[] { new LoggingDestructuringPolicy() }).ToArray());
 
             _logger = builder.CreateLogger();
         }

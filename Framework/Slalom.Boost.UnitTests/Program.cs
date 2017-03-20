@@ -91,41 +91,13 @@ namespace Slalom.Boost.UnitTests
         {
             try
             {
-                var instance = new
+                using (var container = new ApplicationContainer(this))
                 {
-                    Name = new
+                    for (int i = 0; i < 2; i++)
                     {
-                        Out = "Fred"
-                    },
-                    Max = 3
-                };
-
-                var content = JsonConvert.DeserializeXNode(JsonConvert.SerializeObject(instance), "Item");
-                Console.WriteLine(content);
-
-
-
-                //using (var container = new ApplicationContainer(this))
-                //{
-                //    container.Register<IDestructuringPolicy, LoggingDestructuringPolicy>(Guid.NewGuid().ToString());
-
-                //    for (int i = 0; i < 2; i++)
-                //    {
-                //        container.Resolve<ILogger>().Error(new InvalidOperationException("xxxxx"), "ex");
-                //    }
-
-                //    Console.WriteLine(11);
-                //    //var result = await container.Bus.Send(new TestCommand("content"));
-
-                //    //Console.WriteLine(result.Successful);
-                //    //Console.WriteLine(result.Elapsed);
-
-                //    var client = new TelemetryClient
-                //    {
-                //        InstrumentationKey  = "a384f093-adf9-4cb9-bf75-1b7822042932"
-                //    };
-                //    client.Flush();
-                //}
+                        container.Resolve<ILogger>().Error(new InvalidOperationException("xxxxx"), "ex");
+                    }
+                }
             }
             catch (Exception exception)
             {
