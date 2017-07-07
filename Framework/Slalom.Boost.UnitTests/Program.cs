@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using Microsoft.ApplicationInsights;
 using Newtonsoft.Json;
+using Serilog.Core;
 using Slalom.Boost.Commands;
 using Slalom.Boost.EntityFramework;
-using Slalom.Boost.EntityFramework.Aspects;
 using Slalom.Boost.Events;
+using Slalom.Boost.Logging;
+using Slalom.Boost.RuntimeBinding;
 using Slalom.Boost.Serialization;
 
 #pragma warning disable 4014
@@ -23,13 +29,13 @@ namespace Slalom.Boost.UnitTests
 
     public class TestCommand : Command<TestEvent>
     {
+        [Ignore]
+        public string Content { get; }
+
         public TestCommand(string content)
         {
             this.Content = content;
         }
-
-        [Ignore]
-        public string Content { get; }
     }
 
     public class TestCommandHandler : CommandHandler<TestCommand, TestEvent>
@@ -48,7 +54,7 @@ namespace Slalom.Boost.UnitTests
         }
     }
 
-    public class AuditStore : EntityFrameworkAuditStore
+    public class AuditStore : EntityFramework.Aspects.EntityFrameworkAuditStore
     {
         public AuditStore(TestContext context)
             : base(context)
@@ -56,7 +62,7 @@ namespace Slalom.Boost.UnitTests
         }
     }
 
-    public class EventStore : EntityFrameworkEventStore, IHandleEvent
+    public class EventStore : EntityFramework.Aspects.EntityFrameworkEventStore, IHandleEvent
     {
         public EventStore(TestContext context)
             : base(context)
@@ -85,40 +91,13 @@ namespace Slalom.Boost.UnitTests
         {
             try
             {
-                var instance = new
+                using (var container = new ApplicationContainer(this))
                 {
-                    Name = new
+                    for (int i = 0; i < 2; i++)
                     {
-                        Out = "Fred"
-                    },
-                    Max = 3
-                };
-
-                var content = JsonConvert.DeserializeXNode(JsonConvert.SerializeObject(instance), "Item");
-                Console.WriteLine(content);
-
-
-                //using (var container = new ApplicationContainer(this))
-                //{
-                //    container.Register<IDestructuringPolicy, LoggingDestructuringPolicy>(Guid.NewGuid().ToString());
-
-                //    for (int i = 0; i < 2; i++)
-                //    {
-                //        container.Resolve<ILogger>().Error(new InvalidOperationException("xxxxx"), "ex");
-                //    }
-
-                //    Console.WriteLine(11);
-                //    //var result = await container.Bus.Send(new TestCommand("content"));
-
-                //    //Console.WriteLine(result.Successful);
-                //    //Console.WriteLine(result.Elapsed);
-
-                //    var client = new TelemetryClient
-                //    {
-                //        InstrumentationKey  = "a384f093-adf9-4cb9-bf75-1b7822042932"
-                //    };
-                //    client.Flush();
-                //}
+                        container.Resolve<ILogger>().Error(new InvalidOperationException("xxxxx"), "ex");
+                    }
+                }
             }
             catch (Exception exception)
             {

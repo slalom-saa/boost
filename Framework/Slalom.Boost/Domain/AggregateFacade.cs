@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Autofac;
 using Slalom.Boost.Configuration;
@@ -134,10 +135,12 @@ namespace Slalom.Boost.Domain
             {
                 return;
             }
+            var instancesIds = instances.Select(i => i.Id);
+            var updatedInstances = this.Find<TAggregateRoot>().Select(i => i.Id).Where(ui => instancesIds.Contains(ui)).ToList();
 
             _container.Resolve<IRepository<TAggregateRoot>>().Update(instances);
 
-            _container.ResolveAll<IRunOnUpdated<TAggregateRoot>>().ToList().ForEach(e => e.RunOnUpdated(instances));
+            _container.ResolveAll<IRunOnUpdated<TAggregateRoot>>().ToList().ForEach(e => e.RunOnUpdated(instances, updatedInstances));
         }
     }
 }
