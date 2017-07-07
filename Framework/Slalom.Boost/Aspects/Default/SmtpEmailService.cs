@@ -6,15 +6,12 @@ using System.Linq;
 using System.Net.Mail;
 using System.Net.Sockets;
 using System.Threading;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Aspects.Default
 {
     /// <summary>
     /// An SMTP <see cref="ISendEmail"/> implementation.
     /// </summary>
-    [SuppressMessage("ReSharper", "ConditionIsAlwaysTrueOrFalse")]
-    [DefaultBinding]
     public class SmtpEmailService : ISendEmail
     {
         private static bool circuit;

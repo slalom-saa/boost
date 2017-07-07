@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Slalom.Boost.RuntimeBinding;
+using Autofac;
+using Slalom.Boost.Configuration;
 
 namespace Slalom.Boost.Domain
 {
     /// <summary>Default implementation for the <see cref="IAggregateFacade"/>.</summary>
     /// <seealso cref="IAggregateFacade" />
-    [DefaultBinding]
     public class AggregateFacade : IAggregateFacade
     {
-        private readonly IContainer _container;
+        private readonly IComponentContext _container;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AggregateFacade"/> class.
         /// </summary>
         /// <param name="container">The container to use.</param>
-        public AggregateFacade(IContainer container)
+        public AggregateFacade(IComponentContext container)
         {
             if (container == null)
             {

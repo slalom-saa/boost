@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using Slalom.Boost.RuntimeBinding;
-
+    
 namespace Slalom.Boost.Domain.Default
 {
     /// <summary>
@@ -13,7 +12,6 @@ namespace Slalom.Boost.Domain.Default
     /// <typeparam name="TAggregateRoot">The type of aggregate root.</typeparam>
     /// <seealso cref="IAggregateRoot"/>
     /// <seealso cref="IRepository{TRoot}"/>
-    [DefaultBinding(Warn = false)]
     public class InMemoryRepository<TAggregateRoot> : IRepository<TAggregateRoot> where TAggregateRoot : IAggregateRoot
     {
         /// <summary>

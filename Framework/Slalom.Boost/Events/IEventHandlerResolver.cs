@@ -1,14 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Events
 {
     /// <summary>
-    /// Defines an interface for resolving <see cref="IHandleEvent{TEvent}"/> instances.
+    /// Defines an interface for resolving <see cref="IHandleEvent{TEvent}" /> instances.
     /// </summary>
-    /// <seealso cref="IHandleEvent{TEvent}"/>
-    [RuntimeBindingContract(ContractBindingType.Single)]
+    /// <seealso cref="IHandleEvent{TEvent}" />
     public interface IEventHandlerResolver
     {
         /// <summary>

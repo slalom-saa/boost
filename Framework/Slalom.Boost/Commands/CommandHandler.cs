@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Commands
 {
@@ -14,21 +12,23 @@ namespace Slalom.Boost.Commands
     public abstract class CommandHandler<TCommand, TResponse> : IHandleCommand<TCommand, TResponse> where TCommand : Command<TResponse>
 
     {
-        [RuntimeBindingDependency]
-        [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Local")]
-        private IApplicationBus Bus { get; set; }
+        /// <summary>
+        /// Gets or sets the configured <see cref="IApplicationBus" />.
+        /// </summary>
+        /// <value>The configured <see cref="IApplicationBus" />.</value>
+        public IApplicationBus Bus { get; set; }
 
         /// <summary>
         /// Handles the specified command instance.
         /// </summary>
         /// <param name="command">The command instance.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="command"/> argument is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="command" /> argument is null.</exception>
         public abstract TResponse HandleCommand(TCommand command);
 
         /// <summary>
-        /// Gets or sets the current <see cref="CommandContext"/>.
+        /// Gets or sets the current <see cref="CommandContext" />.
         /// </summary>
-        /// <value>The current <see cref="CommandContext"/>.</value>
+        /// <value>The current <see cref="CommandContext" />.</value>
         public CommandContext Context { get; set; }
 
         /// <summary>
@@ -41,12 +41,11 @@ namespace Slalom.Boost.Commands
         }
 
         /// <summary>
-        /// Gets or sets the current <see cref="IDataFacade"/> instance.
+        /// Gets or sets the current <see cref="IDataFacade" /> instance.
         /// </summary>
         /// <value>
-        /// The current <see cref="IDataFacade"/> instance.
+        /// The current <see cref="IDataFacade" /> instance.
         /// </value>
-        [RuntimeBindingDependency]
         public IDataFacade DataFacade { get; set; }
 
         /// <summary>

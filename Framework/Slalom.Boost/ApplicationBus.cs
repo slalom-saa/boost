@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Autofac;
 using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
 using Slalom.Boost.Events;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost
 {
     /// <summary>
-    /// Provides an in-process <see cref="IApplicationBus"/> implementation.
+    /// Provides an in-process <see cref="IApplicationBus" /> implementation.
     /// </summary>
-    /// <seealso cref="IContainer"/>
-    [DefaultBinding(Warn = false)]
     public class ApplicationBus : IApplicationBus
     {
-        private readonly IContainer _container;
+        private readonly IComponentContext _container;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationBus"/> class.
+        /// Initializes a new instance of the <see cref="ApplicationBus" /> class.
         /// </summary>
         /// <param name="container">The container to use.</param>
-        public ApplicationBus(IContainer container)
+        public ApplicationBus(IComponentContext container)
         {
             _container = container;
         }
@@ -40,24 +38,6 @@ namespace Slalom.Boost
             var context = new CommandContext(execution, CancellationToken.None);
 
             return this.Send(instance, context);
-        }
-
-        /// <summary>
-        /// Sends the specified command.
-        /// </summary>
-        /// <param name="instance">The command to execute.</param>
-        /// <returns>Returns a task for asynchronous programming.</returns>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance" /> argument is null.</exception>
-        public async Task<CommandResult> Send(ICommand instance)
-        {
-            var execution = _container.Resolve<IExecutionContextResolver>().Resolve();
-            var context = new CommandContext(execution, CancellationToken.None);
-
-            var coordinator = _container.Resolve<ICommandCoordinator>();
-
-            var result = await coordinator.Handle((dynamic)instance, context);
-
-            return result as CommandResult;
         }
 
         /// <summary>
@@ -97,7 +77,7 @@ namespace Slalom.Boost
         /// </summary>
         /// <param name="instance">The event to publish.</param>
         /// <param name="context">The current context.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance"/> argument is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance" /> argument is null.</exception>
         public Task Publish(IEvent instance, CommandContext context)
         {
             var publisher = _container.Resolve<IEventPublisher>();
@@ -109,7 +89,7 @@ namespace Slalom.Boost
         /// Publishes the specified event.
         /// </summary>
         /// <param name="instance">The event to publish.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance"/> argument is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance" /> argument is null.</exception>
         public Task Publish(IEvent instance)
         {
             return this.Publish(instance, null);
@@ -120,7 +100,7 @@ namespace Slalom.Boost
         /// </summary>
         /// <param name="instances">The events to publish.</param>
         /// <param name="context">The current context.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instances"/> argument is null.</exception>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instances" /> argument is null.</exception>
         public Task Publish(IEnumerable<IEvent> instances, CommandContext context)
         {
             var target = new List<Task>();
@@ -129,6 +109,24 @@ namespace Slalom.Boost
                 target.Add(this.Publish(item, context));
             }
             return Task.WhenAll(target);
+        }
+
+        /// <summary>
+        /// Sends the specified command.
+        /// </summary>
+        /// <param name="instance">The command to execute.</param>
+        /// <returns>Returns a task for asynchronous programming.</returns>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance" /> argument is null.</exception>
+        public async Task<CommandResult> Send(ICommand instance)
+        {
+            var execution = _container.Resolve<IExecutionContextResolver>().Resolve();
+            var context = new CommandContext(execution, CancellationToken.None);
+
+            var coordinator = _container.Resolve<ICommandCoordinator>();
+
+            var result = await coordinator.Handle((dynamic) instance, context);
+
+            return result as CommandResult;
         }
     }
 }

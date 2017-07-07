@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
+using Autofac;
+using Slalom.Boost.Configuration;
 using Slalom.Boost.Domain;
 using Slalom.Boost.ReadModel;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost
 {
@@ -13,17 +14,16 @@ namespace Slalom.Boost
     /// Default implementation of the <see cref="IDataFacade"/>.
     /// </summary>
     /// <seealso cref="Slalom.Boost.IDataFacade" />
-    [DefaultBinding]
     public class DataFacade : IDataFacade
     {
-        private readonly IContainer _container;
+        private readonly IComponentContext _container;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataFacade" /> class.
         /// </summary>
         /// <param name="container">The current <see cref="IContainer"/> instance.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="container"/> argument is null.</exception>
-        public DataFacade(IContainer container)
+        public DataFacade(IComponentContext container)
         {
             if (container == null)
             {

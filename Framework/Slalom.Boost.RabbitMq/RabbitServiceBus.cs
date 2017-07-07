@@ -9,11 +9,9 @@ using MassTransit;
 using MassTransit.RabbitMqTransport;
 using Slalom.Boost.Commands;
 using Slalom.Boost.Events;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.RabbitMq
 {
-    [RuntimeBindingImplementation(ImplementationBindingType.Singleton)]
     public class RabbitServiceBus : IServiceBus
     {
         protected static readonly string HostUri = ConfigurationManager.AppSettings["Messaging:RabbitMQHost"] ?? "rabbitmq://localhost";

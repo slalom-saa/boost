@@ -5,47 +5,43 @@ using System.Security.Authentication;
 using MongoDB.Driver;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Logging;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.MongoDB
 {
     /// <summary>
     /// A context for accessing items in MongoDB.
     /// </summary>
-    [RuntimeBindingImplementation(ImplementationBindingType.Singleton)]
     public class MongoDbContext
     {
         private IMongoDatabase _database;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoDbContext"/> class.
+        /// Initializes a new instance of the <see cref="MongoDbContext" /> class.
         /// </summary>
         public MongoDbContext()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MongoDbContext"/> class.  Use this constructor
+        /// Initializes a new instance of the <see cref="MongoDbContext" /> class.  Use this constructor
         /// to use a non-default connection.
         /// </summary>
-        /// <param name="options">The configured <see cref="MongoDbOptions"/>.</param>
+        /// <param name="options">The configured <see cref="MongoDbOptions" />.</param>
         public MongoDbContext(MongoDbOptions options) : this()
         {
             this.Options = options;
         }
 
         /// <summary>
-        /// Gets or sets the configured <see cref="ILogger"/>.
+        /// Gets or sets the configured <see cref="ILogger" />.
         /// </summary>
-        /// <value>The configured <see cref="ILogger"/>.</value>
-        [RuntimeBindingDependency]
+        /// <value>The configured <see cref="ILogger" />.</value>
         public ILogger Logger { get; set; }
 
         /// <summary>
-        /// Gets or sets the configured <see cref="MongoDbOptions"/>.
+        /// Gets or sets the configured <see cref="MongoDbOptions" />.
         /// </summary>
-        /// <value>The configured <see cref="MongoDbOptions"/>.</value>
-        [RuntimeBindingDependency]
+        /// <value>The configured <see cref="MongoDbOptions" />.</value>
         public MongoDbOptions Options { get; set; }
 
         /// <summary>

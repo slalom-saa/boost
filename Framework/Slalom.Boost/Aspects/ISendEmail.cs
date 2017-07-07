@@ -1,12 +1,10 @@
 ﻿using System;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Aspects
 {
     /// <summary>
     /// Defines a contract for sending emails.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Single)]
     public interface ISendEmail
     {
         /// <summary>

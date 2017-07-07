@@ -4,10 +4,11 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
 using Slalom.Boost.Aspects;
 using Slalom.Boost.Commands;
+using Slalom.Boost.Configuration;
 using Slalom.Boost.Logging;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Events
 {
@@ -17,10 +18,9 @@ namespace Slalom.Boost.Events
     /// <seealso cref="Event"/>
     /// <seealso cref="IHandleEvent{TEvent}"/>
     /// <seealso cref="IEventHandlerResolver"/>
-    [DefaultBinding]
     public class EventPublisher : IEventPublisher
     {
-        protected readonly IContainer Container;
+        protected readonly IComponentContext Container;
         protected readonly IEventHandlerResolver Resolver;
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Slalom.Boost.Events
         /// </summary>
         /// <param name="resolver">The event handler resolver to use.</param>
         /// <param name="container">The current container.</param>
-        public EventPublisher(IEventHandlerResolver resolver, IContainer container)
+        public EventPublisher(IEventHandlerResolver resolver, IComponentContext container)
         {
             Resolver = resolver;
             Container = container;

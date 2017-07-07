@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Slalom.Boost.RuntimeBinding;
 using Slalom.Boost.Validation;
 
 namespace Slalom.Boost.Domain
@@ -11,7 +10,6 @@ namespace Slalom.Boost.Domain
     /// that can also be represented by another type.
     /// </summary>
     /// <typeparam name="TValue">The type that can be interchangeably used with this concept.</typeparam>
-    [IgnoreBinding]
     public abstract class ConceptAs<TValue> : IEquatable<ConceptAs<TValue>>, IValidate
     {
         /// <summary>

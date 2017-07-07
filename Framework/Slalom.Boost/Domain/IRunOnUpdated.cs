@@ -10,7 +10,6 @@ namespace Slalom.Boost.Domain
     /// Executes some logic after an update.
     /// </summary>
     /// <typeparam name="TAggregateRoot">The type of entity.</typeparam>
-    [RuntimeBindingContract(ContractBindingType.Multiple)]
     public interface IRunOnUpdated<in TAggregateRoot>
     {
         /// <summary>

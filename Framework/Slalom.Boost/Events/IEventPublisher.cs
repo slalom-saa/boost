@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Slalom.Boost.Commands;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Events
 {
@@ -9,7 +8,6 @@ namespace Slalom.Boost.Events
     /// Defines an <see href="https://www.safaribooksonline.com/library/view/implementing-domain-driven-design/9780133039900/ch08lev1sec1.html">Event Publisher</see>, responsible for locating event handlers and executing multi-threaded and/or out-of-process flow.
     /// </summary>
     /// <seealso cref="Event"/>
-    [RuntimeBindingContract(ContractBindingType.Single)]
     public interface IEventPublisher
     {
         /// <summary>

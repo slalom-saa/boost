@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using Autofac;
+using Autofac.Integration.WebApi;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
@@ -12,8 +14,6 @@ using Newtonsoft.Json.Serialization;
 using Owin;
 using Serilog.Core;
 using Slalom.Boost.Logging;
-using Slalom.Boost.RuntimeBinding;
-using Slalom.Boost.RuntimeBinding.Configuration;
 using Swashbuckle.Application;
 
 namespace Slalom.Boost.WebApi
@@ -50,10 +50,13 @@ namespace Slalom.Boost.WebApi
 
         protected virtual IContainer ConfigureContainer(HttpConfiguration configuration)
         {
-            var unityContainer = new BoostUnityContainer();
-            var target = unityContainer.AutoConfigure(this.GetBindingFilters().ToArray());
-            configuration.DependencyResolver = new BoostDependencyResolver(new UnityContainerAdapter(unityContainer));
-            return target;
+            var builder = new ContainerBuilder();
+            var container = builder.Build();
+
+            var resolver = new AutofacWebApiDependencyResolver(container);
+            configuration.DependencyResolver = resolver;
+
+            return container;
         }
 
         protected virtual void ConfigureCors(IAppBuilder application)
@@ -68,7 +71,6 @@ namespace Slalom.Boost.WebApi
 
         protected virtual void ConfigureLogging(HttpConfiguration configuration)
         {
-            this.Container.Register<IEnumerable<IDestructuringPolicy>>(new[] { new LoggingDestructuringPolicy() });
             configuration.Filters.Add(Container.Resolve<WebApiExceptionFilter>());
 
             var instrumentationKey = ConfigurationManager.AppSettings["ApplicationInsights:InstrumentationKey"];
@@ -101,11 +103,6 @@ namespace Slalom.Boost.WebApi
                 c.OperationFilter<MultipleOperationsWithSameVerbFilter>();
                 c.SchemaFilter<OmitCommandProperties>();
             }).EnableSwaggerUi();
-        }
-
-        protected virtual IEnumerable<BindingFilter> GetBindingFilters()
-        {
-            return new BindingFilter[] { AssemblyFilter.Include(e => e.FullName.StartsWith(this.GetType().Assembly.FullName.Split('.')[0])) };
         }
     }
 }

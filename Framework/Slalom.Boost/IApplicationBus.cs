@@ -4,16 +4,37 @@ using System.Threading;
 using System.Threading.Tasks;
 using Slalom.Boost.Commands;
 using Slalom.Boost.Events;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost
 {
     /// <summary>
     /// Defines a single point of entry for <see cref="Command{TResponse}">Commands</see> and<see cref="Event">Events</see>.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Single)]
     public interface IApplicationBus
     {
+        /// <summary>
+        /// Publishes the specified event.
+        /// </summary>
+        /// <param name="instance">The event to publish.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance" /> argument is null.</exception>
+        Task Publish(IEvent instance);
+
+        /// <summary>
+        /// Publishes the specified event.
+        /// </summary>
+        /// <param name="instance">The event to publish.</param>
+        /// <param name="context">The current context.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance" /> argument is null.</exception>
+        Task Publish(IEvent instance, CommandContext context);
+
+        /// <summary>
+        /// Publishes the specified events.
+        /// </summary>
+        /// <param name="instances">The events to publish.</param>
+        /// <param name="context">The current context.</param>
+        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instances" /> argument is null.</exception>
+        Task Publish(IEnumerable<IEvent> instances, CommandContext context);
+
         /// <summary>
         /// Sends the specified command.
         /// </summary>
@@ -43,28 +64,5 @@ namespace Slalom.Boost
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance" /> argument is null.</exception>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="context" /> argument is null.</exception>
         Task<CommandResult<TResponse>> Send<TResponse>(Command<TResponse> instance, CommandContext context);
-
-        /// <summary>
-        /// Publishes the specified event.
-        /// </summary>
-        /// <param name="instance">The event to publish.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance"/> argument is null.</exception>
-        Task Publish(IEvent instance);
-
-        /// <summary>
-        /// Publishes the specified event.
-        /// </summary>
-        /// <param name="instance">The event to publish.</param>
-        /// <param name="context">The current context.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instance"/> argument is null.</exception>
-        Task Publish(IEvent instance, CommandContext context);
-
-        /// <summary>
-        /// Publishes the specified events.
-        /// </summary>
-        /// <param name="instances">The events to publish.</param>
-        /// <param name="context">The current context.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instances"/> argument is null.</exception>
-        Task Publish(IEnumerable<IEvent> instances, CommandContext context);
     }
 }

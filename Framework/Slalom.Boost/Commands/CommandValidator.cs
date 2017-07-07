@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using Slalom.Boost.RuntimeBinding;
+using Autofac;
+using Slalom.Boost.Configuration;
 using Slalom.Boost.Validation;
 
 namespace Slalom.Boost.Commands
@@ -11,16 +12,15 @@ namespace Slalom.Boost.Commands
     /// Executes standard command validation: input validation, security validation and business validation.
     /// </summary>
     /// <seealso cref="Slalom.Boost.Commands.ICommandValidator" />
-    [DefaultBinding(Warn = false)]
     public class CommandValidator : ICommandValidator
     {
-        private readonly IContainer _container;
+        private readonly IComponentContext _container;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandValidator"/> class.
         /// </summary>
         /// <param name="container">The current <see cref="IContainer"/> instance.</param>
-        public CommandValidator(IContainer container)
+        public CommandValidator(IComponentContext container)
         {
             if (container == null)
             {

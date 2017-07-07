@@ -1,5 +1,4 @@
 ﻿using System;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Aspects.Default
 {
@@ -7,7 +6,6 @@ namespace Slalom.Boost.Aspects.Default
     /// Provides a default <see cref="IHashProvider"/> implementation.
     /// </summary>
     /// <seealso cref="IHashProvider" />
-    [DefaultBinding(Warn = false)]
     public class DefaultHashProvider : IHashProvider
     {
         /// <summary>

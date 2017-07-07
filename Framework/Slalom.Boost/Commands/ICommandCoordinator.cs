@@ -1,13 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Commands
 {
     /// <summary>
     /// Coordinates the handling of a command, passing it through the command stack.
     /// </summary>
-    [RuntimeBindingContract(ContractBindingType.Single)]
     public interface ICommandCoordinator
     {
         /// <summary>

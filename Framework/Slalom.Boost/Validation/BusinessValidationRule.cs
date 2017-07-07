@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Slalom.Boost.Commands;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Validation
 {
@@ -58,7 +57,6 @@ namespace Slalom.Boost.Validation
         /// <value>
         /// The current <see cref="IDataFacade"/> instance.
         /// </value>
-        [RuntimeBindingDependency]
         public IDataFacade DataFacade { get; set; }
 
         /// <summary>

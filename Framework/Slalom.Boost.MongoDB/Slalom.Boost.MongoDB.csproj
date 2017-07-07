@@ -38,6 +38,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.1.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.1.1\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.3.0.157, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Bson.2.3.0\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
@@ -69,6 +73,7 @@
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Aspects\MongoAuditStore.cs" />
+    <Compile Include="Modules\MongoModule.cs" />
     <Compile Include="MongoDbContext.cs" />
     <Compile Include="Aspects\MongoEventStore.cs" />
     <Compile Include="MongoDbOptions.cs" />

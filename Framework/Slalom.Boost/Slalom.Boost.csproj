@@ -43,6 +43,10 @@
     <AssemblyOriginatorKeyFile>Slalom.Boost.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.4.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NewId, Version=2.1.3.0, Culture=neutral, PublicKeyToken=b8e0e9f2f1e657fa, processorArchitecture=MSIL">
       <HintPath>..\packages\NewId.2.1.3\lib\net45\NewId.dll</HintPath>
       <Private>True</Private>
@@ -93,6 +97,8 @@
     <Compile Include="Commands\EventAudit.cs" />
     <Compile Include="Commands\IHaveSuccessfulFlag.cs" />
     <Compile Include="Commands\JsonCommandContractResolver.cs" />
+    <Compile Include="Configuration\AutofacExtensions.cs" />
+    <Compile Include="Configuration\BoostModule.cs" />
     <Compile Include="Events\EventHandler.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventForwarder.cs" />
@@ -105,10 +111,6 @@
     <Compile Include="Logging\SerilogLogger.cs" />
     <Compile Include="Reflection\DiscoveryService.cs" />
     <Compile Include="Reflection\IDiscoverTypes.cs" />
-    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingConfiguration.cs" />
-    <Compile Include="RuntimeBinding\ImplementationBindingType.cs" />
-    <Compile Include="RuntimeBinding\RuntimeBindingConfigurationAttribute.cs" />
-    <Compile Include="RuntimeBinding\RuntimeBindingImplementationAttribute.cs" />
     <Compile Include="Aspects\SecureJsonConverter.cs" />
     <Compile Include="Commands\CommandHandler.cs" />
     <Compile Include="Commands\CommandAudit.cs" />
@@ -128,7 +130,6 @@
     <Compile Include="Properties\SharedAssemblyInfo.cs" />
     <Compile Include="ReadModel\Default\InMemoryReadModelFacade.cs" />
     <Compile Include="ReadModel\IReadModelFacade.cs" />
-    <Compile Include="RuntimeBinding\RuntimeBindingDependencyAttribute.cs" />
     <Compile Include="Aspects\Default\DefaultHashProvider.cs" />
     <Compile Include="Aspects\Encryption.cs" />
     <Compile Include="Aspects\IHashProvider.cs" />
@@ -140,15 +141,9 @@
     <Compile Include="Serialization\DefaultSerializationSettings.cs" />
     <Compile Include="Serialization\IgnoreAttribute.cs" />
     <Compile Include="Serialization\SecureAttribute.cs" />
-    <Compile Include="Tasks\IScheduledTaskStore.cs" />
-    <Compile Include="Tasks\ScheduledTask.cs" />
-    <Compile Include="Tasks\TaskFrequency.cs" />
-    <Compile Include="Tasks\TaskRunner.cs" />
-    <Compile Include="Tasks\TaskSchedule.cs" />
     <Compile Include="UserStoryAttribute.cs" />
     <Compile Include="Validation\EnumerablePropertyRuleCollection.cs" />
     <Compile Include="Validation\IValidate.cs" />
-    <Compile Include="RuntimeBinding\ApplicationContainer.cs" />
     <Compile Include="Aspects\Default\SmtpEmailService.cs" />
     <Compile Include="Aspects\ISendEmail.cs" />
     <Compile Include="Domain\ConceptAs.cs" />
@@ -163,32 +158,12 @@
     <Compile Include="Aspects\Default\AutoMapperMapper.cs" />
     <Compile Include="Aspects\IMapper.cs" />
     <Compile Include="ReadModel\IReadModelElement.cs" />
-    <Compile Include="RuntimeBinding\Configuration\AssemblyFilter.cs" />
-    <Compile Include="RuntimeBinding\Configuration\BindingFilter.cs" />
-    <Compile Include="RuntimeBinding\Configuration\AppDomainAssemblyLocator.cs" />
-    <Compile Include="RuntimeBinding\Configuration\BindingFilterExtensions.cs" />
-    <Compile Include="RuntimeBinding\Configuration\CodeBaseAssemblyLocator.cs" />
-    <Compile Include="RuntimeBinding\Configuration\ContractMapping.cs" />
-    <Compile Include="RuntimeBinding\Configuration\ContractMappingDictionary.cs" />
-    <Compile Include="RuntimeBinding\Configuration\ContractMappingResolver.cs" />
-    <Compile Include="RuntimeBinding\Configuration\IAssemblyLocator.cs" />
-    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingConfigurator.cs" />
-    <Compile Include="RuntimeBinding\Configuration\RuntimeBindingElement.cs" />
-    <Compile Include="RuntimeBinding\ContainerAdapter.cs" />
-    <Compile Include="RuntimeBinding\IContainer.cs" />
-    <Compile Include="RuntimeBinding\Configuration\TypeFilter.cs" />
-    <Compile Include="RuntimeBinding\IContainerExtensions.cs" />
     <Compile Include="TypeExtensions.cs" />
     <Compile Include="ApplicationBus.cs" />
     <Compile Include="IApplicationBus.cs" />
-    <Compile Include="RuntimeBinding\ContractBindingType.cs" />
-    <Compile Include="RuntimeBinding\DefaultBindingAttribute.cs" />
-    <Compile Include="RuntimeBinding\IRuntimeBindingConfiguration.cs" />
     <Compile Include="Aspects\Default\WindowsExecutionContextResolver.cs" />
     <Compile Include="Aspects\ExecutionContext.cs" />
     <Compile Include="Aspects\IExecutionContextResolver.cs" />
-    <Compile Include="RuntimeBinding\IgnoreBindingAttribute.cs" />
-    <Compile Include="RuntimeBinding\RuntimeBindingContractAttribute.cs" />
     <Compile Include="Validation\BusinessValidationRule.cs" />
     <Compile Include="Validation\ConceptPropertyRule.cs" />
     <Compile Include="Validation\IBusinessValidationRule.cs" />

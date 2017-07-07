@@ -4,9 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Autofac;
 using Slalom.Boost.Aspects;
+using Slalom.Boost.Configuration;
 using Slalom.Boost.Logging;
-using Slalom.Boost.RuntimeBinding;
 using Slalom.Boost.Validation;
 
 namespace Slalom.Boost.Commands
@@ -15,10 +16,9 @@ namespace Slalom.Boost.Commands
     /// Coordinates the handling of a command, passing it through the command stack.
     /// </summary>
     /// <seealso cref="Slalom.Boost.Commands.ICommandCoordinator" />
-    [DefaultBinding(Warn = false)]
     public class CommandCoordinator : ICommandCoordinator
     {
-        protected readonly IContainer Container;
+        protected readonly IComponentContext Container;
         protected readonly ICommandValidator Validator;
         private readonly Lazy<ILogger> _logger;
 
@@ -30,7 +30,7 @@ namespace Slalom.Boost.Commands
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when the <paramref name="container"/> or <paramref name="validator"/> argument are null.
         /// </exception>
-        public CommandCoordinator(IContainer container, ICommandValidator validator)
+        public CommandCoordinator(IComponentContext container, ICommandValidator validator)
         {
             if (container == null)
             {

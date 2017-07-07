@@ -1,6 +1,5 @@
 ﻿using System;
 using Slalom.Boost.Commands;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Events
 {
@@ -21,7 +20,6 @@ namespace Slalom.Boost.Events
         /// Gets the current <see cref="IDataFacade"/>.
         /// </summary>
         /// <value>The current <see cref="IDataFacade"/>.</value>
-        [RuntimeBindingDependency]
         public IDataFacade DataFacade { get; protected set; }
 
         /// <summary>

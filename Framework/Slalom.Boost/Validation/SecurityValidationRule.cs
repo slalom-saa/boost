@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Slalom.Boost.Commands;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Validation
 {
@@ -36,7 +35,6 @@ namespace Slalom.Boost.Validation
         /// Gets or sets the current <see cref="IDataFacade"/>.
         /// </summary>
         /// <value>The current <see cref="IDataFacade"/>.</value>
-        [RuntimeBindingDependency]
         public IDataFacade DataFacade { get; protected set; }
 
         /// <summary>

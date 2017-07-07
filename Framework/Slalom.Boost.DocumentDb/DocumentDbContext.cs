@@ -7,12 +7,10 @@ using Microsoft.Azure.Documents.Client;
 using Newtonsoft.Json;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Logging;
-using Slalom.Boost.RuntimeBinding;
 using Slalom.Boost.Serialization;
 
 namespace Slalom.Boost.DocumentDb
 {
-    [RuntimeBindingImplementation(ImplementationBindingType.Singleton)]
     public class DocumentDbContext : IDisposable
     {
         private readonly Lazy<DocumentClient> Client;

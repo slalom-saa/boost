@@ -3,7 +3,6 @@ using System.Linq;
 using MongoDB.Bson.Serialization;
 using Slalom.Boost.Domain;
 using Slalom.Boost.Logging;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.MongoDB
 {
@@ -36,14 +35,12 @@ namespace Slalom.Boost.MongoDB
         /// Gets or sets configured <see cref="MongoDbContext" />.
         /// </summary>
         /// <value>The configured <see cref="MongoDbContext" />.</value>
-        [RuntimeBindingDependency]
         public MongoDbContext Context { get; set; }
 
         /// <summary>
         /// Gets or sets the configured <see cref="ILogger" />.
         /// </summary>
         /// <value>The configured <see cref="ILogger" />.</value>
-        [RuntimeBindingDependency]
         public ILogger Logger { get; set; }
 
         /// <summary>

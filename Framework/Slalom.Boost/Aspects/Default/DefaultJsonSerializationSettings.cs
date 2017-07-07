@@ -1,6 +1,5 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Aspects.Default
 {
@@ -8,7 +7,6 @@ namespace Slalom.Boost.Aspects.Default
     /// The default <see cref="JsonSerializerSettings"/>.
     /// </summary>
     /// <seealso cref="Newtonsoft.Json.JsonSerializerSettings" />
-    [DefaultBinding(Warn = false)]
     public class DefaultJsonSerializationSettings : JsonSerializerSettings
     {
         /// <summary>
@@ -18,12 +16,9 @@ namespace Slalom.Boost.Aspects.Default
         {
             this.ContractResolver = new JsonPrivateMemberContractResolver();
 
-            JsonConvert.DefaultSettings = () =>
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
-                return new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Auto
-                };
+                TypeNameHandling = TypeNameHandling.Auto
             };
         }
     }
