@@ -1,22 +1,39 @@
 param (
 	$Url = "https://www.nuget.org",
-	$NugetPath = ".\NuGet.exe",
+	$NugetPath = "NuGet.exe",
     $ApiKey = '4fdba183-fa91-4650-8dae-760bf2c22337'
 )
-cd $PSScriptRoot
 
-Get-ChildItem *.nupkg | Where-Object { $_.Name.EndsWith(".symbols.nupkg") -eq $false } | ForEach-Object { 
+$location = $PSScriptRoot
 
+cd $location
+..\Slalom.Boost\.nuget\NuGetPackage.ps1
+
+cd $location
+..\Slalom.Boost.DocumentDb\.nuget\NuGetPackage.ps1
+
+cd $location
+..\Slalom.Boost.EntityFramework\.nuget\NuGetPackage.ps1
+
+cd $location
+..\Slalom.Boost.MongoDB\.nuget\NuGetPackage.ps1
+
+cd $location
+..\Slalom.Boost.RabbitMq\.nuget\NuGetPackage.ps1
+
+cd $location
+..\Slalom.Boost.WebApi\.nuget\NuGetPackage.ps1
+
+
+return
+
+cd C:\NuGet
+
+Get-ChildItem Slalom.*.nupkg | Where-Object { $_.Name.EndsWith(".symbols.nupkg") -eq $false } | ForEach-Object { 
+    try {
 	# Try to push package
 	& $NugetPath push $_.FullName $ApiKey -Source $Url	
-}
-
-IF(Test-Path "$env:userprofile\.nuget\packages")
+}catch
 {
-    Remove-Item "$env:userprofile\.nuget\packages" -Recurse -Force
-	Write-Host "Deleted nuget cache." -ForegroundColor Green
 }
-ELSE
-{
-	Write-Host "Nuget cache has already been deleted."
 }

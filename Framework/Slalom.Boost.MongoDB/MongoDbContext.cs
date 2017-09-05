@@ -165,7 +165,7 @@ namespace Slalom.Boost.MongoDB
             foreach (var entity in instances)
             {
                 var filter = new FilterDefinitionBuilder<TRoot>().Where(m => m.Id == entity.Id);
-                requests.Add(new ReplaceOneModel<TRoot>(filter, entity));
+                requests.Add(new ReplaceOneModel<TRoot>(filter, entity) { IsUpsert = true });
             }
             this.GetCollection<TRoot>().BulkWrite(requests);
         }

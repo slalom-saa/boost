@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Slalom.Boost.Aspects;
@@ -124,7 +125,7 @@ namespace Slalom.Boost
         public Task Publish(IEnumerable<IEvent> instances, CommandContext context)
         {
             var target = new List<Task>();
-            foreach (var item in instances)
+            foreach (var item in instances.ToList())
             {
                 target.Add(this.Publish(item, context));
             }
