@@ -358,7 +358,6 @@ namespace Slalom.Boost.RuntimeBinding
                 }
                 else
                 {
-
                     var instance = Activator.CreateInstance(typeToResolve, this.ResolveConstructorParameters(typeToResolve).ToArray());
                     this.BuildUp(instance);
                     return instance;
