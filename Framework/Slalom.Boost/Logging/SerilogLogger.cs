@@ -7,6 +7,7 @@ using Serilog.Core;
 using Serilog.Exceptions;
 using Serilog.Formatting.Json;
 using Slalom.Boost.AutoMapper;
+using Slalom.Boost.RuntimeBinding;
 
 namespace Slalom.Boost.Logging
 {
@@ -14,6 +15,7 @@ namespace Slalom.Boost.Logging
     /// A <see href="https://serilog.net/">Serilog</see> implementation of the <see cref="ILogger"/>.
     /// </summary>
     /// <seealso cref="ILogger" />
+    [RuntimeBindingImplementation(ImplementationBindingType.Singleton)]
     public class SerilogLogger : ILogger
     {
         private readonly Logger _logger;
