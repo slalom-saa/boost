@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Serilog.Core;
 using Slalom.Boost.Commands;
 using Slalom.Boost.EntityFramework;
+using Slalom.Boost.EntityFramework.Logging;
 using Slalom.Boost.Events;
 using Slalom.Boost.Logging;
 using Slalom.Boost.RuntimeBinding;
@@ -42,7 +43,7 @@ namespace Slalom.Boost.UnitTests
     {
         public override TestEvent HandleCommand(TestCommand command)
         {
-            throw new Exception("...");
+            //throw new Exception("...");
             return new TestEvent(command.Content);
         }
     }
@@ -54,24 +55,19 @@ namespace Slalom.Boost.UnitTests
         }
     }
 
-    public class AuditStore : EntityFramework.Aspects.EntityFrameworkAuditStore
+    public class AuditStore : SqlAuditStore
     {
-        public AuditStore(TestContext context)
+        public AuditStore(LoggingDbContext context)
             : base(context)
         {
         }
     }
 
-    public class EventStore : EntityFramework.Aspects.EntityFrameworkEventStore, IHandleEvent
+    public class EventStore : SqlEventStore
     {
-        public EventStore(TestContext context)
+        public EventStore(LoggingDbContext context)
             : base(context)
         {
-        }
-
-        public override void Append(Event instance, CommandContext context)
-        {
-            base.Append(instance, context);
         }
     }
 
@@ -79,12 +75,21 @@ namespace Slalom.Boost.UnitTests
     {
         public static void Main()
         {
-            new Program().Start();
+            try
+            {
+                using (var container = new ApplicationContainer(typeof(Program)))
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        container.Bus.Send(new TestCommand("content")).Wait();
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
 
-            Console.WriteLine(@"Running program.  Press any key to exit...");
-            Console.WriteLine();
-
-            Console.ReadKey();
         }
 
         public async Task Start()
@@ -95,7 +100,7 @@ namespace Slalom.Boost.UnitTests
                 {
                     for (int i = 0; i < 2; i++)
                     {
-                        container.Resolve<ILogger>().Error(new InvalidOperationException("xxxxx"), "ex");
+                        container.Bus.Send(new TestCommand("content")).Wait();
                     }
                 }
             }

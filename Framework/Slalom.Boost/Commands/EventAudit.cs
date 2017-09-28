@@ -26,6 +26,8 @@ namespace Slalom.Boost.Commands
             this.Application = context.Application;
             this.Session = context.Session;
             this.CommandId = context.CommandTrace.FirstOrDefault();
+            this.Environment = context.Environment;
+            this.EventType = @event.EventType.AssemblyQualifiedName;
 
             try
             {
@@ -39,6 +41,8 @@ namespace Slalom.Boost.Commands
                 this.Payload = "Serialization failed: " + exception;
             }
         }
+
+        public string Environment { get; set; }
 
         public Guid CommandId { get; set; }
 
@@ -61,5 +65,7 @@ namespace Slalom.Boost.Commands
         public DateTimeOffset TimeStamp { get; set; }
 
         public Guid Id { get; set; } = NewId.NextGuid();
+
+        public string EventType { get; set; }
     }
 }

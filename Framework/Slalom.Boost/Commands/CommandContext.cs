@@ -67,7 +67,10 @@ namespace Slalom.Boost.Commands
             this.CorrelationId = context.CorrelationId;
             this.Application = context.Application; 
             this.MachineName = context.MachineName;
+            this.Environment = context.Environment;
         }
+
+        public string Environment { get; set; }
 
         /// <summary>
         /// Gets or sets the cancellation token.

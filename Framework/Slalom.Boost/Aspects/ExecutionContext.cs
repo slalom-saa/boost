@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Principal;
 using System.Web;
@@ -12,6 +13,7 @@ namespace Slalom.Boost.Aspects
     /// </summary>
     public class ExecutionContext
     {
+        private static readonly string _application = Assembly.GetEntryAssembly().GetName().Name;
         private const string Key = "CorrelationId";
 
         /// <summary>
@@ -23,9 +25,12 @@ namespace Slalom.Boost.Aspects
         {
             this.Identity = identity;
             this.Session = session;
-            this.Application = ConfigurationManager.AppSettings["Application"];
-            this.MachineName = Environment.MachineName;
+            this.Application = ConfigurationManager.AppSettings["Application"] ?? _application;
+            this.Environment = ConfigurationManager.AppSettings["Environment"];
+            this.MachineName = System.Environment.MachineName;
         }
+
+        public string Environment { get; set; }
 
         /// <summary>
         /// Gets the application name.

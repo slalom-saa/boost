@@ -54,9 +54,11 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -107,6 +109,14 @@
     <Compile Include="GraphDiff\QueryMode.cs" />
     <Compile Include="GraphDiff\UpdateConfigurationExtensions.cs" />
     <Compile Include="GraphDiff\UpdateParams.cs" />
+    <Compile Include="Logging\SqlAuditStore.cs" />
+    <Compile Include="Logging\SqlEventStore.cs" />
+    <Compile Include="Logging\EventEntryItem.cs" />
+    <Compile Include="Logging\LogExtensions.cs" />
+    <Compile Include="Logging\LoggingDbContext.cs" />
+    <Compile Include="Logging\RequestEntryItem.cs" />
+    <Compile Include="Logging\ResponseEntryItem.cs" />
+    <Compile Include="Logging\SqlServerLoggingOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

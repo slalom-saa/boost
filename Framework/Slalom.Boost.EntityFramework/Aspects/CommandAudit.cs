@@ -43,7 +43,7 @@ namespace Slalom.Boost.EntityFramework.Aspects
             this.Successful = result.Successful;
             this.CommandId = result.CommandId;
             this.CommandName = result.CommandName;
-            this.CommandType = command.GetType().Name;
+            this.CommandType = command.GetType().AssemblyQualifiedName;
             var trace = result.Context.CommandTrace.ToList();
             var index = trace.IndexOf(this.CommandId);
             if (index > 0)
@@ -76,8 +76,14 @@ namespace Slalom.Boost.EntityFramework.Aspects
             }
             this.MachineName = result.Context.MachineName;
             this.Application = result.Context.Application;
+            this.Environment = result.Context.Environment;
+            this.Build = command.GetType().Assembly.GetName().Version.ToString();
             this.ChangesState = typeof(Event).IsAssignableFrom(command.GetType().BaseType?.GetGenericArguments()[0]);
         }
+
+        public string Build { get; set; }
+
+        public string Environment { get; set; }
 
         public string MachineName { get; set; }
 
