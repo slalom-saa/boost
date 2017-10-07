@@ -112,6 +112,11 @@ namespace Slalom.Boost.MongoDB
             this.Context.Update(instances);
         }
 
+        public bool Exists(Guid id)
+        {
+            return this.Find().Any(e => e.Id == id);
+        }
+
         /// <summary>
         /// Creates and registers class maps.
         /// </summary>

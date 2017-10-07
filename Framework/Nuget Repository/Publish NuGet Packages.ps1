@@ -25,8 +25,6 @@ cd $location
 ..\Slalom.Boost.WebApi\.nuget\NuGetPackage.ps1
 
 
-return
-
 cd C:\NuGet
 
 Get-ChildItem Slalom.*.nupkg | Where-Object { $_.Name.EndsWith(".symbols.nupkg") -eq $false } | ForEach-Object { 

@@ -48,6 +48,8 @@ namespace Slalom.Boost.Domain
         /// <returns>Returns the instance with the specified identifier.</returns>
         TAggregateRoot Find<TAggregateRoot>(Guid id) where TAggregateRoot : IAggregateRoot;
 
+        bool Exists<TAggregateRoot>(Guid id) where TAggregateRoot : IAggregateRoot;
+
         /// <summary>
         /// Finds all instances of the specified type.
         /// </summary>

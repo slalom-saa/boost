@@ -90,6 +90,11 @@ namespace Slalom.Boost.EntityFramework
             Context.SaveChanges();
         }
 
+        public bool Exists(Guid id)
+        {
+            return this.Find().Any(e => e.Id == id);
+        }
+
         protected void UpdateGraph(TRoot[] instance, Expression<Func<IUpdateConfiguration<TRoot>, object>> expression)
         {
             instance.ToList().ForEach(e =>

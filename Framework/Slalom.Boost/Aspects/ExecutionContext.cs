@@ -13,7 +13,7 @@ namespace Slalom.Boost.Aspects
     /// </summary>
     public class ExecutionContext
     {
-        private static readonly string _application = Assembly.GetEntryAssembly().GetName().Name;
+        private static readonly string _application = Assembly.GetEntryAssembly()?.GetName().Name;
         private const string Key = "CorrelationId";
 
         /// <summary>
@@ -69,20 +69,29 @@ namespace Slalom.Boost.Aspects
 
         private static Guid GetCorrelationId()
         {
-            if (HttpContext.Current != null)
+            try
             {
-                if (!HttpContext.Current.Items.Contains(Key))
+                if (HttpContext.Current != null)
                 {
-                    HttpContext.Current.Items.Add(Key, Guid.NewGuid());
+                    if (!HttpContext.Current.Items.Contains(Key))
+                    {
+                        HttpContext.Current.Items.Add(Key, Guid.NewGuid());
+                    }
+                    return (Guid)HttpContext.Current.Items[Key];
                 }
-                return (Guid)HttpContext.Current.Items[Key];
+                if (CallContext.GetData(Key) == null)
+                {
+                    var id = Guid.NewGuid();
+                    CallContext.SetData(Key, id);
+                }
+                return new Guid(CallContext.GetData(Key).ToString());
             }
-            if (CallContext.GetData(Key) == null)
+            catch
             {
-                var id = Guid.NewGuid();
-                CallContext.SetData(Key, id);
+                return _fallbackCorrelation;
             }
-            return new Guid(CallContext.GetData(Key).ToString());
         }
+
+        private static readonly Guid _fallbackCorrelation = Guid.Empty;
     }
 }

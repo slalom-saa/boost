@@ -248,7 +248,15 @@ namespace Slalom.Boost
         /// <exception cref="System.NotSupportedException">Thrown when an unsupported type is used.</exception>
         public bool Exists<TInstance>(Guid id) where TInstance : IHaveIdentity
         {
-            return this.Find<TInstance>().Where(e => e.Id == id).Take(1).AsEnumerable().Any();
+            if (typeof(IReadModelElement).IsAssignableFrom(typeof(TInstance)))
+            {
+                return (bool)typeof(IReadModelFacade).GetMethod("Exists", new[] { typeof(Guid) }).MakeGenericMethod(typeof(TInstance)).Invoke(this.GetReadModelFacade<TInstance>(), new object[] { id });
+            }
+            if (typeof(IAggregateRoot).IsAssignableFrom(typeof(TInstance)))
+            {
+                return (bool)typeof(IAggregateFacade).GetMethod("Exists", new[] { typeof(Guid) }).MakeGenericMethod(typeof(TInstance)).Invoke(this.GetAggregateFacade<TInstance>(), new object[] { id });
+            }
+            throw new NotSupportedException($"Instances of type {typeof(TInstance).Name} cannot be queried using the data facade.");
         }
 
         /// <summary>

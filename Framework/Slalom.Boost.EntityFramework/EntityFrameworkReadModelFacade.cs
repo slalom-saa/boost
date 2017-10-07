@@ -142,6 +142,12 @@ namespace Slalom.Boost.EntityFramework
                            .FirstOrDefault(e => e.Id == id);
         }
 
+        public bool Exists<TReadModelElement>(Guid id) where TReadModelElement : class, IReadModelElement
+        {
+            return _context.Set<TReadModelElement>()
+                           .Any(e => e.Id == id);
+        }
+
         /// <summary>
         /// Updates the specified instances. Update is similar to Add, but Add skips a check to see if the
         /// item already exists.

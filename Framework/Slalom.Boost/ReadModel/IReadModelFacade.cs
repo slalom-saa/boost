@@ -71,6 +71,8 @@ namespace Slalom.Boost.ReadModel
         /// <exception cref="System.NotSupportedException">Thrown when an unsupported type is used.</exception>
         TReadModelElement Find<TReadModelElement>(Guid id) where TReadModelElement : class, IReadModelElement;
 
+        bool Exists<TReadModelElement>(Guid id) where TReadModelElement : class, IReadModelElement;
+
         /// <summary>
         /// Updates the specified instances. Update is similar to Add, but Add skips a check to see if the
         /// item already exists.

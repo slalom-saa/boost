@@ -92,7 +92,13 @@ namespace Slalom.Boost.Domain.Default
             Warn();
             Instances.AddRange(instances);
         }
-        
+
+        public bool Exists(Guid id)
+        {
+            Warn();
+            return this.Find().Any(e => e.Id == id);
+        }
+
         private static void Warn()
         {
             if (!warned)

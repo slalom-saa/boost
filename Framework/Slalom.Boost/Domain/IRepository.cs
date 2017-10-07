@@ -48,5 +48,7 @@ namespace Slalom.Boost.Domain
         /// <param name="instances">The instances to update.</param>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="instances"/> argument is null.</exception>
         void Update(TRoot[] instances);
+
+        bool Exists(Guid id);
     }
 }

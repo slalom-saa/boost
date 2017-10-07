@@ -102,6 +102,11 @@ namespace Slalom.Boost.Domain
             return _container.Resolve<IRepository<TAggregateRoot>>().Find(id);
         }
 
+        public bool Exists<TAggregateRoot>(Guid id) where TAggregateRoot : IAggregateRoot
+        {
+            return _container.Resolve<IRepository<TAggregateRoot>>().Exists(id);
+        }
+
         /// <summary>
         /// Finds all instances of the specified type.
         /// </summary>

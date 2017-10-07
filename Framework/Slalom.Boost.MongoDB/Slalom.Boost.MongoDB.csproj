@@ -83,9 +83,6 @@
     <None Include=".nuget\Package.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include=".nuget\tools\init.ps1" />
-    <None Include=".nuget\tools\install.ps1" />
-    <None Include=".nuget\tools\uninstall.ps1" />
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>

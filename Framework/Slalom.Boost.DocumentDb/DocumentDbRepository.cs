@@ -84,6 +84,11 @@ namespace Slalom.Boost.DocumentDb
             this.Context.Update(instances);
         }
 
+        public bool Exists(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual void Update(TRoot[] instances, int batchSize)
         {
             this.Logger?.Verbose("Updating {Count} items of type {Type} using {Repository}.  Using a batch size of {Size}.", instances.Length, typeof(TRoot).Name, this.GetType().BaseType, batchSize);
