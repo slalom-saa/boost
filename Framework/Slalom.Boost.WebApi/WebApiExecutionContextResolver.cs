@@ -19,9 +19,9 @@ namespace Slalom.Boost.WebApi
             else
             {
                 var target = new ExecutionContext(HttpContext.Current.User?.Identity, HttpContext.Current.Request.Headers.AllKeys.Contains("Session") ? HttpContext.Current.Request.Headers["Session"] : null);
+                target.SourceAddress = HttpContext.Current.Request.UserHostAddress;
+                target.Url = HttpContext.Current.Request.Url.AbsoluteUri;
                 target.Data.Add("Browser", HttpContext.Current.Request.Browser?.Browser);
-                target.Data.Add("URL", HttpContext.Current.Request.Url.AbsoluteUri);
-                target.Data.Add("Request IP Address", HttpContext.Current.Request.UserHostAddress);
                 target.Data.Add("Host", "HTTP");
                 return target;
             }

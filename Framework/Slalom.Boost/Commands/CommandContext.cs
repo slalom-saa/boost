@@ -36,6 +36,10 @@ namespace Slalom.Boost.Commands
 
         private readonly List<Guid> _trace = new List<Guid>();
 
+        public string SourceAddress { get; set; }
+
+        public string Url { get; set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="CommandContext"/> class.
         /// </summary>
@@ -51,12 +55,13 @@ namespace Slalom.Boost.Commands
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <exception cref="System.ArgumentNullException">Thrown when the <paramref name="cancellationToken" /> argument is null.</exception>
         /// <exception cref="ArgumentNullException">Thrown when the <paramref name="context" /> argument is null.</exception>
-        public CommandContext(ExecutionContext context, CancellationToken cancellationToken)
+        public CommandContext(ExecutionContext context, string commandName, Guid commandId, CancellationToken cancellationToken)
         {
             if (context == null)
             {
                 throw new ArgumentNullException(nameof(context));
             }
+          
 
             _cancellationToken = cancellationToken;
             _identity = context.Identity;
@@ -65,10 +70,20 @@ namespace Slalom.Boost.Commands
             this.Created = DateTime.Now;
             this.AdditionalData = new ReadOnlyDictionary<string, string>(context.Data);
             this.CorrelationId = context.CorrelationId;
-            this.Application = context.Application; 
+            this.Application = context.Application;
             this.MachineName = context.MachineName;
             this.Environment = context.Environment;
+            this.Version = context.Version;
+            this.Build = context.Build;
+            this.CommandName = commandName;
+            this.CommandId = commandId;
+            this.SourceAddress = context.SourceAddress;
+            this.Url = context.Url;
         }
+
+        public string Build { get; set; }
+
+        public string Version { get; set; }
 
         public string Environment { get; set; }
 
@@ -166,6 +181,10 @@ namespace Slalom.Boost.Commands
         /// </summary>
         /// <value>The name of the machine.</value>
         public string MachineName { get; private set; }
+
+        public string CommandName { get; private set; }
+
+        public Guid CommandId { get; private set; }
 
         /// <summary>
         /// Adds the raised events to the collection.

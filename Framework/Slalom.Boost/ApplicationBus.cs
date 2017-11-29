@@ -38,7 +38,7 @@ namespace Slalom.Boost
         public Task<CommandResult<TResponse>> Send<TResponse>(Command<TResponse> instance)
         {
             var execution = _container.Resolve<IExecutionContextResolver>().Resolve();
-            var context = new CommandContext(execution, CancellationToken.None);
+            var context = new CommandContext(execution, instance.GetType().Name, instance.Id, CancellationToken.None);
 
             return this.Send(instance, context);
         }
@@ -52,7 +52,7 @@ namespace Slalom.Boost
         public async Task<CommandResult> Send(ICommand instance)
         {
             var execution = _container.Resolve<IExecutionContextResolver>().Resolve();
-            var context = new CommandContext(execution, CancellationToken.None);
+            var context = new CommandContext(execution, instance.GetType().Name, instance.Id, CancellationToken.None);
 
             var coordinator = _container.Resolve<ICommandCoordinator>();
 
@@ -88,7 +88,7 @@ namespace Slalom.Boost
         public Task<CommandResult<TResponse>> Send<TResponse>(Command<TResponse> instance, CancellationToken cancellationToken)
         {
             var execution = _container.Resolve<IExecutionContextResolver>().Resolve();
-            var context = new CommandContext(execution, cancellationToken);
+            var context = new CommandContext(execution, instance.GetType().Name, instance.Id, cancellationToken);
 
             return this.Send(instance, context);
         }

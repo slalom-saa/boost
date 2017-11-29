@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
 using Newtonsoft.Json;
 using Slalom.Boost.Commands;
 using Slalom.Boost.Events;
@@ -31,19 +33,12 @@ namespace Slalom.Boost.WebApi
         {
             var telemetry = new TelemetryClient();
 
-            var dictionary = new Dictionary<string, string>
-            {
-                { "EventId", instance.Id.ToString() },
-                { "EventName", instance.EventName },
-                { "UserName", context.UserName },
-                { "MachineName", context.MachineName },
-                { "Application", context.Application },
-                { "Session", context.Session },
-                { "TimeStamp", instance.TimeStamp.ToString(CultureInfo.InvariantCulture) },
-                { "CorrelationId", context?.CorrelationId.ToString() }
-            };
+            var target = new EventTelemetry(instance.EventName);
+            target.Context.UpdateContext(context);
+            target.Timestamp = instance.TimeStamp;
+            target.Properties.Add("RequestId", context.CommandId.ToString("N"));
 
-            telemetry.TrackEvent("Event: " + instance.EventName, dictionary);
+            telemetry.TrackEvent(target);
 
             telemetry.Flush();
         }

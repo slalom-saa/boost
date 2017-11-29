@@ -27,8 +27,14 @@ namespace Slalom.Boost.Aspects
             this.Session = session;
             this.Application = ConfigurationManager.AppSettings["Application"] ?? _application;
             this.Environment = ConfigurationManager.AppSettings["Environment"];
+            this.Version = ConfigurationManager.AppSettings["Version"];
+            this.Build = ConfigurationManager.AppSettings["Version"];
             this.MachineName = System.Environment.MachineName;
         }
+
+        public string Build { get; set; }
+
+        public string Version { get; set; }
 
         public string Environment { get; set; }
 
@@ -66,6 +72,10 @@ namespace Slalom.Boost.Aspects
         /// The correlation identifier used to trace along an execution path.
         /// </summary>
         public Guid CorrelationId { get; } = GetCorrelationId();
+
+        public string SourceAddress { get; set; }
+
+        public string Url { get; set; }
 
         private static Guid GetCorrelationId()
         {

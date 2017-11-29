@@ -123,7 +123,7 @@ namespace Slalom.Boost.Logging
                 catch (TargetInvocationException ex)
                 {
                     SelfLog.WriteLine("The property accessor {0} threw exception {1}", pi, ex);
-                    propValue = "The property accessor threw an exception: " + ex.InnerException.GetType().Name;
+                    propValue = "The property accessor threw an exception: " + ex.InnerException?.GetType().Name;
                 }
 
                 LogEventPropertyValue pv;
@@ -136,6 +136,10 @@ namespace Slalom.Boost.Logging
                 {
                     structureProperties.Add(new LogEventProperty(pi.Name, new ScalarValue(((Type)propValue).AssemblyQualifiedName)));
                     continue;
+                }
+                else if (propValue is IQueryable)
+                {
+                    pv = new ScalarValue("IQueryable");
                 }
                 else
                 {
