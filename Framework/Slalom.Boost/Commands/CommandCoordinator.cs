@@ -137,20 +137,20 @@ namespace Slalom.Boost.Commands
             {
                 if (result.Exception != null)
                 {
-                    _logger.Value.Error(result.Exception, "An unhandled exception was raised while executing " + command.GetType().Name + ". {@Command} {@Context}", command, result.Context);
+                    _logger.Value.Error(result.Exception, "An unhandled exception was raised while executing " + command.GetType().Name + ".");
                 }
                 else if (result.ValidationMessages?.Any() ?? false)
                 {
-                    _logger.Value.Verbose("Execution completed with validation errors while executing " + command.GetType().Name + ". {@Command} {@ValidationErrors} {@Context}", command, result.ValidationMessages, result.Context);
+                    _logger.Value.Verbose("Execution completed with validation errors while executing " + command.GetType().Name + ".");
                 }
                 else
                 {
-                    _logger.Value.Error("Execution completed unsuccessfully while executing " + command.GetType().Name + ". {@Command} {@Result} {@Context}", command, result, result.Context);
+                    _logger.Value.Error("Execution completed unsuccessfully while executing " + command.GetType().Name + ".");
                 }
             }
             else
             {
-                _logger.Value.Verbose("Successfully completed " + command.GetType().Name + ". {@Command} {@Result} {@Context}", command, result, result.Context);
+                _logger.Value.Verbose("Successfully completed " + command.GetType().Name + ".");
             }
         }
 

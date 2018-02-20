@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Slalom.Boost.MongoDB</id>
-    <version>1.5.2</version>
+    <version>1.7.3</version>
     <title>Slalom Boost Framework - MongoDB</title>
     <authors>Slalom</authors>
     <owners>Slalom</owners>

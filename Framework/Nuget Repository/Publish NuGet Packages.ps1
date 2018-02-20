@@ -28,6 +28,7 @@ cd $location
 
 cd C:\NuGet
 
+
 Get-ChildItem Slalom.*.nupkg | Where-Object { $_.Name.EndsWith(".symbols.nupkg") -eq $false } | ForEach-Object { 
     try {
 	# Try to push package
