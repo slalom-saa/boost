@@ -1,4 +1,11 @@
-﻿using System;
+﻿/* 
+ * Copyright (c) Patolus Contributors
+ * 
+ * This file is subject to the terms and conditions defined in
+ * the LICENSE file, which is part of this source code package.
+ */
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
@@ -18,19 +25,32 @@ namespace Slalom.Boost.Aspects
         /// <param name="text">The specified text.</param>
         /// <param name="key">The specified key.</param>
         /// <returns>
-        /// The decrypted string.
+        /// The decrypted text.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public static byte[] Decrypt<T>(byte[] text, string key) where T : SymmetricAlgorithm, new()
+        {
+            using (var provider = Activator.CreateInstance<T>())
+            {
+                return DecryptInternal(text, key);
+            }
+        }
+
+        /// <summary>
+        /// Decrypts the specified text with the specified provider and key.
+        /// </summary>
+        /// <typeparam name="T">The type of SymmetricAlgorithm to use.</typeparam>
+        /// <param name="text">The specified text.</param>
+        /// <param name="key">The specified key.</param>
+        /// <returns>
+        /// The decrypted text.
         /// </returns>
         /// <exception cref="System.ArgumentNullException"></exception>
         public static string Decrypt<T>(string text, string key) where T : SymmetricAlgorithm, new()
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentException("The provided text cannot be null or empty.", nameof(text));
-            }
-
             using (var provider = Activator.CreateInstance<T>())
             {
-                return Decrypt(text, key, provider);
+                return DecryptInternal(text, key);
             }
         }
 
@@ -40,36 +60,52 @@ namespace Slalom.Boost.Aspects
         /// <param name="text">The specified text.</param>
         /// <param name="key">The specified key.</param>
         /// <returns>
-        /// The decrypted string.
+        /// The decrypted text.
         /// </returns>
         /// <exception cref="System.ArgumentNullException"></exception>
         public static string Decrypt(string text, string key)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentException("The provided text cannot be null or empty.", nameof(text));
-            }
+            return DecryptInternal(text, key);
+        }
 
-            return Decrypt(text, key, null);
+        /// <summary>
+        /// Decrypts the specified text with the specified provider and key.
+        /// </summary>
+        /// <param name="text">The specified text.</param>
+        /// <param name="key">The specified key.</param>
+        /// <returns>
+        /// The decrypted text.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public static byte[] Decrypt(byte[] text, string key)
+        {
+            return DecryptInternal(text, key);
         }
 
         /// <summary>
         /// Decrypts the specified text.
         /// </summary>
         /// <param name="text">The specified text.</param>
-        /// <returns></returns>
+        /// <returns>The decrypted text.</returns>
         /// <exception cref="System.ArgumentNullException"></exception>
         /// <example>
         ///   <c>Encryption.Decrypt("encrypted content");</c>
         /// </example>
         public static string Decrypt(string text)
         {
-            if (text == null)
-            {
-                throw new ArgumentNullException(nameof(text));
-            }
+            return DecryptInternal(text, null);
+        }
 
-            return Decrypt(text, null, null);
+        /// <summary>
+        /// Decrypts the specified text.
+        /// </summary>
+        /// <param name="text">The specified text.</param>
+        /// <returns>The decrypted text.</returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public static byte[] Decrypt(byte[] text)
+        {
+
+            return DecryptInternal(text, null);
         }
 
         /// <summary>
@@ -78,17 +114,26 @@ namespace Slalom.Boost.Aspects
         /// <param name="text">The specified text.</param>
         /// <param name="key">The specified key.</param>
         /// <returns>
-        /// An encrypted string.
+        /// The encrypted text.
         /// </returns>
         /// <exception cref="System.ArgumentNullException"></exception>
         public static string Encrypt(string text, string key)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentException("The provided text cannot be null or empty.", nameof(text));
-            }
+            return EncryptInternal(text, key);
+        }
 
-            return Encrypt(text, null, key);
+        /// <summary>
+        /// Encrypts the specified text with specified key.
+        /// </summary>
+        /// <param name="text">The specified text.</param>
+        /// <param name="key">The specified key.</param>
+        /// <returns>
+        /// The encrypted text.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public static byte[] Encrypt(byte[] text, string key)
+        {
+            return EncryptInternal(text, key);
         }
 
         /// <summary>
@@ -98,19 +143,32 @@ namespace Slalom.Boost.Aspects
         /// <param name="text">The specified text.</param>
         /// <param name="key">The specified key.</param>
         /// <returns>
-        /// An encrypted string.
+        /// The encrypted text.
         /// </returns>
         /// <exception cref="System.ArgumentNullException"></exception>
         public static string Encrypt<T>(string text, string key) where T : SymmetricAlgorithm, new()
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentException("The provided text cannot be null or empty.", nameof(text));
-            }
-
             using (var provider = Activator.CreateInstance<T>())
             {
-                return Encrypt(text, provider, key);
+                return EncryptInternal(text, key);
+            }
+        }
+
+        /// <summary>
+        /// Encrypts the specified text with specified key.
+        /// </summary>
+        /// <typeparam name="T">The type of SymmetricAlgorithm to use.</typeparam>
+        /// <param name="text">The specified text.</param>
+        /// <param name="key">The specified key.</param>
+        /// <returns>
+        /// The encrypted text.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public static byte[] Encrypt<T>(byte[] text, string key) where T : SymmetricAlgorithm, new()
+        {
+            using (var provider = Activator.CreateInstance<T>())
+            {
+                return EncryptInternal(text, key);
             }
         }
 
@@ -119,17 +177,25 @@ namespace Slalom.Boost.Aspects
         /// </summary>
         /// <param name="text">The specified text.</param>
         /// <returns>
-        /// An encrypted string.
+        /// The encrypted text.
         /// </returns>
         /// <exception cref="System.ArgumentNullException"></exception>
         public static string Encrypt(string text)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentException("The provided text cannot be null or empty.", nameof(text));
-            }
+            return EncryptInternal(text, null);
+        }
 
-            return Encrypt(text, null, null);
+        /// <summary>
+        /// Encrypts the specified text using a default encryption provider.
+        /// </summary>
+        /// <param name="text">The specified text.</param>
+        /// <returns>
+        /// The encrypted text.
+        /// </returns>
+        /// <exception cref="System.ArgumentNullException"></exception>
+        public static byte[] Encrypt(byte[] text)
+        {
+            return EncryptInternal(text, null);
         }
 
         /// <summary>
@@ -142,15 +208,6 @@ namespace Slalom.Boost.Aspects
         /// </exception>
         public static string Hash(string text, string salt)
         {
-            if (string.IsNullOrEmpty(text))
-            {
-                throw new ArgumentException("The provided text cannot be null or empty.", nameof(text));
-            }
-            if (string.IsNullOrEmpty(salt))
-            {
-                throw new ArgumentException("The provided salt cannot be null or empty.", nameof(salt));
-            }
-
             return Hash(salt + Hash(text));
         }
 
@@ -162,104 +219,187 @@ namespace Slalom.Boost.Aspects
         /// <exception cref="System.ArgumentException"></exception>
         public static string Hash(string text)
         {
-            if (string.IsNullOrEmpty(text))
+            using (var provider = MD5.Create())
             {
-                throw new ArgumentException("The provided text cannot be null or empty.", nameof(text));
-            }
-
-            using (var provider = new MD5CryptoServiceProvider())
-            {
-                var data = provider.ComputeHash(Encoding.Default.GetBytes(text));
+                var data = provider.ComputeHash(Encoding.UTF8.GetBytes(text));
                 return Convert.ToBase64String(data);
             }
         }
 
         #region Non-Public Methods
 
-        private static void SetValidKey(this SymmetricAlgorithm provider, string key)
+        private static byte[] EncryptInternal(byte[] text, string key)
         {
-            key = key ?? "";
-            provider.GenerateKey();
-            provider.Key = Encoding.ASCII.GetBytes(key.Resize(provider.Key.Length, ' '));
-        }
+            byte[] encrypted;
+            byte[] IV;
 
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private static void SetValidIV(this SymmetricAlgorithm provider, string key)
-        {
-            key = key ?? "";
-            provider.GenerateIV();
-            provider.IV = Encoding.ASCII.GetBytes(key.Resize(provider.IV.Length, ' '));
-        }
-
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        private static string Encrypt(string text, SymmetricAlgorithm provider, string key)
-        {
-            string target = null;
-            bool created = false;
-            try
+            using (Aes aesAlg = Aes.Create())
             {
-                if (provider == null)
-                {
-                    provider = new RijndaelManaged();
-                    created = true;
-                }
-                provider.SetValidKey(key);
-                provider.SetValidIV(key);
+                aesAlg.GenerateKey();
+                aesAlg.Key = Encoding.ASCII.GetBytes(key.Resize(aesAlg.Key.Length, ' '));
 
+                aesAlg.GenerateIV();
+                IV = aesAlg.IV;
 
-                using (var memoryStream = new MemoryStream())
-                {
-                    var content = Encoding.ASCII.GetBytes(text);
-                    var cryptoStream = new CryptoStream(memoryStream, provider.CreateEncryptor(), CryptoStreamMode.Write);
-                    cryptoStream.Write(content, 0, content.Length);
-                    cryptoStream.FlushFinalBlock();
-                    target = Convert.ToBase64String(memoryStream.ToArray());
-                }
-            }
-            finally
-            {
-                if (created)
-                {
-                    provider.Dispose();
-                }
-            }
-            return target;
-        }
+                aesAlg.Mode = CipherMode.CBC;
 
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        private static string Decrypt(string text, string key, SymmetricAlgorithm provider)
-        {
-            string target = null;
-            bool created = false;
-            try
-            {
-                if (provider == null)
-                {
-                    provider = new RijndaelManaged();
-                    created = true;
-                }
-                provider.SetValidKey(key);
-                provider.SetValidIV(key);
+                var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
-                var content = Convert.FromBase64String(text);
-
-                using (var memoryStream = new MemoryStream(content, 0, content.Length))
+                // Create the streams used for encryption. 
+                using (var msEncrypt = new MemoryStream())
                 {
-                    var cryptoStream = new CryptoStream(memoryStream, provider.CreateDecryptor(), CryptoStreamMode.Read);
-                    using (var reader = new StreamReader(cryptoStream))
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
                     {
-                        target = reader.ReadToEnd();
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            //Write all data to the stream.
+                            swEncrypt.Write(text);
+                        }
+                        encrypted = msEncrypt.ToArray();
                     }
                 }
             }
-            finally
+
+            var combinedIvCt = new byte[IV.Length + encrypted.Length];
+            Array.Copy(IV, 0, combinedIvCt, 0, IV.Length);
+            Array.Copy(encrypted, 0, combinedIvCt, IV.Length, encrypted.Length);
+
+            return combinedIvCt;
+        }
+
+        private static string EncryptInternal(string text, string key)
+        {
+            byte[] encrypted;
+            byte[] IV;
+
+            using (Aes aesAlg = Aes.Create())
             {
-                if (created)
+                aesAlg.GenerateKey();
+                aesAlg.Key = Encoding.ASCII.GetBytes(key.Resize(aesAlg.Key.Length, ' '));
+
+                aesAlg.GenerateIV();
+                IV = aesAlg.IV;
+
+                aesAlg.Mode = CipherMode.CBC;
+
+                var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for encryption. 
+                using (var msEncrypt = new MemoryStream())
                 {
-                    provider.Dispose();
+                    using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (var swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            //Write all data to the stream.
+                            swEncrypt.Write(text);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
                 }
             }
-            return target;
+
+            var combinedIvCt = new byte[IV.Length + encrypted.Length];
+            Array.Copy(IV, 0, combinedIvCt, 0, IV.Length);
+            Array.Copy(encrypted, 0, combinedIvCt, IV.Length, encrypted.Length);
+
+            return Convert.ToBase64String(combinedIvCt);
+        }
+
+        private static string DecryptInternal(string text, string key)
+        {
+            var cipherTextCombined = Convert.FromBase64String(text);
+
+            // Declare the string used to hold 
+            // the decrypted text. 
+            string plaintext = null;
+
+            // Create an Aes object 
+            // with the specified key and IV. 
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.GenerateKey();
+                aesAlg.Key = Encoding.ASCII.GetBytes(key.Resize(aesAlg.Key.Length, ' '));
+
+                byte[] IV = new byte[aesAlg.BlockSize / 8];
+                byte[] cipherText = new byte[cipherTextCombined.Length - IV.Length];
+
+                Array.Copy(cipherTextCombined, IV, IV.Length);
+                Array.Copy(cipherTextCombined, IV.Length, cipherText, 0, cipherText.Length);
+
+                aesAlg.IV = IV;
+
+                aesAlg.Mode = CipherMode.CBC;
+
+                // Create a decrytor to perform the stream transform.
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for decryption. 
+                using (var msDecrypt = new MemoryStream(cipherText))
+                {
+                    using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (var srDecrypt = new StreamReader(csDecrypt))
+                        {
+
+                            // Read the decrypted bytes from the decrypting stream
+                            // and place them in a string.
+                            plaintext = srDecrypt.ReadToEnd();
+                        }
+                    }
+                }
+
+            }
+
+            return plaintext;
+        }
+
+        private static byte[] DecryptInternal(byte[] text, string key)
+        {
+            var cipherTextCombined = text;
+
+            // Declare the string used to hold 
+            // the decrypted text. 
+            string plaintext = null;
+
+            // Create an Aes object 
+            // with the specified key and IV. 
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.GenerateKey();
+                aesAlg.Key = Encoding.ASCII.GetBytes(key.Resize(aesAlg.Key.Length, ' '));
+
+                byte[] IV = new byte[aesAlg.BlockSize / 8];
+                byte[] cipherText = new byte[cipherTextCombined.Length - IV.Length];
+
+                Array.Copy(cipherTextCombined, IV, IV.Length);
+                Array.Copy(cipherTextCombined, IV.Length, cipherText, 0, cipherText.Length);
+
+                aesAlg.IV = IV;
+
+                aesAlg.Mode = CipherMode.CBC;
+
+                // Create a decrytor to perform the stream transform.
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for decryption. 
+                using (var msDecrypt = new MemoryStream(cipherText))
+                {
+                    using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (var srDecrypt = new StreamReader(csDecrypt))
+                        {
+
+                            // Read the decrypted bytes from the decrypting stream
+                            // and place them in a string.
+                            plaintext = srDecrypt.ReadToEnd();
+                        }
+                    }
+                }
+
+            }
+
+            return Encoding.UTF8.GetBytes(plaintext);
         }
 
         #endregion

@@ -22,7 +22,7 @@ namespace Slalom.Boost.Commands
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var prop = base.CreateProperty(member, memberSerialization);
-            if ((member as PropertyInfo).GetCustomAttributes<IgnoreAttribute>().Any())
+            if ((member as PropertyInfo)?.GetCustomAttributes<IgnoreAttribute>().Any() == true)
             {
                 prop.Ignored = true;
                 return prop;
@@ -51,7 +51,7 @@ namespace Slalom.Boost.Commands
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var prop = base.CreateProperty(member, memberSerialization);
-            if ((member as PropertyInfo).GetCustomAttributes<IgnoreAttribute>().Any())
+            if ((member as PropertyInfo)?.GetCustomAttributes<IgnoreAttribute>().Any() == true)
             {
                 prop.Ignored = true;
                 return prop;

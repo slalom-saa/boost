@@ -35,7 +35,7 @@ namespace Slalom.Boost.Domain
         public Guid Id { get; private set; }
 
         /// <summary>
-        /// Gets the entity keys.  This may be combinatino of human and non-human readable keys.
+        /// Gets the entity keys.  This may be combination of human and non-human readable keys.
         /// </summary>
         /// <returns>Returns the entity keys.</returns>
         public virtual object GetKeys()
