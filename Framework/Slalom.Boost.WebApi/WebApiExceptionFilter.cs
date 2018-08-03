@@ -23,7 +23,7 @@ namespace Slalom.Boost.WebApi
         {
             var correlationId = _context.Resolve().CorrelationId;
 
-            _logger.Error($"An exception occurred in the Web API.", context.Exception);
+            _logger.Error(context.Exception, "An exception occurred in the Web API.");
 
             if (context.Exception is ArgumentException || context.Exception is InvalidOperationException)
             {

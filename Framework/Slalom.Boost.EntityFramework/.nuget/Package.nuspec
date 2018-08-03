@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Slalom.Boost.EntityFramework</id>
-    <version>1.7.3</version>
+    <version>1.17.0</version>
     <title>Slalom Boost Framework - Entity Framework</title>
     <authors>Slalom</authors>
     <owners>Slalom</owners>
