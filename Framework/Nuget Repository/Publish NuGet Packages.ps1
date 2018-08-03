@@ -25,7 +25,6 @@ cd $location
 cd $location
 ..\Slalom.Boost.WebApi\.nuget\NuGetPackage.ps1
 
-
 cd C:\NuGet
 
 

@@ -32,7 +32,10 @@ namespace Slalom.Boost.WebApi
         {
             var request = new RequestTelemetry(command.CommandType.Name, result.Started, result.Elapsed, GetStatusCode(result), result.Successful);
 
-            request.Url = new Uri(result.Context.Url, UriKind.RelativeOrAbsolute);
+            if (!String.IsNullOrWhiteSpace(result.Context?.Url))
+            {
+                request.Url = new Uri(result.Context.Url, UriKind.RelativeOrAbsolute);
+            }
             request.Context.UpdateContext(result.Context);
 
             if (result.ValidationMessages.Any())
